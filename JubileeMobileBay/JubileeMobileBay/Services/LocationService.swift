@@ -37,7 +37,8 @@ class LocationService: NSObject, ObservableObject, LocationServiceProtocol {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 10.0
-        locationManager.allowsBackgroundLocationUpdates = true
+        // Don't enable background updates by default - requires UIBackgroundModes in Info.plist
+        locationManager.allowsBackgroundLocationUpdates = false
         locationManager.pausesLocationUpdatesAutomatically = true
         
         // Update initial authorization status

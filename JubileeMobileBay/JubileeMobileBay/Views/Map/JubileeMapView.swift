@@ -12,6 +12,7 @@ struct JubileeMapView: View {
     @StateObject private var viewModel: MapViewModel
     @State private var showFilters = false
     @State private var showEventDetail = false
+    @State private var showReportForm = false
     
     init(
         locationService: LocationServiceProtocol? = nil,
@@ -60,6 +61,17 @@ struct JubileeMapView: View {
                     
                     Spacer()
                     
+                    // Report Button
+                    Button(action: { showReportForm = true }) {
+                        Label("Report", systemImage: "plus.circle.fill")
+                            .font(.caption)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 8)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .clipShape(Capsule())
+                    }
+                    
                     // Location Button
                     if viewModel.userLocationAuthorized {
                         Button(action: { viewModel.centerOnUserLocation() }) {
@@ -101,9 +113,16 @@ struct JubileeMapView: View {
                     event: event,
                     onNavigate: {
                         viewModel.navigateToEvent(event)
+                    },
+                    onReport: {
+                        showEventDetail = false
+                        showReportForm = true
                     }
                 )
             }
+        }
+        .sheet(isPresented: $showReportForm) {
+            ReportView(viewModel: ReportViewModel(event: viewModel.selectedEvent))
         }
         .onAppear {
             viewModel.loadEvents()
@@ -212,6 +231,7 @@ struct MapFilterView: View {
 struct EventDetailView: View {
     let event: JubileeEvent
     let onNavigate: () -> Void
+    var onReport: (() -> Void)? = nil
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -323,17 +343,33 @@ struct EventDetailView: View {
                     
                     Divider()
                     
-                    // Navigate Button
-                    Button(action: {
-                        dismiss()
-                        onNavigate()
-                    }) {
-                        Label("Navigate to Location", systemImage: "arrow.triangle.turn.up.right.diamond.fill")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                    // Action Buttons
+                    VStack(spacing: 12) {
+                        Button(action: {
+                            dismiss()
+                            onNavigate()
+                        }) {
+                            Label("Navigate to Location", systemImage: "arrow.triangle.turn.up.right.diamond.fill")
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                        }
+                        
+                        if let onReport = onReport {
+                            Button(action: {
+                                dismiss()
+                                onReport()
+                            }) {
+                                Label("Add Report", systemImage: "square.and.pencil")
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color.green)
+                                    .foregroundColor(.white)
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                            }
+                        }
                     }
                 }
                 .padding()
