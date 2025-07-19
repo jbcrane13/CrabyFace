@@ -44,5 +44,13 @@
         <string>UIInterfaceOrientationLandscapeLeft</string>
         <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Jubilee Mobile Bay needs your location to show jubilee events near you and provide location-based alerts.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Jubilee Mobile Bay needs your location to monitor jubilee events in your favorite fishing spots and send you alerts even when the app is in the background.</string>
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>location</string>
+    </array>
 </dict>
 </plist>

@@ -144,3 +144,48 @@ Create model test template:
 - Mock data extension
 
 ---
+
+## 2025-07-19: Phase 2 iOS MapKit Implementation
+
+### Challenge/Issue
+Implementing Phase 2 mapping and visualization features with MapKit, location services, and geofencing for the Jubilee Mobile Bay app.
+
+### Solution
+Successfully implemented:
+1. **Location Service with TDD**:
+   - Created comprehensive LocationServiceTests first
+   - Implemented LocationService with CLLocationManager wrapper
+   - Added geofencing support for event monitoring
+   - Proper MainActor isolation for ObservableObject
+
+2. **MapViewModel with TDD**:
+   - Created MapViewModelTests with mock services
+   - Implemented MapViewModel with filtering and event management
+   - Added EventAnnotation and TimeRange models
+
+3. **SwiftUI MapView**:
+   - Created JubileeMapView with MapKit integration
+   - Custom event markers with intensity-based colors
+   - Filter sheet for intensity and time range
+   - Event detail view with navigation support
+
+### Prevention
+When implementing location-based features:
+- Always add Info.plist entries for location usage descriptions
+- Use protocol-based services for testability
+- Create mock implementations for UI development
+- Separate supporting types into their own files
+
+### Optimization
+For faster MapKit development:
+1. Use XcodeGen to regenerate project when adding many files
+2. Create mock event data for immediate UI testing
+3. Implement location service protocol first for flexibility
+4. Use `@MainActor` appropriately for UI-bound services
+
+### Key Implementation Details
+- MapKit's Map view requires MKCoordinateRegion binding
+- EventAnnotation wraps JubileeEvent for map display
+- Mock data in EventService provides immediate visual feedback
+- Location permissions configured in Info.plist
+

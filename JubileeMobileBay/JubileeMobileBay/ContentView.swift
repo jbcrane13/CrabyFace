@@ -8,7 +8,7 @@ struct ContentView: View {
                     Label("Dashboard", systemImage: "house.fill")
                 }
             
-            MapPlaceholderView()
+            JubileeMapView()
                 .tabItem {
                     Label("Map", systemImage: "map.fill")
                 }

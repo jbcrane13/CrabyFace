@@ -7,34 +7,323 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02A0FB88EE77B24E8C4417A2 /* PhotoReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07503F2F19EDCEFA21367418 /* PhotoReference.swift */; };
+		0F8D3F7E31514F59C2B78216 /* JubileeEventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1F73130D5BC191BFD3441D /* JubileeEventTests.swift */; };
+		1E4DD6A8A85E6B4DF874545B /* JubileeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E05F228B454D107A3AEBF2A /* JubileeEvent.swift */; };
+		2E2E90CD329479FC51E17584 /* JubileeEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4468F0718504EFA782915D21 /* JubileeEnums.swift */; };
+		3969F25337B9FB7FB89E3740 /* JubileeMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE97EE742DD10A97129EC61 /* JubileeMapView.swift */; };
+		3E62F7ABAB1A2904C8611107 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A95D008249593E9AFBACE0 /* LocationService.swift */; };
+		3EDF6D7F2A11DDC3357B191D /* JubileeMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62C006DFE00BFAEBA8DFE1C /* JubileeMetadata.swift */; };
+		5088BB10B4F5348151A86165 /* EnvironmentalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008FF7CCBD7D269A29216A86 /* EnvironmentalData.swift */; };
+		5C0B624CA37CDE0205D27C93 /* EventAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204FBBAAB6038157D7B71179 /* EventAnnotation.swift */; };
 		646410BBB0D62F74E47BA373 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECEB6B648779C7E6A321DE1 /* ContentView.swift */; };
+		65791C27F093763E30615347 /* LocationAccuracy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B6E56430F4EA5DF9FDEA0AD /* LocationAccuracy.swift */; };
+		6C5C825B0D6EE79A7E4A89A5 /* MapViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE6B9D122872EF9EA04E652 /* MapViewModelTests.swift */; };
+		7F410491AA2130427457E25F /* EnvironmentalDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2956AFB046581EFC1218DD8 /* EnvironmentalDataTests.swift */; };
+		7FD8DB9D4604D48E06D7490F /* UserReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9AD856C4089E1F6341B13A /* UserReport.swift */; };
+		873805F074852692A19AFA75 /* LocationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77F5FE2CD8BC49950579D36 /* LocationServiceTests.swift */; };
+		9B7BFF272E2B447E69152AA5 /* TimeRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1A4564FE17E3EBE2841CC5 /* TimeRange.swift */; };
 		9CF8E811A8F5365B8F58AAFA /* JubileeMobileBayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB30DF3035163DBED8E8DBE /* JubileeMobileBayApp.swift */; };
+		A22761A09BB85A74CC66336D /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3464951C1B1A66F3B6A2BCE0 /* EventService.swift */; };
 		A7D4EC53520F75F23ACAD7AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83D0FD67B39383C424B91E69 /* Assets.xcassets */; };
+		BECF78AFFFC0F88E7AFF30F3 /* LocationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72E04BBE629683D6C597352 /* LocationServiceProtocol.swift */; };
+		DB8B457942B77D3A831E22B4 /* UserReportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8597AF5AF6662B38E29A90 /* UserReportTests.swift */; };
+		F8BC3B5AF9DB3001724106A5 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD09A53CD70AB4567D1A3F0 /* MapViewModel.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		01D7A46385C9D43661703A32 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F54EB63C980388D908809ABE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 88730F4A58F2114D43C101F7;
+			remoteInfo = JubileeMobileBay;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		008FF7CCBD7D269A29216A86 /* EnvironmentalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentalData.swift; sourceTree = "<group>"; };
+		07503F2F19EDCEFA21367418 /* PhotoReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoReference.swift; sourceTree = "<group>"; };
 		1BB30DF3035163DBED8E8DBE /* JubileeMobileBayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JubileeMobileBayApp.swift; sourceTree = "<group>"; };
+		204FBBAAB6038157D7B71179 /* EventAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAnnotation.swift; sourceTree = "<group>"; };
+		2281E2662CFA7726CA11356C /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		28A38CAEB2F9FECCEBFB7190 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		2D7E06F53AFBD7E47A5DEB37 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		2E05F228B454D107A3AEBF2A /* JubileeEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JubileeEvent.swift; sourceTree = "<group>"; };
 		2ECEB6B648779C7E6A321DE1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		2F9AD856C4089E1F6341B13A /* UserReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReport.swift; sourceTree = "<group>"; };
+		3464951C1B1A66F3B6A2BCE0 /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
+		346F87625C1C99D33CD432B3 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		3CC8AD8E2EA300FCC91CA1F2 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		3EA5CDB8FBE840E6E512634F /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		4468F0718504EFA782915D21 /* JubileeEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JubileeEnums.swift; sourceTree = "<group>"; };
+		48B127775D45ADBE59EC90EA /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		4B6E56430F4EA5DF9FDEA0AD /* LocationAccuracy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAccuracy.swift; sourceTree = "<group>"; };
 		61AAB8ABCE4228F1F7599B45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6A5C6275C88CD799EBD962C0 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		703576ED1F290E39CD56678E /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		73A95D008249593E9AFBACE0 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		7B8597AF5AF6662B38E29A90 /* UserReportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReportTests.swift; sourceTree = "<group>"; };
 		83D0FD67B39383C424B91E69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8589CED715E1E7E7FC4F6F6B /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		8FD09A53CD70AB4567D1A3F0 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		9FB327B1F910D39B03FAA3D6 /* JubileeMobileBayTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = JubileeMobileBayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B77F5FE2CD8BC49950579D36 /* LocationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceTests.swift; sourceTree = "<group>"; };
+		C28F00160A81B7A1EFDD7157 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		C2956AFB046581EFC1218DD8 /* EnvironmentalDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentalDataTests.swift; sourceTree = "<group>"; };
 		C3600EC03C24FA2D6FD2455A /* JubileeMobileBay.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = JubileeMobileBay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CDCEFE8CFFF83E8F85BEEE91 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		D72E04BBE629683D6C597352 /* LocationServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceProtocol.swift; sourceTree = "<group>"; };
+		DB1F73130D5BC191BFD3441D /* JubileeEventTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JubileeEventTests.swift; sourceTree = "<group>"; };
+		DC1A4564FE17E3EBE2841CC5 /* TimeRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeRange.swift; sourceTree = "<group>"; };
+		DFE6B9D122872EF9EA04E652 /* MapViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelTests.swift; sourceTree = "<group>"; };
+		E0D2215F3A00E411EF11365D /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		F62C006DFE00BFAEBA8DFE1C /* JubileeMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JubileeMetadata.swift; sourceTree = "<group>"; };
+		FEE97EE742DD10A97129EC61 /* JubileeMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JubileeMapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		00648A7A2B7CA630EA70DAF1 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				6A5C6275C88CD799EBD962C0 /* .gitkeep */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		072B9B2505FF5C2D64974235 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				4468F0718504EFA782915D21 /* JubileeEnums.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		079D4328E0F7E8EA94763AD0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				C3600EC03C24FA2D6FD2455A /* JubileeMobileBay.app */,
+				9FB327B1F910D39B03FAA3D6 /* JubileeMobileBayTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		0DE646A481833992666D2D42 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				DFE6B9D122872EF9EA04E652 /* MapViewModelTests.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		1C49DF243EEE42866C7A36B3 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				008FF7CCBD7D269A29216A86 /* EnvironmentalData.swift */,
+				2E05F228B454D107A3AEBF2A /* JubileeEvent.swift */,
+				F62C006DFE00BFAEBA8DFE1C /* JubileeMetadata.swift */,
+				07503F2F19EDCEFA21367418 /* PhotoReference.swift */,
+				2F9AD856C4089E1F6341B13A /* UserReport.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		1EB03D43FCB0763B9F3E1078 /* Implementations */ = {
+			isa = PBXGroup;
+			children = (
+				28A38CAEB2F9FECCEBFB7190 /* .gitkeep */,
+			);
+			path = Implementations;
+			sourceTree = "<group>";
+		};
+		25E77E448C850ABAD8BC87C3 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				2281E2662CFA7726CA11356C /* .gitkeep */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		273D41170C1FEBC3CDA2E9F9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C2956AFB046581EFC1218DD8 /* EnvironmentalDataTests.swift */,
+				DB1F73130D5BC191BFD3441D /* JubileeEventTests.swift */,
+				7B8597AF5AF6662B38E29A90 /* UserReportTests.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		315B4CC8950C563AEF2D7D71 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				3EA5CDB8FBE840E6E512634F /* .gitkeep */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		3229252FB14F99749BEA44E3 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				493D23AE46BB8E83C0CE2E41 /* Constants */,
+				9299EF94532FA08661D4496E /* Extensions */,
+				B1227D563F515232229D4838 /* Helpers */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		3507CC62AC5BD6AEE221BAB4 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				3CC8AD8E2EA300FCC91CA1F2 /* .gitkeep */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		38BAC754320FB4334D36C938 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B77F5FE2CD8BC49950579D36 /* LocationServiceTests.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		40F02D533DA45B7B26EC2147 /* DTOs */ = {
+			isa = PBXGroup;
+			children = (
+				346F87625C1C99D33CD432B3 /* .gitkeep */,
+			);
+			path = DTOs;
+			sourceTree = "<group>";
+		};
+		460B8BAE4D3C934FD39734B0 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				2D7E06F53AFBD7E47A5DEB37 /* .gitkeep */,
+			);
+			path = Modifiers;
+			sourceTree = "<group>";
+		};
+		493D23AE46BB8E83C0CE2E41 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				E0D2215F3A00E411EF11365D /* .gitkeep */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		539A9EDEA74164883182770F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				25E77E448C850ABAD8BC87C3 /* Components */,
+				83F4A367B87B80C8695C427C /* Map */,
+				460B8BAE4D3C934FD39734B0 /* Modifiers */,
+				7F60FC42B3DFA7C12A27F9C9 /* Screens */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		740352F3949AE37A78DEED15 = {
 			isa = PBXGroup;
 			children = (
 				F8489AD05036659D9DCAE325 /* JubileeMobileBay */,
+				E5D70B4041FEBBA763B0535E /* JubileeMobileBayTests */,
 				079D4328E0F7E8EA94763AD0 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		77E8E45E7AB03FFB2232F843 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CDCEFE8CFFF83E8F85BEEE91 /* .gitkeep */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		7F60FC42B3DFA7C12A27F9C9 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				C28F00160A81B7A1EFDD7157 /* .gitkeep */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		83F4A367B87B80C8695C427C /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				FEE97EE742DD10A97129EC61 /* JubileeMapView.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		8FE8AE529252F479712D575F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				8FD09A53CD70AB4567D1A3F0 /* MapViewModel.swift */,
+				9E1C55ACDF93F58F07E8EEDE /* Base */,
+				3507CC62AC5BD6AEE221BAB4 /* Features */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		9299EF94532FA08661D4496E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				703576ED1F290E39CD56678E /* .gitkeep */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		9E1C55ACDF93F58F07E8EEDE /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				48B127775D45ADBE59EC90EA /* .gitkeep */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		9EC458439BF81012382C2D78 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				204FBBAAB6038157D7B71179 /* EventAnnotation.swift */,
+				DC1A4564FE17E3EBE2841CC5 /* TimeRange.swift */,
+				1C49DF243EEE42866C7A36B3 /* Domain */,
+				40F02D533DA45B7B26EC2147 /* DTOs */,
+				072B9B2505FF5C2D64974235 /* Enums */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B1227D563F515232229D4838 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				8589CED715E1E7E7FC4F6F6B /* .gitkeep */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E5D70B4041FEBBA763B0535E /* JubileeMobileBayTests */ = {
+			isa = PBXGroup;
+			children = (
+				273D41170C1FEBC3CDA2E9F9 /* Models */,
+				38BAC754320FB4334D36C938 /* Services */,
+				0DE646A481833992666D2D42 /* ViewModels */,
+			);
+			path = JubileeMobileBayTests;
+			sourceTree = "<group>";
+		};
+		ED83EC836F51A5F9E02FF078 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				3464951C1B1A66F3B6A2BCE0 /* EventService.swift */,
+				4B6E56430F4EA5DF9FDEA0AD /* LocationAccuracy.swift */,
+				73A95D008249593E9AFBACE0 /* LocationService.swift */,
+				D72E04BBE629683D6C597352 /* LocationServiceProtocol.swift */,
+				1EB03D43FCB0763B9F3E1078 /* Implementations */,
+				315B4CC8950C563AEF2D7D71 /* Mocks */,
+				00648A7A2B7CA630EA70DAF1 /* Protocols */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		F8489AD05036659D9DCAE325 /* JubileeMobileBay */ = {
@@ -44,6 +333,12 @@
 				2ECEB6B648779C7E6A321DE1 /* ContentView.swift */,
 				61AAB8ABCE4228F1F7599B45 /* Info.plist */,
 				1BB30DF3035163DBED8E8DBE /* JubileeMobileBayApp.swift */,
+				9EC458439BF81012382C2D78 /* Models */,
+				77E8E45E7AB03FFB2232F843 /* Resources */,
+				ED83EC836F51A5F9E02FF078 /* Services */,
+				3229252FB14F99749BEA44E3 /* Utilities */,
+				8FE8AE529252F479712D575F /* ViewModels */,
+				539A9EDEA74164883182770F /* Views */,
 			);
 			path = JubileeMobileBay;
 			sourceTree = "<group>";
@@ -68,6 +363,24 @@
 			productName = JubileeMobileBay;
 			productReference = C3600EC03C24FA2D6FD2455A /* JubileeMobileBay.app */;
 			productType = "com.apple.product-type.application";
+		};
+		D215356F9EF5E74FD31732A3 /* JubileeMobileBayTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3ED693C89220AE9856401DF /* Build configuration list for PBXNativeTarget "JubileeMobileBayTests" */;
+			buildPhases = (
+				B7803057C09291F31A7A416F /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				12DA81BC84B1AA955E6F97A0 /* PBXTargetDependency */,
+			);
+			name = JubileeMobileBayTests;
+			packageProductDependencies = (
+			);
+			productName = JubileeMobileBayTests;
+			productReference = 9FB327B1F910D39B03FAA3D6 /* JubileeMobileBayTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -98,6 +411,7 @@
 			projectRoot = "";
 			targets = (
 				88730F4A58F2114D43C101F7 /* JubileeMobileBay */,
+				D215356F9EF5E74FD31732A3 /* JubileeMobileBayTests */,
 			);
 		};
 /* End PBXProject section */
@@ -114,16 +428,50 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B7803057C09291F31A7A416F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F410491AA2130427457E25F /* EnvironmentalDataTests.swift in Sources */,
+				0F8D3F7E31514F59C2B78216 /* JubileeEventTests.swift in Sources */,
+				873805F074852692A19AFA75 /* LocationServiceTests.swift in Sources */,
+				6C5C825B0D6EE79A7E4A89A5 /* MapViewModelTests.swift in Sources */,
+				DB8B457942B77D3A831E22B4 /* UserReportTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BFD3DF2299F766C0019E9232 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				646410BBB0D62F74E47BA373 /* ContentView.swift in Sources */,
+				5088BB10B4F5348151A86165 /* EnvironmentalData.swift in Sources */,
+				5C0B624CA37CDE0205D27C93 /* EventAnnotation.swift in Sources */,
+				A22761A09BB85A74CC66336D /* EventService.swift in Sources */,
+				2E2E90CD329479FC51E17584 /* JubileeEnums.swift in Sources */,
+				1E4DD6A8A85E6B4DF874545B /* JubileeEvent.swift in Sources */,
+				3969F25337B9FB7FB89E3740 /* JubileeMapView.swift in Sources */,
+				3EDF6D7F2A11DDC3357B191D /* JubileeMetadata.swift in Sources */,
 				9CF8E811A8F5365B8F58AAFA /* JubileeMobileBayApp.swift in Sources */,
+				65791C27F093763E30615347 /* LocationAccuracy.swift in Sources */,
+				3E62F7ABAB1A2904C8611107 /* LocationService.swift in Sources */,
+				BECF78AFFFC0F88E7AFF30F3 /* LocationServiceProtocol.swift in Sources */,
+				F8BC3B5AF9DB3001724106A5 /* MapViewModel.swift in Sources */,
+				02A0FB88EE77B24E8C4417A2 /* PhotoReference.swift in Sources */,
+				9B7BFF272E2B447E69152AA5 /* TimeRange.swift in Sources */,
+				7FD8DB9D4604D48E06D7490F /* UserReport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		12DA81BC84B1AA955E6F97A0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 88730F4A58F2114D43C101F7 /* JubileeMobileBay */;
+			targetProxy = 01D7A46385C9D43661703A32 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		067D91414C420F370ADA93EA /* Release */ = {
@@ -160,9 +508,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -174,7 +520,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -190,18 +535,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = JubileeMobileBay/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jubileemobilebay.app;
-				PRODUCT_NAME = JubileeMobileBay;
 				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
-				SWIFT_VERSION = 5.9;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -240,9 +585,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -260,7 +603,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -272,26 +614,58 @@
 			};
 			name = Debug;
 		};
+		AED0FFFC53FCC823B51A2554 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jubileemobilebay.JubileeMobileBayTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JubileeMobileBay.app/JubileeMobileBay";
+			};
+			name = Debug;
+		};
 		B1B06719FFA84B964DF04750 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = JubileeMobileBay/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jubileemobilebay.app;
-				PRODUCT_NAME = JubileeMobileBay;
 				SDKROOT = iphoneos;
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
-				SWIFT_VERSION = 5.9;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
+		};
+		DDA76D735C7E6646FC1524AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jubileemobilebay.JubileeMobileBayTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JubileeMobileBay.app/JubileeMobileBay";
+			};
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -310,6 +684,15 @@
 			buildConfigurations = (
 				B1B06719FFA84B964DF04750 /* Debug */,
 				0E9E6F192CD92E2D36CBB938 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D3ED693C89220AE9856401DF /* Build configuration list for PBXNativeTarget "JubileeMobileBayTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AED0FFFC53FCC823B51A2554 /* Debug */,
+				DDA76D735C7E6646FC1524AE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
