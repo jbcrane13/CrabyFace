@@ -1,0 +1,11 @@
+# ViewModels/Base Directory
+# 
+# This directory should contain base/abstract ViewModels:
+# - BaseViewModel.swift (common ViewModel functionality)
+# - LoadableViewModel.swift (loading states, error handling)
+# - ListViewModel.swift (base for list/collection ViewModels)
+# - FormViewModel.swift (base for form-based ViewModels)
+# - NavigationViewModel.swift (navigation coordination)
+# 
+# Base ViewModels provide reusable functionality and establish
+# common patterns for state management across the app

@@ -1,0 +1,13 @@
+# Utilities/Helpers Directory
+# 
+# This directory should contain helper classes and utilities:
+# - ValidationHelper.swift (email, password, input validation)
+# - DateFormatterHelper.swift (centralized date formatting)
+# - KeychainHelper.swift (secure storage wrapper)
+# - FileManagerHelper.swift (file operations)
+# - DeviceHelper.swift (device capabilities detection)
+# - NetworkReachability.swift (network status monitoring)
+# - ErrorHandler.swift (centralized error handling)
+# - Logger.swift (logging utilities)
+# 
+# Helpers encapsulate common functionality used across the app

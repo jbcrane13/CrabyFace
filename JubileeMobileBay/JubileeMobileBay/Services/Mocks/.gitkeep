@@ -1,0 +1,11 @@
+# Services/Mocks Directory
+# 
+# This directory should contain mock implementations for testing:
+# - MockAuthService.swift (for testing authentication flows)
+# - MockNetworkService.swift (for testing network requests)
+# - MockDataService.swift (for testing data operations)
+# - MockLocationService.swift (for testing location features)
+# - Any other mock services used in unit tests and UI tests
+# 
+# Mock services should conform to the same protocols as real implementations
+# and provide controllable, predictable behavior for testing

@@ -1,0 +1,18 @@
+# JubileeMobileBayUITests Directory
+# 
+# This directory should contain UI/Integration tests:
+# - LoginFlowUITests.swift (login user journey tests)
+# - RegistrationFlowUITests.swift (signup flow tests)
+# - NavigationUITests.swift (app navigation tests)
+# - SearchUITests.swift (search functionality tests)
+# - ProfileUITests.swift (profile management tests)
+# - iPadUITests.swift (iPad-specific layout tests)
+# - AccessibilityUITests.swift (VoiceOver, Dynamic Type tests)
+# - PerformanceUITests.swift (UI performance tests)
+# 
+# UI tests should:
+# - Test complete user workflows
+# - Verify navigation between screens
+# - Test both iPhone and iPad layouts
+# - Include accessibility testing
+# - Use page object pattern for maintainability

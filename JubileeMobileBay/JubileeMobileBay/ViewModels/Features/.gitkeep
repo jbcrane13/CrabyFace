@@ -1,0 +1,16 @@
+# ViewModels/Features Directory
+# 
+# This directory should contain feature-specific ViewModels:
+# - LoginViewModel.swift (login screen logic)
+# - RegisterViewModel.swift (registration logic)
+# - HomeViewModel.swift (home screen state management)
+# - ProfileViewModel.swift (user profile management)
+# - SettingsViewModel.swift (app settings logic)
+# - SearchViewModel.swift (search functionality)
+# - DetailViewModel.swift (detail view logic)
+# 
+# Each ViewModel should:
+# - Inherit from ObservableObject
+# - Use @Published for observable state
+# - Contain no SwiftUI imports (only Combine/Foundation)
+# - Handle all business logic for its associated View

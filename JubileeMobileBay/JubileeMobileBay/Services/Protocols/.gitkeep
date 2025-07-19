@@ -1,0 +1,12 @@
+# Services/Protocols Directory
+# 
+# This directory should contain protocol definitions for all services:
+# - AuthServiceProtocol.swift (authentication interface)
+# - NetworkServiceProtocol.swift (networking interface)
+# - DataServiceProtocol.swift (data persistence interface)
+# - CacheServiceProtocol.swift (caching interface)
+# - LocationServiceProtocol.swift (location services interface)
+# - NotificationServiceProtocol.swift (push/local notifications interface)
+# 
+# Protocols enable dependency injection and testability by defining
+# contracts that both real and mock implementations must follow

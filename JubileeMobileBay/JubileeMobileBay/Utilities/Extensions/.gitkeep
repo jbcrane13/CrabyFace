@@ -1,0 +1,12 @@
+# Utilities/Extensions Directory
+# 
+# This directory should contain Swift extensions:
+# - String+Extensions.swift (string utilities, validation)
+# - Date+Extensions.swift (date formatting, calculations)
+# - Color+Extensions.swift (custom colors, theme colors)
+# - View+Extensions.swift (reusable view modifiers)
+# - Collection+Extensions.swift (safe array access, utilities)
+# - UIDevice+Extensions.swift (device type detection)
+# - Number+Extensions.swift (formatting, calculations)
+# 
+# Extensions add functionality to existing types in a clean, reusable way

@@ -1,0 +1,10 @@
+# Services/Implementations Directory
+# 
+# This directory should contain concrete implementations of service protocols:
+# - AuthService.swift (implements AuthServiceProtocol)
+# - NetworkService.swift (implements NetworkServiceProtocol)
+# - DataService.swift (implements DataServiceProtocol)
+# - CacheService.swift (implements CacheServiceProtocol)
+# - LocationService.swift (implements LocationServiceProtocol)
+# - NotificationService.swift (implements NotificationServiceProtocol)
+# - Any other service implementations that interact with external systems

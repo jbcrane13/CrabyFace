@@ -1,0 +1,11 @@
+# Utilities/Constants Directory
+# 
+# This directory should contain app-wide constants:
+# - APIConstants.swift (API endpoints, keys, timeouts)
+# - AppConstants.swift (app configuration values)
+# - UIConstants.swift (spacing, padding, animation durations)
+# - NotificationConstants.swift (notification names, user info keys)
+# - KeychainConstants.swift (keychain service names, keys)
+# - UserDefaultsConstants.swift (user defaults keys)
+# 
+# Using constants improves maintainability and reduces magic strings/numbers

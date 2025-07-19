@@ -1,0 +1,10 @@
+# Resources Directory
+# 
+# This directory should contain:
+# - Asset catalogs (Images.xcassets, Colors.xcassets)
+# - Localization files (Localizable.strings)
+# - Fonts and custom typography files
+# - JSON configuration files
+# - Plist files (other than Info.plist)
+# - Audio/Video resources
+# - Any other static resources used by the app

@@ -1,0 +1,173 @@
+{
+	"meta": {
+		"generatedAt": "2025-07-19T19:07:34.750Z",
+		"tasksAnalyzed": 20,
+		"totalTasks": 20,
+		"analysisCount": 20,
+		"thresholdScore": 5,
+		"projectName": "Taskmaster",
+		"usedResearch": true
+	},
+	"complexityAnalysis": [
+		{
+			"taskId": 1,
+			"taskTitle": "Initialize iOS Project with TDD-MVVM Architecture",
+			"complexityScore": 7,
+			"recommendedSubtasks": 8,
+			"expansionPrompt": "Break down the iOS project initialization into specific setup tasks including Xcode project creation, test target configuration, MVVM folder structure setup, dependency management with SPM, linting configuration, base protocol creation, and CI/CD template setup. Each subtask should follow TDD principles where applicable.",
+			"reasoning": "This is a foundational task requiring multiple complex configurations. It involves Xcode project setup, three separate test targets, dependency management, code quality tools, and architectural patterns. The complexity comes from ensuring all components work together correctly and establishing patterns that will be used throughout the project."
+		},
+		{
+			"taskId": 2,
+			"taskTitle": "Implement Core Data Models with Codable Support",
+			"complexityScore": 6,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Create subtasks for each data model (JubileeEvent, EnvironmentalData, UserReport) following TDD. Include tasks for writing tests first, implementing base models, adding Codable support with custom encoding for CLLocationCoordinate2D, implementing validation logic, creating mock data generators, and ensuring CloudKit compatibility.",
+			"reasoning": "While conceptually straightforward, this task involves multiple models with relationships, custom Codable implementations for CoreLocation types, and strict TDD requirements. The need for CloudKit compatibility and comprehensive test coverage adds complexity."
+		},
+		{
+			"taskId": 3,
+			"taskTitle": "Setup CloudKit Container and Schema",
+			"complexityScore": 8,
+			"recommendedSubtasks": 10,
+			"expansionPrompt": "Divide CloudKit setup into subtasks covering capability enablement, container creation, record type definitions for each model, index configuration, security role setup, CKRecord extensions, subscription configuration, development/production environment setup, testing infrastructure, and CloudKit Dashboard configuration.",
+			"reasoning": "CloudKit setup is complex due to multiple record types, security considerations, subscription requirements, and the need for both development and production environments. Integration testing with CloudKit requires special handling and test containers."
+		},
+		{
+			"taskId": 4,
+			"taskTitle": "Create Environmental Data Service with NOAA Integration",
+			"complexityScore": 9,
+			"recommendedSubtasks": 12,
+			"expansionPrompt": "Structure subtasks around TDD test creation, protocol definition, NOAA API integration, JSON parsing implementation, caching layer with NSCache, retry logic with exponential backoff, OpenWeatherMap fallback service, rate limiting, offline queue implementation, async/await adoption, performance monitoring, and comprehensive mock service creation.",
+			"reasoning": "This is one of the most complex tasks due to external API integration, multiple fallback strategies, sophisticated caching, retry logic, rate limiting, and offline capability. The combination of networking, error handling, and performance requirements makes this highly complex."
+		},
+		{
+			"taskId": 5,
+			"taskTitle": "Build Jubilee Probability Prediction Engine",
+			"complexityScore": 9,
+			"recommendedSubtasks": 11,
+			"expansionPrompt": "Create subtasks for prediction engine protocol and tests, training data collection and preparation, CreateML model development, feature engineering, model training and validation, CoreML integration, confidence interval calculations, explainability features, model versioning system, prediction caching, rule-based fallback system, and telemetry implementation.",
+			"reasoning": "Machine learning integration is inherently complex, requiring data collection, model training, CoreML integration, and fallback systems. The need for explainability, versioning, and performance tracking adds significant complexity."
+		},
+		{
+			"taskId": 6,
+			"taskTitle": "Implement Location Service with Geofencing",
+			"complexityScore": 7,
+			"recommendedSubtasks": 9,
+			"expansionPrompt": "Break down into TDD test creation, LocationService protocol definition, CLLocationManager wrapper with Combine, authorization flow implementation, geofencing setup, location accuracy strategies, permission helper views, privacy-preserving storage, manual location selection, and comprehensive mocking for tests.",
+			"reasoning": "Location services are complex due to permission handling, different authorization levels, geofencing limits, battery optimization, and privacy concerns. The need for both automatic and manual location selection adds complexity."
+		},
+		{
+			"taskId": 7,
+			"taskTitle": "Design Dashboard View with Environmental Data Display",
+			"complexityScore": 6,
+			"recommendedSubtasks": 8,
+			"expansionPrompt": "Structure subtasks around ViewInspector test setup, DashboardViewModel implementation, individual card components (CurrentConditions, JubileeProbability, QuickStats), refresh functionality, loading/error states, accessibility support, animations, and iPad-specific layout adaptations.",
+			"reasoning": "While SwiftUI simplifies UI development, the dashboard requires multiple interconnected components, real-time data updates, proper state management, and responsive design for both iPhone and iPad."
+		},
+		{
+			"taskId": 8,
+			"taskTitle": "Build Interactive Map with MapKit Integration",
+			"complexityScore": 8,
+			"recommendedSubtasks": 10,
+			"expansionPrompt": "Create subtasks for MapViewModel tests and implementation, custom annotation views, clustering logic, camera animations, filtering system, user location display, custom map styling, gesture handling, navigation integration, offline tile caching, and performance optimization for large datasets.",
+			"reasoning": "MapKit integration is complex due to custom annotations, clustering performance requirements, multiple filtering options, navigation integration, and the need for smooth 60fps performance with potentially hundreds of markers."
+		},
+		{
+			"taskId": 9,
+			"taskTitle": "Create Event Reporting Form with Photo Upload",
+			"complexityScore": 7,
+			"recommendedSubtasks": 9,
+			"expansionPrompt": "Divide into ReportViewModel tests, form UI implementation, location picker integration, photo selection with PhotosPicker, image compression logic, draft saving functionality, validation system, offline queue implementation, upload progress tracking, and success confirmation with haptics.",
+			"reasoning": "Form implementation involves multiple input types, photo handling with compression, draft management, offline capability, and background uploads. The complexity comes from coordinating these features while maintaining good UX."
+		},
+		{
+			"taskId": 10,
+			"taskTitle": "Develop Community Feed with Real-time Updates",
+			"complexityScore": 8,
+			"recommendedSubtasks": 11,
+			"expansionPrompt": "Structure subtasks around CommunityViewModel testing, feed UI with infinite scroll, report cell design, voting system implementation, reputation badge logic, CloudKit subscription setup, real-time update handling, photo gallery, search/filter functionality, moderation features, and performance optimization.",
+			"reasoning": "Real-time feeds are complex due to infinite scrolling, subscription management, voting systems, image lazy loading, and the need for 60fps scrolling performance. Moderation and reputation systems add business logic complexity."
+		},
+		{
+			"taskId": 11,
+			"taskTitle": "Implement Push Notification System",
+			"complexityScore": 8,
+			"recommendedSubtasks": 10,
+			"expansionPrompt": "Break down into NotificationService tests, UNUserNotificationCenter setup, notification category creation, authorization flow, APNs integration, rich notification implementation, notification actions, quiet hours logic, notification history, critical alerts, and comprehensive testing infrastructure.",
+			"reasoning": "Push notifications involve complex authorization flows, remote and local notifications, rich content, user preferences, and critical alerts. Testing notifications requires special infrastructure and handling of various permission states."
+		},
+		{
+			"taskId": 12,
+			"taskTitle": "Build Settings and Preferences System",
+			"complexityScore": 6,
+			"recommendedSubtasks": 8,
+			"expansionPrompt": "Create subtasks for SettingsViewModel tests, grouped form UI, notification settings, location settings with map integration, data management settings, account settings, iCloud sync implementation, custom controls, settings search, and privacy report generation.",
+			"reasoning": "Settings screens involve multiple preference types, iCloud syncing, custom controls, and integration with various app features. The complexity comes from proper data persistence and synchronization across devices."
+		},
+		{
+			"taskId": 13,
+			"taskTitle": "Integrate Sign in with Apple Authentication",
+			"complexityScore": 7,
+			"recommendedSubtasks": 9,
+			"expansionPrompt": "Structure tasks around AuthenticationService tests, ASAuthorizationController integration, anonymous to authenticated transition, Keychain storage, account linking logic, token refresh implementation, account deletion flow, privacy-preserving profiles, and multi-device support.",
+			"reasoning": "Authentication involves security considerations, Keychain integration, account state transitions, and compliance requirements. The optional nature and need to preserve anonymous data adds complexity."
+		},
+		{
+			"taskId": 14,
+			"taskTitle": "Develop Offline Capability and Sync Engine",
+			"complexityScore": 10,
+			"recommendedSubtasks": 12,
+			"expansionPrompt": "Divide into SyncEngine architecture with tests, offline queue implementation, CoreData cache setup, sync strategy implementation for different data types, conflict resolution logic, sync status UI, progressive sync, manual sync option, Reachability monitoring, data priority system, comprehensive testing, and performance optimization.",
+			"reasoning": "This is the most complex task, requiring sophisticated conflict resolution, multiple sync strategies, queue management, and handling various connectivity scenarios. The interaction with multiple services and data types makes this extremely complex."
+		},
+		{
+			"taskId": 15,
+			"taskTitle": "Implement Analytics and Telemetry System",
+			"complexityScore": 6,
+			"recommendedSubtasks": 8,
+			"expansionPrompt": "Create subtasks for AnalyticsService tests, event tracking implementation, differential privacy integration, CloudKit dashboard, performance metrics collection, MetricKit crash reporting, opt-in flow, data retention logic, and aggregated insights export.",
+			"reasoning": "While analytics seems straightforward, the privacy-first approach, differential privacy requirements, and Apple-only framework constraints add complexity. Building a custom dashboard and retention policies requires careful implementation."
+		},
+		{
+			"taskId": 16,
+			"taskTitle": "Design Adaptive UI for iPhone and iPad",
+			"complexityScore": 7,
+			"recommendedSubtasks": 9,
+			"expansionPrompt": "Break down into size class detection, iPhone layout implementations, iPad split view layouts, multitasking support, keyboard shortcut implementation, pointer interaction support, safe area handling, orientation support, and comprehensive device testing.",
+			"reasoning": "Creating truly adaptive layouts that work well across all iOS devices requires careful planning and extensive testing. iPad-specific features like multitasking and keyboard support add significant complexity."
+		},
+		{
+			"taskId": 17,
+			"taskTitle": "Build Comprehensive Test Suite",
+			"complexityScore": 8,
+			"recommendedSubtasks": 10,
+			"expansionPrompt": "Structure around unit test infrastructure, model testing to 95% coverage, ViewModel testing to 90% coverage, service mocking infrastructure, integration test setup, UI test implementation, accessibility testing, performance benchmarking, CI/CD integration, and coverage reporting.",
+			"reasoning": "Comprehensive testing across three layers with specific coverage targets is complex. Setting up proper mocking, integration tests with external services, and CI/CD integration requires significant effort and expertise."
+		},
+		{
+			"taskId": 18,
+			"taskTitle": "Implement Performance Optimization",
+			"complexityScore": 8,
+			"recommendedSubtasks": 10,
+			"expansionPrompt": "Create subtasks for Instruments profiling setup, image optimization implementation, list virtualization, battery usage optimization, memory management improvements, app launch optimization, performance testing infrastructure, monitoring setup, low power mode handling, and achieving target metrics.",
+			"reasoning": "Performance optimization requires deep profiling, multiple optimization strategies, and careful measurement. Achieving specific metrics for launch time, memory, and battery usage while maintaining functionality is challenging."
+		},
+		{
+			"taskId": 19,
+			"taskTitle": "Prepare App Store Submission",
+			"complexityScore": 6,
+			"recommendedSubtasks": 10,
+			"expansionPrompt": "Divide into App Store Connect setup, asset creation for all device sizes, metadata and keyword optimization, privacy policy creation, compliance documentation, TestFlight beta setup, feedback collection and resolution, review notes preparation, deep linking setup, and submission process.",
+			"reasoning": "App Store submission involves many administrative tasks, asset creation, and compliance requirements. While not technically complex, the volume of requirements and potential for rejection makes this moderately complex."
+		},
+		{
+			"taskId": 20,
+			"taskTitle": "Create Documentation and Onboarding",
+			"complexityScore": 7,
+			"recommendedSubtasks": 9,
+			"expansionPrompt": "Structure tasks around onboarding flow implementation with tests, TipKit integration, in-app help center, developer documentation, user guide website, AR guide implementation, onboarding analytics, feature discovery prompts, and Spanish localization.",
+			"reasoning": "Creating effective onboarding and documentation requires multiple technologies (TipKit, AR) and careful user experience design. Localization and maintaining multiple documentation types adds complexity."
+		}
+	]
+}

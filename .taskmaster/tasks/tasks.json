@@ -1,0 +1,1892 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Initialize iOS Project with TDD-MVVM Architecture",
+        "description": "Create new iOS project with proper architecture, configure test targets, and establish foundational structure following TDD-MVVM principles",
+        "details": "Create Xcode project targeting iOS 17.0+, Swift 5.9+, SwiftUI 5.0. Configure three test targets: Unit, Integration, UI. Set up MVVM folder structure: Models/, ViewModels/, Views/, Services/, Utilities/. Install ViewInspector (v0.9.8+) via SPM for SwiftUI testing. Configure .gitignore for iOS, add SwiftLint (0.54.0) with custom rules for TDD enforcement. Enable strict concurrency checking and complete diagnostics. Create base protocols: ViewModelProtocol, ServiceProtocol. Setup CI/CD template with test coverage requirements (Model: 95%, ViewModel: 90%, View: 80%).",
+        "testStrategy": "Verify project compiles with zero warnings, all test targets run successfully, folder structure matches specification, SwiftLint runs without violations, ViewInspector imports correctly in test targets",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create Xcode Project with Proper Configuration",
+            "description": "Initialize new iOS project in Xcode with correct settings, deployment targets, and Swift concurrency configuration",
+            "dependencies": [],
+            "details": "Create new iOS App project in Xcode 15+. Set project name, organization identifier, and team. Configure deployment target to iOS 17.0. Enable Swift 5.9+ with strict concurrency checking. Set up SwiftUI as UI framework. Configure project settings: enable complete diagnostics, treat warnings as errors in Release. Set up code signing with automatic provisioning. Create initial git repository with proper .gitignore for Xcode projects. Verify project builds and runs on both iPhone and iPad simulators.\n<info added on 2025-07-19T20:17:36.449Z>\nEncountered issue with Xcode command line tools. Creating iOS project structure manually using an alternative approach. Will create a complete project structure that can be opened in Xcode GUI. Manual creation will include proper project.pbxproj configuration, Info.plist settings, and all necessary Swift files to establish the same iOS 17.0 deployment target and SwiftUI framework setup as originally planned.\n</info added on 2025-07-19T20:17:36.449Z>",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Configure Three Test Targets",
+            "description": "Set up Unit, Integration, and UI test targets with proper configurations and test plan",
+            "dependencies": [
+              1
+            ],
+            "details": "Add Unit Test target for Model and ViewModel testing. Create Integration Test target for service and API testing. Add UI Test target for end-to-end flows. Configure test plans: Unit tests run on every build, Integration tests on commit, UI tests on merge. Set up XCTestCase base classes for each target type. Configure code coverage settings with minimum thresholds. Enable parallel testing for Unit tests. Set up test data injection patterns. Create initial test files to verify each target executes correctly.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Establish MVVM Folder Structure",
+            "description": "Create comprehensive folder structure following MVVM architecture with clear separation of concerns",
+            "dependencies": [
+              1
+            ],
+            "details": "Create root folders: Models/, ViewModels/, Views/, Services/, Utilities/, Resources/, SupportingFiles/. Under Models: create subfolders for Domain/, DTOs/, Enums/. Under ViewModels: create Base/, Features/. Under Views: create Components/, Screens/, Modifiers/. Under Services: create Protocols/, Implementations/, Mocks/. Create Extensions/ folder for Swift extensions. Add Constants/ for app-wide constants. Create Coordinators/ for navigation logic. Move Info.plist to SupportingFiles/. Update project file references.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Setup Swift Package Dependencies",
+            "description": "Configure Swift Package Manager with ViewInspector and other essential testing dependencies",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Add ViewInspector 0.9.8+ via SPM for SwiftUI view testing. Configure package to only link with test targets. Add swift-snapshot-testing for visual regression tests. Consider adding CombineSchedulers for controlled async testing. Create Package.resolved file for version locking. Configure SPM cache in CI/CD. Document package update process. Create wrapper protocols for third-party dependencies to maintain testability. Verify all packages resolve and link correctly with respective targets.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Configure SwiftLint and Code Quality Tools",
+            "description": "Install and configure SwiftLint with custom rules enforcing TDD practices and code standards",
+            "dependencies": [
+              1,
+              3
+            ],
+            "details": "Install SwiftLint 0.54.0 via Homebrew or SPM plugin. Create .swiftlint.yml with custom rules: force_unwrapping: error, function_body_length: 30 lines, type_body_length: 200 lines. Add TDD-specific rules: require test files for each source file. Configure excluded paths for generated code. Add build phase script for linting. Set up pre-commit hooks with SwiftLint. Configure warnings vs errors appropriately. Add custom rules for MVVM compliance: no business logic in Views. Create fix-format script for auto-corrections.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Create Base Protocols and Architecture Components",
+            "description": "Establish foundational protocols and base classes for MVVM architecture with proper testability",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Create ViewModelProtocol with lifecycle methods and Combine publishers. Design ServiceProtocol for dependency injection. Create ObservableViewModel base class with common functionality. Implement Coordinator protocol for navigation. Create ViewModelFactory for dependency injection. Design Repository pattern protocols. Add NetworkServiceProtocol for API abstraction. Create MockProtocol for test doubles. Implement Publisher extensions for testing. Write comprehensive unit tests for each protocol demonstrating usage patterns.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Setup CI/CD Pipeline Template",
+            "description": "Configure Xcode Cloud or GitHub Actions for automated testing and deployment pipeline",
+            "dependencies": [
+              2,
+              5
+            ],
+            "details": "Create Xcode Cloud workflow configuration: trigger on PR, run all test targets, check code coverage thresholds, run SwiftLint, build for multiple iOS versions. Configure TestFlight distribution for main branch. Set up build number auto-increment. Create separate workflows for unit tests (every commit) vs full suite (PR/merge). Configure test result reporting. Set up build artifacts storage. Create environment variable management for API keys. Document CI/CD troubleshooting guide. Configure notifications for build failures.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Create Initial Documentation and Templates",
+            "description": "Establish project documentation structure and code templates for consistent TDD-MVVM implementation",
+            "dependencies": [
+              6,
+              7
+            ],
+            "details": "Create README.md with project setup instructions, architecture overview, and contribution guidelines. Generate Xcode file templates for: Model with Tests, ViewModel with Tests, View with Tests, Service with Protocol and Mock. Document TDD workflow specific to iOS. Create ARCHITECTURE.md explaining MVVM implementation details. Add CODE_STYLE.md for Swift conventions. Create pull request template enforcing test coverage. Document branching strategy. Add troubleshooting guide for common issues. Create onboarding checklist for new developers.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Implement Core Data Models with Codable Support",
+        "description": "Create foundational data models for JubileeEvent, EnvironmentalData, UserReport with proper Codable conformance and relationships",
+        "details": "Following TDD, create failing tests first for: JubileeEvent (id: UUID, location: CLLocationCoordinate2D, intensity: enum, timestamps, photos: [URL]), EnvironmentalData (temperature, humidity, windSpeed, pressure, oxygenLevel), UserReport with validation logic. Implement models as pure Swift structs with no UI dependencies. Add Equatable, Hashable conformance. Create custom CodingKeys for CloudKit compatibility. Implement coordinate encoding/decoding for CLLocationCoordinate2D. Add computed properties for formatted display values. Create mock data generators for testing.",
+        "testStrategy": "Unit tests for all initializers, Codable round-trip encoding/decoding, property validation, computed properties, mock data generation, Equatable/Hashable implementations. Verify 95%+ code coverage on models.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Write failing tests for JubileeEvent model structure and relationships",
+            "description": "Create comprehensive unit tests for JubileeEvent model including initialization, properties, relationships, and validation before implementation",
+            "dependencies": [],
+            "details": "Write tests for: JubileeEvent initialization with all properties (id: UUID, location: CLLocationCoordinate2D, intensity: enum, timestamps, photos: [URL]). Test intensity enum cases (low, medium, high, extreme). Test relationship with EnvironmentalData. Test computed properties. Test validation rules for location bounds and photo array limits. Create XCTestCase subclass named JubileeEventTests. Follow RED phase of TDD - all tests must fail initially.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Write failing tests for EnvironmentalData and UserReport models",
+            "description": "Create unit tests for EnvironmentalData and UserReport models covering all properties and validation logic",
+            "dependencies": [],
+            "details": "EnvironmentalData tests: initialization with temperature, humidity, windSpeed, pressure, oxygenLevel. Test validation ranges (temperature: -50 to 50°C, humidity: 0-100%, etc). UserReport tests: user information, description text, timestamp, associated event reference. Test character limits and required fields. Create separate test classes: EnvironmentalDataTests and UserReportTests. Ensure comprehensive test coverage before implementation.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implement base model structures to pass initial tests",
+            "description": "Create JubileeEvent, EnvironmentalData, and UserReport as pure Swift structs with required properties to make basic tests pass",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Implement minimal model code: struct JubileeEvent with UUID id, CLLocationCoordinate2D location, IntensityLevel enum, createdAt/updatedAt timestamps, photos array. struct EnvironmentalData with Double properties. struct UserReport with String/UUID fields. Add Identifiable conformance. Keep implementation minimal - only enough to pass existing tests. No UI imports, pure Swift only. Place in Models/ directory with proper file organization.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Write and implement Codable conformance tests with custom CLLocationCoordinate2D encoding",
+            "description": "Create tests for Codable round-trip encoding/decoding, then implement custom CodingKeys and coordinate encoding",
+            "dependencies": [
+              3
+            ],
+            "details": "Write tests for: JSON encoding/decoding of all models, custom CLLocationCoordinate2D encoding as latitude/longitude dictionary, CloudKit field name compatibility using CodingKeys, handling optional fields, array encoding for photos. Implement custom encode(to:) and init(from:) for coordinate handling. Test edge cases: empty arrays, nil optionals, extreme coordinate values. Verify encoded JSON structure matches CloudKit requirements.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Add Equatable, Hashable conformance and validation logic with tests",
+            "description": "Implement protocol conformances and validation methods following TDD approach",
+            "dependencies": [
+              4
+            ],
+            "details": "Write tests for: Equatable implementation comparing all properties, Hashable for use in Sets/Dictionaries, validation methods (isValidLocation, isValidIntensity, isValidEnvironmentalData). Implement conformances and validation logic. Add computed properties: isValid, formattedLocation, intensityDescription. Test edge cases: boundary coordinates, invalid ranges, empty data. Ensure 95%+ test coverage.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Create comprehensive mock data generators with tests",
+            "description": "Build mock data generation system for all models to support testing and previews",
+            "dependencies": [
+              5
+            ],
+            "details": "Write tests for mock generators: random valid JubileeEvent generation, environmental data within realistic ranges, user reports with varied content. Implement MockDataGenerator class with static methods: generateEvent(), generateEnvironmentalData(), generateUserReport(), generateEventList(count:). Add edge case generators: extremeIntensityEvent(), minimalEvent(). Create preview helpers for SwiftUI. Test randomness distribution and data validity.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Ensure CloudKit compatibility and create integration tests",
+            "description": "Verify models work with CloudKit requirements and create comprehensive integration tests",
+            "dependencies": [
+              6
+            ],
+            "details": "Write tests for: CKRecord conversion round-trip, field name compatibility, data type restrictions (CloudKit doesn't support all Swift types), size limits for arrays and strings. Create CKRecord extension methods: toCKRecord(), init(from: CKRecord). Test model relationships in CloudKit context. Verify photo URLs can be stored as CKAsset references. Create integration test suite combining all models. Document any CloudKit-specific limitations or conversions needed.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Setup CloudKit Container and Schema",
+        "description": "Configure CloudKit container, define record types, and establish public/private database schemas for jubilee events and user data",
+        "details": "Enable CloudKit capability in Xcode. Create container identifier: iCloud.com.app.jubileemobilebay. Define record types: JubileeEvent (public), UserReport (public), UserPreferences (private), MonitoringLocation (private). Configure indexes for efficient queries: location-based, timestamp, intensity. Set up CloudKit Dashboard access. Implement CKRecord extensions for model conversion. Configure subscription types for real-time updates. Set appropriate security roles. Create development and production environments. Implement record zone structure for data isolation.",
+        "testStrategy": "Integration tests using CloudKit test containers, verify record creation/retrieval, test subscription notifications, validate security permissions, test conflict resolution, verify index performance with sample data sets",
+        "priority": "high",
+        "dependencies": [
+          2
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Enable CloudKit Capability in Xcode",
+            "description": "Enable CloudKit capability in project settings and configure entitlements for both development and production environments",
+            "dependencies": [],
+            "details": "Open project settings in Xcode. Navigate to Signing & Capabilities tab. Add CloudKit capability. Ensure both development and production CloudKit environments are enabled. Verify entitlements file includes com.apple.developer.icloud-container-identifiers and com.apple.developer.icloud-services. Configure automatic code signing. Test capability is properly enabled by building project.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Create CloudKit Container and Configure Identifier",
+            "description": "Create CloudKit container with identifier iCloud.com.app.jubileemobilebay and configure basic container settings",
+            "dependencies": [
+              1
+            ],
+            "details": "Create CKContainer with identifier iCloud.com.app.jubileemobilebay. Configure container in CloudKit Dashboard. Set up default security roles. Enable CloudKit Dashboard access for team members. Create container singleton for app-wide access. Implement container availability checks. Add error handling for container initialization failures.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Define CloudKit Record Types for Core Models",
+            "description": "Create record type definitions for JubileeEvent, UserReport, UserPreferences, and MonitoringLocation with appropriate field types",
+            "dependencies": [
+              2
+            ],
+            "details": "Define JubileeEvent record type in public database with fields: location (Location), intensity (String), timestamp (Date/Time), photos (Asset List). Create UserReport in public database with reportText (String), associatedEvent (Reference). Define UserPreferences in private database with notification settings. Create MonitoringLocation in private database with coordinate and radius fields. Set field constraints and default values.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Configure CloudKit Indexes for Efficient Queries",
+            "description": "Set up queryable and sortable indexes for location-based queries, timestamps, and intensity filtering",
+            "dependencies": [
+              3
+            ],
+            "details": "Create location index on JubileeEvent for proximity queries. Add timestamp index with QUERYABLE and SORTABLE for chronological queries. Configure intensity field as QUERYABLE for filtering. Create composite index for timestamp + location. Add index on UserReport.associatedEvent for relationship queries. Configure index on MonitoringLocation.coordinate. Test query performance with sample data.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implement Security Roles and Permissions",
+            "description": "Configure CloudKit security roles for authenticated users, world users, and creator permissions",
+            "dependencies": [
+              3
+            ],
+            "details": "Set JubileeEvent and UserReport as world-readable in public database. Configure creator-only write permissions for UserReport. Set UserPreferences and MonitoringLocation as owner-only read/write. Implement record-level security for sensitive data. Create custom security roles for moderators. Test permission scenarios: anonymous read, authenticated write, owner modification. Document security model.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Create CKRecord Extensions for Model Conversion",
+            "description": "Implement bidirectional conversion between Swift models and CKRecord for all record types",
+            "dependencies": [
+              3
+            ],
+            "details": "Create CKRecord+JubileeEvent extension with init(jubileeEvent:) and toJubileeEvent() methods. Handle CLLocationCoordinate2D to CLLocation conversion. Implement photo URL array to CKAsset conversion. Create similar extensions for UserReport, UserPreferences, MonitoringLocation. Add error handling for missing fields. Implement version compatibility checks. Unit test all conversions with edge cases.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Configure CloudKit Subscriptions for Real-time Updates",
+            "description": "Set up CKQuerySubscription and CKDatabaseSubscription for push notifications on data changes",
+            "dependencies": [
+              4
+            ],
+            "details": "Create CKQuerySubscription for new JubileeEvents within user's monitoring radius. Configure silent push notifications. Implement CKDatabaseSubscription for UserPreferences changes. Set up notification info with alert bodies. Configure subscription options: firesOnce vs continuous. Handle subscription saves and deletions. Implement subscription management UI. Test push notification delivery.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Set Up Development and Production Environments",
+            "description": "Configure separate CloudKit environments for development testing and production deployment",
+            "dependencies": [
+              2
+            ],
+            "details": "Create development container schema. Configure test data generation scripts. Set up production container with identical schema. Implement environment switching in code. Create CloudKitManager with environment configuration. Add debug menu for environment selection. Document deployment process. Create schema migration strategy. Test data sync between environments.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 9,
+            "title": "Build CloudKit Testing Infrastructure",
+            "description": "Create comprehensive testing setup with mock containers and integration test helpers",
+            "dependencies": [
+              6,
+              7
+            ],
+            "details": "Implement MockCloudKitContainer for unit tests. Create CloudKit test helpers for integration tests. Set up test container in CloudKit Dashboard. Implement data cleanup between tests. Create factories for test CKRecords. Add performance benchmarks for CloudKit operations. Test conflict resolution scenarios. Verify subscription notifications in tests. Document testing best practices.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 10,
+            "title": "Configure CloudKit Dashboard and Monitoring",
+            "description": "Set up CloudKit Dashboard for data management, monitoring, and administrative tasks",
+            "dependencies": [
+              8
+            ],
+            "details": "Configure team access to CloudKit Dashboard. Set up data browsers for each record type. Create saved queries for common operations. Configure usage monitoring and alerts. Set up backup procedures. Document data management workflows. Create troubleshooting guide. Implement analytics tracking for CloudKit operations. Set up cost monitoring. Train team on Dashboard usage.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Create Environmental Data Service with NOAA Integration",
+        "description": "Implement service layer for fetching real-time environmental data from NOAA/NWS APIs with caching and error handling",
+        "details": "TDD approach: Write failing tests for EnvironmentalDataService protocol. Implement with URLSession and Combine. NOAA API integration: api.weather.gov/gridpoints/{office}/{gridX},{gridY}/forecast. Parse JSON responses with JSONDecoder. Implement caching with 5-minute TTL using NSCache. Add retry logic with exponential backoff (max 3 retries). Create OpenWeatherMap fallback (API key required). Handle rate limiting (1000/hour). Implement offline queue for failed requests. Use async/await for modern concurrency. Add performance monitoring. Create mock service for testing.",
+        "testStrategy": "Mock URLSession for unit tests, test JSON parsing with fixture data, verify cache behavior, test retry logic with simulated failures, validate rate limiting compliance, test offline/online transitions, measure API response times",
+        "priority": "high",
+        "dependencies": [
+          2
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Write failing tests for EnvironmentalDataService protocol",
+            "description": "Create comprehensive test suite defining the expected behavior of the environmental data service including success cases, error handling, and edge cases",
+            "dependencies": [],
+            "details": "Define EnvironmentalDataServiceProtocol with methods: fetchCurrentWeather(for: CLLocationCoordinate2D), fetchForecast(gridPoint: GridPoint), getHistoricalData(date: Date). Write XCTest cases for successful responses, network errors, invalid coordinates, rate limit errors, timeout scenarios. Create test expectations for async operations. Define mock response fixtures for NOAA and OpenWeatherMap formats.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Define EnvironmentalDataService protocol and data structures",
+            "description": "Create protocol definition and supporting data models for environmental data fetching with proper abstraction",
+            "dependencies": [
+              1
+            ],
+            "details": "Create EnvironmentalDataServiceProtocol with async/await methods. Define GridPoint struct (office: String, gridX: Int, gridY: Int). Create WeatherData model with temperature, humidity, windSpeed, pressure, conditions. Define ServiceError enum for network, parsing, rateLimit, and unavailable errors. Add ForecastPeriod model for multi-day forecasts. Ensure all models are Codable and Equatable.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implement NOAA API integration with URLSession",
+            "description": "Build core NOAA weather service integration using modern URLSession async/await patterns",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement NOAAService conforming to protocol. Configure URLSession with appropriate timeouts (30s). Build URL construction for api.weather.gov endpoints. Implement grid point lookup from coordinates. Add proper User-Agent header per NOAA requirements. Handle 301/302 redirects. Implement request signing if needed. Create dedicated NOAAError types for specific API errors.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Create JSON parsing implementation for NOAA responses",
+            "description": "Implement robust JSON decoding for complex NOAA weather data structures with error handling",
+            "dependencies": [
+              3
+            ],
+            "details": "Create custom JSONDecoder with ISO8601 date strategy. Implement NOAAResponse models matching API structure. Handle nested properties like properties.periods array. Create custom decoding for temperature units (F to C conversion). Handle null/missing fields gracefully. Implement coordinate parsing from geometry objects. Add logging for parsing failures. Create data transformation to unified WeatherData model.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Build caching layer with NSCache and TTL management",
+            "description": "Implement intelligent caching system with time-based expiration and memory management",
+            "dependencies": [
+              4
+            ],
+            "details": "Create WeatherCache class using NSCache for memory efficiency. Implement CacheEntry wrapper with timestamp and TTL (5 minutes). Add cache key generation from coordinates. Implement automatic eviction on memory pressure. Create persistent disk cache for offline access. Add cache warming for frequently accessed locations. Implement cache statistics for monitoring. Handle timezone considerations for TTL.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Implement retry logic with exponential backoff",
+            "description": "Create sophisticated retry mechanism for handling transient network failures",
+            "dependencies": [
+              3
+            ],
+            "details": "Build RetryPolicy struct with maxAttempts (3), initialDelay (1s), maxDelay (30s). Implement exponential backoff calculation with jitter. Create RetryableRequest wrapper. Handle different error types (network vs server errors). Implement circuit breaker pattern for persistent failures. Add retry attempt tracking. Create cancellable retry operations. Log retry attempts with failure reasons.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Create OpenWeatherMap fallback service",
+            "description": "Implement secondary weather service as fallback when NOAA is unavailable",
+            "dependencies": [
+              2
+            ],
+            "details": "Create OpenWeatherMapService conforming to protocol. Implement API key management from environment/keychain. Build URL construction for current weather and forecast endpoints. Create response models for OpenWeatherMap JSON format. Implement data transformation to unified WeatherData. Add appropriate error handling. Implement fallback trigger logic based on NOAA failures. Monitor fallback usage for alerts.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Implement rate limiting with token bucket algorithm",
+            "description": "Build rate limiter to ensure compliance with API usage limits",
+            "dependencies": [
+              3,
+              7
+            ],
+            "details": "Create RateLimiter class with token bucket implementation. Configure 1000 requests/hour limit for NOAA. Add per-minute limiting (60/min) for burst protection. Implement request queuing when limit reached. Create separate limiters per API service. Add rate limit headers parsing. Implement graceful degradation when limited. Create monitoring for limit approaching warnings. Handle 429 responses appropriately.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 9,
+            "title": "Build offline queue for failed requests",
+            "description": "Create persistent queue system for handling requests during offline periods",
+            "dependencies": [
+              8
+            ],
+            "details": "Implement OfflineQueue with SQLite/CoreData backing. Create Request model with timestamp, coordinates, priority. Implement queue persistence across app launches. Add network reachability monitoring with NWPathMonitor. Create automatic retry when connection restored. Implement queue size limits and TTL. Add request deduplication. Create background task for queue processing. Monitor queue depth.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 10,
+            "title": "Adopt async/await throughout the service layer",
+            "description": "Modernize all asynchronous operations using Swift's async/await patterns",
+            "dependencies": [
+              9
+            ],
+            "details": "Convert all completion handlers to async functions. Implement proper error propagation with throws. Create async sequences for queue processing. Add structured concurrency with TaskGroup for parallel requests. Implement cooperative cancellation. Create AsyncStream for real-time updates. Handle task priorities appropriately. Ensure MainActor isolation for UI updates.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 11,
+            "title": "Implement performance monitoring and metrics",
+            "description": "Add comprehensive monitoring for API performance and reliability tracking",
+            "dependencies": [
+              10
+            ],
+            "details": "Create PerformanceMonitor with request timing. Track API latency percentiles (p50, p95, p99). Monitor cache hit rates. Track fallback service usage frequency. Implement error rate monitoring by type. Add network quality metrics. Create performance budget alerts. Export metrics to analytics service. Build debug UI for viewing metrics. Add A/B testing support for optimizations.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 12,
+            "title": "Create comprehensive mock service for testing",
+            "description": "Build full-featured mock implementation for reliable testing and development",
+            "dependencies": [
+              11
+            ],
+            "details": "Create MockEnvironmentalDataService conforming to protocol. Implement configurable response delays. Add failure injection for error testing. Create fixture data for various weather conditions. Implement scenario-based responses (storms, clear, extreme). Add request recording for verification. Create UI for toggling mock mode. Support offline development. Add chaos engineering features. Document all mock scenarios.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Build Jubilee Probability Prediction Engine",
+        "description": "Develop ML-based prediction engine using CreateML to calculate jubilee probability based on environmental factors",
+        "details": "Create PredictionEngine with testable protocol. Gather training data: historical jubilee events with environmental conditions. Build CreateML regression model with features: temperature, humidity, windSpeed, pressure, oxygenLevel. Weight factors: temperature (25%), humidity (20%), wind (15%), pressure (15%), oxygen (25%). Implement CoreML model integration. Create confidence interval calculations. Add explainability: return contributing factors. Implement model versioning for updates. Cache predictions with 15-minute validity. Create fallback rule-based system. Add telemetry for model performance tracking.",
+        "testStrategy": "Unit test prediction calculations with known inputs/outputs, validate model accuracy against historical data (target 80%), test confidence intervals, verify fallback system, test model update mechanism, performance benchmarks for prediction speed",
+        "priority": "high",
+        "dependencies": [
+          2,
+          4
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Define PredictionEngine Protocol and Testing Infrastructure",
+            "description": "Create testable protocol for prediction engine following TDD principles and set up comprehensive testing framework",
+            "dependencies": [],
+            "details": "Define PredictionEngineProtocol with methods: calculateProbability(environmental: EnvironmentalData) -> PredictionResult, getModelVersion() -> String, explainPrediction(result: PredictionResult) -> [FactorContribution]. Create MockPredictionEngine for testing. Set up XCTest infrastructure with custom assertions for probability ranges. Define PredictionResult struct with probability, confidence interval, and contributing factors. Create test fixtures for environmental data scenarios.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement Training Data Collection and Storage System",
+            "description": "Build system to collect and store historical jubilee events with environmental conditions for model training",
+            "dependencies": [
+              1
+            ],
+            "details": "Create TrainingDataCollector service to gather historical data from CSV/JSON sources. Define TrainingDataPoint struct with timestamp, location, environmental conditions, and jubilee occurrence. Implement CoreData schema for persistent storage of training data. Create data validation rules to ensure quality. Build export functionality to CreateML-compatible format. Implement data versioning and backup system.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Prepare and Clean Training Dataset",
+            "description": "Process collected data for CreateML consumption with proper feature normalization and validation",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement data cleaning pipeline to handle missing values and outliers. Normalize environmental features (temperature, humidity, windSpeed, pressure, oxygenLevel) to 0-1 range. Split dataset into training (70%), validation (15%), and test (15%) sets. Balance dataset to handle class imbalance between jubilee/non-jubilee events. Create feature correlation analysis. Generate dataset statistics and quality report.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Develop CreateML Regression Model",
+            "description": "Build and train CreateML regression model with weighted environmental features for jubilee probability prediction",
+            "dependencies": [
+              3
+            ],
+            "details": "Create CreateML project with MLRegressor for probability prediction. Configure feature columns with proper data types. Implement feature weights: temperature (25%), humidity (20%), wind (15%), pressure (15%), oxygen (25%). Set up hyperparameter tuning for optimal performance. Train multiple model iterations with different algorithms. Document model performance metrics and training parameters.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implement Feature Engineering Pipeline",
+            "description": "Create advanced feature engineering system to extract meaningful patterns from environmental data",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Build feature engineering module to create derived features: temperature change rate, pressure gradient, humidity-temperature interaction, time-based features (hour, day, season). Implement sliding window features for temporal patterns. Create location-based features using historical patterns. Add feature importance analysis. Build feature selection mechanism to optimize model size. Document feature engineering decisions.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Validate Model Performance and Accuracy",
+            "description": "Comprehensive model validation against historical data with 80% accuracy target and performance benchmarks",
+            "dependencies": [
+              4,
+              5
+            ],
+            "details": "Implement model evaluation metrics: accuracy, precision, recall, F1-score, ROC-AUC. Create confusion matrix visualization. Test model on holdout test set. Perform cross-validation with k-fold method. Analyze prediction errors and edge cases. Benchmark prediction speed (target < 50ms). Create performance report with recommendations. Validate model behavior across different environmental ranges.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Integrate CoreML Model into iOS App",
+            "description": "Convert CreateML model to CoreML and integrate with PredictionEngine implementation",
+            "dependencies": [
+              6
+            ],
+            "details": "Export trained model as .mlmodel file. Create CoreMLPredictionEngine conforming to PredictionEngineProtocol. Implement model loading with error handling. Create input preprocessing to match training pipeline. Handle CoreML compilation and caching. Implement thread-safe prediction methods. Add model resource management for memory efficiency. Create fallback mechanism if model fails to load.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Build Confidence Interval Calculation System",
+            "description": "Implement statistical confidence intervals for probability predictions based on model uncertainty",
+            "dependencies": [
+              7
+            ],
+            "details": "Research and implement appropriate confidence interval methods for ML predictions. Create ConfidenceCalculator using prediction variance or ensemble methods. Implement 95% and 99% confidence intervals. Account for input data quality in confidence calculations. Create visual representation of confidence bounds. Test confidence intervals with edge cases. Document statistical methodology used.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 9,
+            "title": "Develop Prediction Explainability Features",
+            "description": "Create system to explain predictions by showing contributing environmental factors and their impacts",
+            "dependencies": [
+              7,
+              8
+            ],
+            "details": "Implement SHAP (SHapley Additive exPlanations) or similar technique for CoreML. Create ExplainabilityEngine to calculate feature contributions. Build visualization for factor contributions (bar chart, pie chart). Implement natural language explanations (e.g., 'High probability due to low pressure and high humidity'). Create comparison view to show how changing factors affects probability. Test explanations for accuracy and user comprehension.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 10,
+            "title": "Implement Model Versioning and Update System",
+            "description": "Build comprehensive model versioning system with seamless updates and rollback capabilities",
+            "dependencies": [
+              7
+            ],
+            "details": "Create ModelVersionManager to track model versions with metadata. Implement model storage with version history in app container. Build update mechanism to download new models from server. Create A/B testing framework for model comparison. Implement rollback functionality for problematic models. Add model performance tracking across versions. Create update notifications for significant improvements.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 11,
+            "title": "Create Intelligent Prediction Caching System",
+            "description": "Develop caching layer to optimize performance and reduce redundant predictions",
+            "dependencies": [
+              7,
+              10
+            ],
+            "details": "Implement PredictionCache with LRU eviction policy. Create cache key generation from environmental data with configurable precision. Build cache invalidation on model updates. Implement cache warming for common scenarios. Add cache hit rate monitoring. Create memory pressure handling to clear cache. Test cache performance with various load patterns. Document optimal cache size recommendations.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Implement Location Service with Geofencing",
+        "description": "Create location service for user tracking, geofencing monitoring locations, and location-based event detection",
+        "details": "TDD: Write tests for LocationService protocol. Implement CLLocationManager wrapper with Combine publishers. Request 'When In Use' authorization initially, upgrade to 'Always' for geofencing. Implement region monitoring for up to 20 regions (iOS limit). Create efficient location update strategy: significant changes when backgrounded, 100m accuracy when active. Implement geofence entry/exit detection. Add location accuracy indicators. Create location permission helper views. Implement privacy-preserving location storage. Add support for manual location selection on map. Mock CLLocationManager for testing.",
+        "testStrategy": "Mock location manager for unit tests, test authorization flows, verify geofence triggers, test location accuracy modes, validate battery usage, test permission denial scenarios, verify background location updates",
+        "priority": "medium",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Write TDD Tests for LocationService Protocol",
+            "description": "Create comprehensive test suite for LocationService protocol including authorization states, location updates, and geofencing capabilities",
+            "dependencies": [],
+            "details": "Write failing tests for: LocationService protocol methods (requestAuthorization, startUpdating, stopUpdating, startMonitoringRegion), authorization state changes, location update publishing, geofence entry/exit events, accuracy mode switching, background vs foreground behavior, error handling scenarios. Use XCTest expectations for async operations.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Define LocationService Protocol",
+            "description": "Create LocationService protocol with Combine publishers for location updates, authorization changes, and geofence events",
+            "dependencies": [
+              1
+            ],
+            "details": "Define protocol with methods: requestAuthorization(level:), startUpdatingLocation(accuracy:), stopUpdatingLocation(), startMonitoring(region:), stopMonitoring(region:). Include publishers: locationPublisher (CurrentValueSubject<CLLocation?>), authorizationPublisher (PassthroughSubject<CLAuthorizationStatus>), geofenceEventPublisher (PassthroughSubject<GeofenceEvent>). Add accuracy enum: high, balanced, low.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implement CLLocationManager Wrapper with Combine",
+            "description": "Create LocationManager class implementing LocationService protocol with CLLocationManager integration and Combine publishers",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement LocationManager as NSObject, CLLocationManagerDelegate. Bridge delegate callbacks to Combine publishers. Handle location updates with configurable accuracy. Implement region monitoring with 20-region limit management. Add battery-efficient location strategies: significant location changes for background, 100m accuracy for foreground. Implement proper cleanup in deinit.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implement Authorization Flow",
+            "description": "Build authorization flow handling 'When In Use' to 'Always' upgrade path with proper user communication",
+            "dependencies": [
+              3
+            ],
+            "details": "Implement staged authorization: request 'When In Use' initially, prompt for 'Always' when user enables geofencing. Create authorization state machine with proper transitions. Handle all authorization states: notDetermined, restricted, denied, authorizedWhenInUse, authorizedAlways. Implement fallback behavior for denied permissions. Add authorization change notifications.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Setup Geofencing Implementation",
+            "description": "Implement geofencing with region monitoring, entry/exit detection, and iOS 20-region limit management",
+            "dependencies": [
+              4
+            ],
+            "details": "Create GeofenceRegion model with identifier, center, radius. Implement region priority queue for 20-region limit. Add region entry/exit detection with hysteresis to prevent bouncing. Create geofence event types: entered, exited, dwelling. Implement region state query on app launch. Add region monitoring error handling. Store monitored regions in UserDefaults for persistence.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Implement Location Accuracy Strategies",
+            "description": "Build adaptive location accuracy system optimizing for battery life and user needs",
+            "dependencies": [
+              3
+            ],
+            "details": "Implement accuracy modes: high (kCLLocationAccuracyBest for active tracking), balanced (kCLLocationAccuracyHundredMeters for normal use), low (significant changes for background). Add automatic switching based on app state and battery level. Implement distance filter adjustments. Add location staleness detection. Create battery monitoring integration for low power mode adaptation.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Create Permission Helper Views",
+            "description": "Build SwiftUI views for location permission onboarding, settings redirection, and permission denial handling",
+            "dependencies": [
+              4
+            ],
+            "details": "Create LocationPermissionView with clear value proposition. Implement PermissionDeniedView with Settings app deep link. Add GeofencingExplanationView for 'Always' authorization upgrade. Create inline permission prompts for contextual requests. Implement permission status indicators. Add educational content about privacy and battery impact.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Implement Privacy-Preserving Storage",
+            "description": "Build secure location data storage with privacy considerations and data minimization",
+            "dependencies": [
+              5,
+              6
+            ],
+            "details": "Implement location data encryption using CryptoKit. Create location history with automatic 30-day expiration. Add location precision reduction for stored data (round to 100m). Implement opt-in location sharing for community features. Create data export functionality for GDPR compliance. Add location data anonymization for analytics.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 9,
+            "title": "Build Manual Location Selection",
+            "description": "Create manual location picker for users who deny location permissions or prefer manual control",
+            "dependencies": [
+              7
+            ],
+            "details": "Implement MapKit-based location picker view. Add search functionality with MKLocalSearch. Create favorite locations storage. Implement address-to-coordinate geocoding. Add current location button (if permitted). Create location confirmation UI. Store manually selected location separately from automatic tracking. Add location accuracy indicator for manual selections.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Design Dashboard View with Environmental Data Display",
+        "description": "Create main dashboard view showing real-time environmental conditions and jubilee probability using SwiftUI",
+        "details": "TDD: Write ViewInspector tests first. Create DashboardView with @StateObject environmentalDataViewModel. Design cards: CurrentConditionsCard (temp, humidity, wind with SF Symbols), JubileeProbabilityCard (circular progress, percentage, confidence), QuickStatsCard (recent events, active users). Implement pull-to-refresh with .refreshable. Add loading states with ProgressView. Create error states with retry. Support Dynamic Type and VoiceOver. Implement smooth animations with .animation(.spring()). Add iPad-optimized layout with NavigationSplitView. Follow iOS 17 design language. Create reusable CardView component.",
+        "testStrategy": "ViewInspector tests for all UI states, test view bindings to ViewModel, verify Dynamic Type scaling, test VoiceOver labels, validate iPad/iPhone layouts, test refresh functionality, verify animation performance",
+        "priority": "high",
+        "dependencies": [
+          4,
+          5
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Set up ViewInspector test infrastructure for dashboard components",
+            "description": "Configure ViewInspector framework and create base test utilities for SwiftUI view testing",
+            "dependencies": [],
+            "details": "Install ViewInspector via SPM, create test helpers for common view inspections, set up mock ViewModels for testing, establish test file structure following TDD principles. Create reusable test extensions for inspecting custom view modifiers and animations.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement DashboardViewModel with environmental data integration",
+            "description": "Create ObservableObject ViewModel for dashboard state management and data coordination",
+            "dependencies": [
+              1
+            ],
+            "details": "TDD: Write failing tests for DashboardViewModel. Create @Published properties for environmental data, jubilee probability, loading states, and errors. Implement dependency injection for EnvironmentalDataService and JubileeMLService. Add refresh functionality with async/await. Handle error states with retry logic. Create mock services for testing.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Build CurrentConditionsCard component with real-time data display",
+            "description": "Create reusable card view showing temperature, humidity, wind speed with SF Symbols",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "TDD: Write ViewInspector tests for all UI states. Design card with rounded rectangle background, implement temperature display with color coding, add animated wind direction indicator, show humidity with water drop icon. Support Dynamic Type scaling. Add VoiceOver labels. Implement loading skeleton view. Test data binding to ViewModel.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Develop JubileeProbabilityCard with circular progress indicator",
+            "description": "Create visually appealing probability display with animated circular progress and confidence levels",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "TDD: Test circular progress rendering at different percentages. Implement custom Shape for circular progress, animate probability changes with .animation(.spring), display percentage in center with large font, show confidence level below. Use color gradient based on probability (green to red). Add accessibility value descriptions. Test all animation states.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Create QuickStatsCard for recent events and active users",
+            "description": "Build informative stats card showing community activity and recent jubilee events",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "TDD: Test stats calculations and formatting. Design horizontal stack layout for compact display, show recent events count with time range, display active users with person.fill icon, add trend indicators (up/down arrows). Implement number formatting with abbreviations. Test VoiceOver announcements. Ensure proper layout in different size classes.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Implement pull-to-refresh and loading states",
+            "description": "Add refresh functionality with visual feedback and proper loading state management",
+            "dependencies": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "details": "TDD: Test refreshable modifier behavior. Implement .refreshable on ScrollView, trigger ViewModel refresh method, show ProgressView during loading, animate content appearance with opacity transition. Test cancellation handling. Implement minimum refresh duration for better UX. Add haptic feedback on refresh completion.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Design error states with retry functionality",
+            "description": "Create comprehensive error handling UI with actionable retry options",
+            "dependencies": [
+              2,
+              6
+            ],
+            "details": "TDD: Test error view for different error types. Design error state card with warning icon, show localized error messages, implement retry button with loading state, add offline mode detection. Create specific messages for network errors, API failures, and rate limiting. Test retry logic with exponential backoff. Ensure accessibility compliance.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Implement iPad-specific layout with NavigationSplitView",
+            "description": "Create adaptive dashboard layout optimized for iPad's larger screen and multitasking",
+            "dependencies": [
+              3,
+              4,
+              5,
+              7
+            ],
+            "details": "TDD: Test regular size class layouts. Implement NavigationSplitView for iPad, create sidebar with navigation options, design two-column layout for dashboard cards, support landscape orientation with optimal card sizing. Add keyboard shortcuts (Cmd+R for refresh). Test Split View and Slide Over modes. Implement hover effects for iPadOS pointer support.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "title": "Build Interactive Map with MapKit Integration",
+        "description": "Implement jubilee event map with custom annotations, clustering, and event filtering using MapKit",
+        "details": "TDD: Test MapViewModel first. Create JubileeMapView with MapKit and SwiftUI. Implement custom MKAnnotationView for events with intensity colors. Add MKClusterAnnotation for performance with 100+ markers. Create smooth camera animations. Implement event filtering: time range (6h, 24h, 7d), intensity levels. Add user location with blue dot. Create custom map style for better visibility. Implement tap gesture for event details. Add 'Navigate to Event' with MKDirections. Support map type switching. Cache map tiles for offline use. Optimize for 60fps scrolling.",
+        "testStrategy": "Test annotation creation and clustering logic, verify filter functionality, test map region calculations, validate gesture recognizers, test navigation integration, measure rendering performance with large datasets",
+        "priority": "high",
+        "dependencies": [
+          2,
+          6
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Write MapViewModel Tests",
+            "description": "Create comprehensive test suite for MapViewModel covering all map data operations, filtering logic, and state management",
+            "dependencies": [],
+            "details": "Write tests for: annotation data loading and transformation, filtering by time range (6h, 24h, 7d) and intensity levels, clustering threshold calculations, map region calculations for visible annotations, selected annotation state management, navigation request handling, map type switching, location authorization status handling. Use mock data with 100+ events to test performance scenarios. Test Combine publishers for reactive updates.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement MapViewModel",
+            "description": "Build MapViewModel with reactive state management for map annotations, filtering, and user interactions",
+            "dependencies": [
+              1
+            ],
+            "details": "Create ObservableObject with @Published properties for: annotations array, visible region, selected annotation, active filters, map type. Implement Combine pipelines for filtering logic. Add methods for: loading event data from repository, applying time and intensity filters, calculating annotation clusters, handling annotation selection, preparing navigation requests. Ensure all business logic is testable without MapKit dependencies.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Create Custom Annotation Views",
+            "description": "Design and implement custom MKAnnotationView subclasses for event markers with intensity-based styling",
+            "dependencies": [],
+            "details": "Create JubileeEventAnnotationView inheriting from MKMarkerAnnotationView. Implement dynamic color mapping based on event intensity (green to red gradient). Add pulse animation for high-intensity events. Create custom callout view with event title, time, and intensity level. Implement size variations based on zoom level. Add accessibility labels describing event details. Create reuse identifier system for performance.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implement Clustering Logic",
+            "description": "Build efficient clustering system for handling 100+ map annotations with smooth performance",
+            "dependencies": [
+              3
+            ],
+            "details": "Implement MKClusterAnnotation for automatic grouping. Create custom clustering algorithm with distance threshold based on zoom level. Design cluster annotation view showing event count and average intensity. Implement smooth cluster/decluster animations. Add intelligent cluster splitting when zooming. Optimize for 60fps with hundreds of annotations. Create cluster tap handling to zoom to clustered region.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Build Camera Animation System",
+            "description": "Create smooth map camera animations for navigation and user interactions",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement camera controller with methods for: animating to single annotation, fitting multiple annotations with padding, smooth zoom transitions, rotating map based on heading. Create easing functions for natural movement. Add gesture recognizer coordination to prevent conflicts. Implement camera position save/restore for configuration changes. Add 'fly-to' animation for cross-map navigation. Ensure animations maintain 60fps.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Create Filtering System UI",
+            "description": "Build intuitive filtering interface for time ranges and intensity levels with real-time map updates",
+            "dependencies": [
+              2
+            ],
+            "details": "Design filter sheet with segmented controls for time ranges (6h, 24h, 7d, All). Add intensity level slider with live preview. Implement filter persistence in UserDefaults. Create filter badge showing active filter count. Add 'Clear Filters' option. Implement smooth animation when filters change. Design for both compact and regular size classes. Add haptic feedback for filter changes.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Implement User Location Display",
+            "description": "Add user location tracking with privacy-conscious design and visual indicators",
+            "dependencies": [],
+            "details": "Configure CLLocationManager for 'When In Use' authorization. Implement blue dot with accuracy circle. Add heading indicator when available. Create 'Center on User' button with tracking modes. Implement location accuracy indicator (GPS/WiFi/Cell). Add location permission prompt with explanation. Handle permission denial gracefully. Update location only when map is visible to save battery.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Apply Custom Map Styling",
+            "description": "Design custom map appearance for optimal event visibility and brand consistency",
+            "dependencies": [],
+            "details": "Create MKMapView style configuration for point-of-interest filtering. Implement dark mode support with adaptive colors. Reduce visual clutter by hiding irrelevant landmarks. Enhance road visibility for navigation. Create custom color palette matching app theme. Add subtle gradient overlay for depth. Implement style switching based on time of day. Ensure text remains readable with custom colors.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 9,
+            "title": "Build Gesture Handling System",
+            "description": "Implement intuitive gesture controls for map interaction and event selection",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "Add tap gesture for annotation selection with hit testing. Implement long press for dropping temporary pins. Create pinch-to-zoom with cluster animation. Add double-tap zoom with point focus. Implement pan gesture with momentum scrolling. Add rotation gesture for map orientation. Create gesture conflict resolution. Implement haptic feedback for selections. Add accessibility actions for VoiceOver users.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 10,
+            "title": "Integrate Navigation Features",
+            "description": "Connect map to system navigation with turn-by-turn directions and alternative transport options",
+            "dependencies": [
+              2,
+              5
+            ],
+            "details": "Implement MKDirections.Request for route calculation. Add transport type selector (walking, driving, transit). Create route overlay with custom styling. Add estimated time and distance display. Implement 'Open in Maps' functionality. Create deep links for sharing locations. Add alternative route suggestions. Handle navigation errors gracefully. Cache recent routes for offline access.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "title": "Create Event Reporting Form with Photo Upload",
+        "description": "Build comprehensive event reporting interface with form validation and photo attachment capabilities",
+        "details": "TDD: Test ReportViewModel validation logic first. Create ReportFormView with SwiftUI Form. Implement fields: location (MapKit picker), intensity (segmented control with visual guides), timestamp (DatePicker), description (TextEditor with 500 char limit). Add PhotosPicker for up to 3 images. Implement image compression (max 1MB each, HEIC to JPEG conversion). Create draft saving with local storage. Add form validation with error messages. Implement offline queue with background upload. Show upload progress. Create success confirmation with haptic feedback. Support voice dictation for text fields.",
+        "testStrategy": "Test form validation rules, verify image compression quality, test offline queue persistence, validate CloudKit upload, test error handling, verify accessibility features, test background upload completion",
+        "priority": "medium",
+        "dependencies": [
+          2,
+          3,
+          6
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Test-drive ReportViewModel validation and business logic",
+            "description": "Create comprehensive unit tests for ReportViewModel covering all validation rules, state management, and business logic before implementation",
+            "dependencies": [],
+            "details": "Write failing tests for: location validation (non-nil CLLocationCoordinate2D), intensity selection validation, timestamp constraints (not future dates), description character limit (500 chars), photo count validation (max 3), draft save/load functionality, form completion percentage calculation, error state management. Test offline queue operations, upload state transitions, and retry logic. Mock dependencies: LocationService, PhotoService, CloudKitService.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement ReportFormView with SwiftUI Form structure",
+            "description": "Build the main form view with proper MVVM separation, sections, and navigation structure",
+            "dependencies": [
+              1
+            ],
+            "details": "Create ReportFormView with @StateObject reportViewModel binding. Structure Form with sections: Event Details (location, intensity, timestamp), Description, Photos, Actions. Implement NavigationStack with toolbar items (Cancel, Save Draft, Submit). Add .formStyle(.grouped) for iOS consistency. Ensure proper keyboard avoidance with .scrollDismissesKeyboard(.interactively). Test on both iPhone and iPad for proper layout adaptation.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Build location picker with MapKit integration",
+            "description": "Create interactive map-based location picker allowing users to pin exact jubilee event location",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement LocationPickerView with MKMapView wrapped in UIViewRepresentable. Add long-press gesture to drop pin. Show reverse geocoding address. Implement 'Use Current Location' button with CoreLocation. Add search functionality with MKLocalSearchCompleter. Create custom annotation view. Pass selected coordinate back via binding. Handle location permission states gracefully. Add coordinate validation (valid lat/long ranges).",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Integrate PhotosPicker for image selection",
+            "description": "Implement native PhotosPicker allowing selection of up to 3 photos with preview functionality",
+            "dependencies": [
+              2
+            ],
+            "details": "Use PhotosPicker from PhotosUI framework. Configure for images only with .images filter. Implement selection limit of 3 photos. Create photo preview grid with AsyncImage. Add remove photo functionality with delete button overlay. Handle PHPickerResult to SwiftUI Image conversion. Implement loading states during photo processing. Test memory management with large images. Ensure proper error handling for unsupported formats.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implement image compression and conversion logic",
+            "description": "Create service for compressing images to 1MB max and converting HEIC to JPEG format",
+            "dependencies": [
+              4
+            ],
+            "details": "Create ImageCompressionService with protocol-first design. Implement HEIC to JPEG conversion using CGImageDestination. Add progressive compression algorithm to reach 1MB target while maintaining quality. Use CGImageSourceCreateThumbnailAtIndex for efficient processing. Implement metadata stripping for privacy. Add EXIF preservation option for location data. Test with various image sizes and formats. Measure compression performance.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Build draft saving functionality with local storage",
+            "description": "Implement automatic draft saving to prevent data loss with CoreData or FileManager",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Create DraftManager service for CRUD operations. Use CoreData for structured storage or Codable + FileManager for simplicity. Implement auto-save on field changes with 2-second debounce. Store: form data, selected photos as temporary files, timestamp of last edit. Add draft recovery on app launch. Implement draft cleanup after successful submission. Handle storage quota limits. Test data persistence across app terminations.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Create comprehensive form validation system",
+            "description": "Build real-time validation with inline error messages and submit button state management",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Implement validation rules in ReportViewModel: required location, intensity selection, timestamp not in future, description 10-500 characters, at least one photo recommended. Create custom ViewModifier for error styling. Show inline error messages below fields. Implement real-time validation with Combine debounce. Disable submit until all validations pass. Add shake animation for validation errors. Test accessibility with VoiceOver error announcements.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Implement offline queue for report submissions",
+            "description": "Build robust offline queue system that persists reports and uploads when connection restored",
+            "dependencies": [
+              6,
+              7
+            ],
+            "details": "Create OfflineQueueManager with CoreData backend. Design ReportQueueItem entity with status enum (pending, uploading, failed, completed). Implement background URLSession for uploads. Monitor network reachability with NWPathMonitor. Add retry logic with exponential backoff. Store compressed images as binary data. Implement queue status UI badge. Handle partial uploads and resume capability. Test queue persistence and background task completion.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 9,
+            "title": "Add upload progress tracking and success confirmation",
+            "description": "Implement visual upload progress with completion feedback and haptic responses",
+            "dependencies": [
+              8
+            ],
+            "details": "Create UploadProgressView overlay with circular progress indicator. Track individual photo upload progress and combine for total. Implement URLSession delegate for progress callbacks. Add time remaining estimation. Create success animation with checkmark. Implement haptic feedback: light impact on photo selection, medium on validation error, success pattern on completion. Add upload cancellation capability. Show detailed error messages for failures.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "title": "Develop Community Feed with Real-time Updates",
+        "description": "Create community feed showing user reports with photos, voting system, and real-time updates via CloudKit subscriptions",
+        "details": "TDD: Test CommunityViewModel data flows. Create CommunityFeedView with infinite scroll List. Implement report cells: user info, timestamp, location, photos (lazy loaded), description. Add voting system (helpful/not helpful). Create reputation badges based on report accuracy. Implement CloudKit subscriptions for real-time updates. Add pull-to-refresh and automatic updates. Create photo gallery with zoom. Implement report filtering and search. Add moderation: report inappropriate content. Cache images with SDWebImageSwiftUI. Optimize for smooth 60fps scrolling.",
+        "testStrategy": "Test infinite scroll pagination, verify subscription updates, test vote tallying, validate image caching, test moderation flows, verify memory usage with large feeds, test search functionality",
+        "priority": "medium",
+        "dependencies": [
+          3,
+          9
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement CommunityViewModel with TDD",
+            "description": "Create CommunityViewModel following TDD principles to manage feed data, pagination, and real-time updates",
+            "dependencies": [],
+            "details": "Write failing tests for: feed data loading, pagination logic, CloudKit subscription handling, vote management, report filtering. Implement ViewModel with @Published properties for feed items, loading states, error handling. Add methods for loadMore(), refresh(), vote(), and filter(). Inject CloudKitService and EnvironmentalDataService dependencies. Handle offline scenarios with proper state management.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Design and Test Report Cell Components",
+            "description": "Create reusable report cell view with user info, photos, voting controls, and timestamp",
+            "dependencies": [
+              1
+            ],
+            "details": "Test cell view states: loading, loaded, error. Create ReportCellView with user avatar, username, reputation badge, timestamp (relative format), location info. Implement photo carousel with lazy loading and placeholder states. Add voting buttons with haptic feedback. Include report description with expand/collapse for long text. Test VoiceOver accessibility and dynamic type support.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Build Community Feed View with Infinite Scroll",
+            "description": "Implement main feed view with efficient List rendering and infinite scroll pagination",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Create CommunityFeedView with LazyVStack for performance. Implement infinite scroll by detecting last item appearance. Add pull-to-refresh with haptic feedback. Show loading indicators for initial load and pagination. Handle empty states and error states gracefully. Optimize for 60fps scrolling with cell height caching. Test with 1000+ items for performance validation.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implement Voting System and Vote Persistence",
+            "description": "Create voting functionality with CloudKit persistence and optimistic UI updates",
+            "dependencies": [
+              1,
+              3
+            ],
+            "details": "Test vote state management in ViewModel. Implement optimistic updates with rollback on failure. Create VoteService for CloudKit operations with offline queue support. Track user votes locally to prevent duplicates. Update UI immediately while syncing in background. Handle vote count animations. Test conflict resolution when same report voted offline by multiple users.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Develop Reputation Badge System",
+            "description": "Create reputation calculation engine and visual badge components based on report accuracy",
+            "dependencies": [
+              4
+            ],
+            "details": "Define reputation tiers: Novice (0-10), Contributor (11-50), Expert (51-200), Master (200+). Calculate based on: helpful votes received, report verification status, community engagement. Create badge view components with animations. Store reputation in CloudKit with periodic recalculation. Cache calculations locally. Test edge cases and score manipulation attempts.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Set Up CloudKit Subscriptions for Real-time Updates",
+            "description": "Configure CloudKit subscriptions to receive live updates for new reports and votes",
+            "dependencies": [
+              1
+            ],
+            "details": "Create CKQuerySubscription for new reports in user's region. Implement silent push notification handling. Update feed without disrupting scroll position. Handle subscription renewal on app launch. Implement exponential backoff for failed subscription attempts. Test subscription delivery reliability. Add analytics for update latency. Handle rate limiting gracefully.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Create Photo Gallery with Zoom and Caching",
+            "description": "Build full-screen photo viewer with pinch-to-zoom and intelligent caching",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement PhotoGalleryView with TabView for swiping. Add pinch-to-zoom with smooth animations. Create image cache with size-based eviction (max 100MB). Implement progressive loading: thumbnail → full size. Add share functionality for photos. Test memory usage with 50+ high-res images. Handle HEIC format properly. Add loading indicators and error states.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Build Search and Filter Functionality",
+            "description": "Implement comprehensive search and filtering system for community reports",
+            "dependencies": [
+              3
+            ],
+            "details": "Create SearchBar with debounced input (300ms). Implement filters: date range, intensity level, distance from user, report type, user reputation tier. Add filter chips UI with multiple selection. Cache filter results for 5 minutes. Implement search in report descriptions and locations. Test search performance with 10k+ reports. Save recent searches locally.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 9,
+            "title": "Implement Moderation Features and Reporting",
+            "description": "Create content moderation system with user reporting and automated flagging",
+            "dependencies": [
+              3
+            ],
+            "details": "Add report options: inappropriate content, spam, misinformation. Create ModrationQueue in CloudKit for review. Implement automatic flagging for: profanity (using NaturalLanguage framework), suspicious patterns. Hide flagged content pending review. Add user blocking functionality. Test false positive rates. Create appeals process. Track moderation metrics.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 10,
+            "title": "Optimize Feed Performance and Memory Usage",
+            "description": "Implement performance optimizations for smooth 60fps scrolling with large datasets",
+            "dependencies": [
+              3,
+              7
+            ],
+            "details": "Profile with Instruments for bottlenecks. Implement cell height caching to prevent layout calculations. Add image downsampling for thumbnails. Use AsyncImage with custom cache. Implement view recycling properly. Add memory warnings handling with cache purging. Test with slow network conditions. Optimize CloudKit queries with indexes. Target <16ms frame time.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 11,
+            "title": "Create Integration Tests for Feed System",
+            "description": "Develop comprehensive integration tests covering all feed functionality",
+            "dependencies": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "details": "Test complete user flows: viewing feed → voting → seeing real-time updates. Verify offline → online sync scenarios. Test pagination with network interruptions. Validate search with filters combination. Test moderation flow end-to-end. Verify memory cleanup on view dismissal. Test performance with 1000 reports. Validate accessibility features. Measure and assert on performance metrics.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "title": "Implement Push Notification System",
+        "description": "Build comprehensive notification system with APNs integration, customizable alerts, and background processing",
+        "details": "TDD: Test NotificationService scheduling logic. Implement UNUserNotificationCenter setup. Create notification categories: HighProbability, EventNearby, CommunityReport. Request authorization with options: [.alert, .sound, .badge, .providesAppNotificationSettings]. Implement remote notifications with APNs. Create rich notifications with maps and images. Add notification actions: 'View on Map', 'Set Reminder'. Implement quiet hours (10 PM - 6 AM default). Create notification history storage. Add critical alerts for extreme events. Implement notification sounds. Test local and remote delivery.",
+        "testStrategy": "Mock UserNotifications for unit tests, test scheduling logic, verify payload creation, test authorization flows, validate quiet hours, test notification actions, verify delivery receipts",
+        "priority": "high",
+        "dependencies": [
+          5,
+          6
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create NotificationService Protocol and Tests",
+            "description": "Define the NotificationService protocol with methods for scheduling, canceling, and managing notifications. Write comprehensive unit tests for all protocol methods.",
+            "dependencies": [],
+            "details": "Create a protocol with methods for: scheduleNotification, cancelNotification, cancelAllNotifications, getPendingNotifications, getDeliveredNotifications, setBadgeCount. Write tests using XCTest with mocked UNUserNotificationCenter to verify correct behavior of all methods. Include tests for error handling and edge cases.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement UNUserNotificationCenter Setup",
+            "description": "Create a wrapper around UNUserNotificationCenter with dependency injection for testability.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement NotificationService concrete class that uses UNUserNotificationCenter. Create a protocol-based abstraction of UNUserNotificationCenter for dependency injection. Implement proper error handling for notification failures. Add unit tests with mocked UNUserNotificationCenter.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Create Notification Categories and Content",
+            "description": "Define and register notification categories with associated actions for different notification types.",
+            "dependencies": [
+              2
+            ],
+            "details": "Create categories for HighProbability, EventNearby, and CommunityReport notifications. Define UNNotificationActions for each category (View on Map, Set Reminder, etc.). Implement helper methods for creating notification content with proper categorization. Write tests to verify category registration and content creation.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implement Authorization Request Flow",
+            "description": "Create a robust authorization flow for requesting notification permissions with proper error handling and state management.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement requestAuthorization method with options: [.alert, .sound, .badge, .providesAppNotificationSettings]. Create authorization status tracking with UserDefaults. Handle permission denial gracefully with user feedback. Implement tests for all authorization scenarios including denial and partial permissions.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Integrate with Apple Push Notification Service (APNs)",
+            "description": "Set up remote notification handling with APNs integration for server-pushed notifications.",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Implement device token registration and storage. Create methods for handling incoming remote notifications. Set up notification service extension for processing remote notification payloads. Write tests for remote notification handling with mocked payloads.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Implement Rich Notifications with Media Attachments",
+            "description": "Add support for rich notifications with maps, images, and other media attachments.",
+            "dependencies": [
+              3
+            ],
+            "details": "Create notification content extensions for displaying rich media. Implement methods for attaching images and maps to notifications. Add support for downloading and caching remote media for notifications. Write tests for media attachment functionality with various content types.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Implement Notification Actions and Responses",
+            "description": "Create handlers for notification actions and user responses.",
+            "dependencies": [
+              3
+            ],
+            "details": "Implement UNUserNotificationCenterDelegate methods for handling action responses. Create action handlers for 'View on Map', 'Set Reminder', and other actions. Add tests for action response handling with simulated user interactions.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Implement Quiet Hours Logic",
+            "description": "Add support for quiet hours to prevent notifications during user-defined time periods.",
+            "dependencies": [
+              2
+            ],
+            "details": "Create QuietHoursManager class for managing quiet hours settings. Implement logic to check if current time is within quiet hours (default 10 PM - 6 AM). Add user preferences for customizing quiet hours. Write tests for quiet hours functionality with mocked time.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 9,
+            "title": "Create Notification History Storage",
+            "description": "Implement persistent storage for notification history with query capabilities.",
+            "dependencies": [
+              2
+            ],
+            "details": "Create NotificationHistoryStore using CoreData or similar. Implement methods for storing, retrieving, and querying notification history. Add automatic cleanup for old notifications (30 days). Write tests for storage, retrieval, and cleanup functionality.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 10,
+            "title": "Implement Critical Alerts and Testing Infrastructure",
+            "description": "Add support for critical alerts and create comprehensive testing infrastructure for the notification system.",
+            "dependencies": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "details": "Implement critical alerts for high-priority notifications (requires special entitlement). Create test infrastructure including notification delivery verification. Implement integration tests for the entire notification system. Create UI tests for notification interactions. Add performance tests for notification processing.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "title": "Build Settings and Preferences System",
+        "description": "Create comprehensive settings interface for notifications, locations, data preferences with iCloud sync",
+        "details": "TDD: Test SettingsViewModel preference persistence. Create SettingsView with grouped Form sections. Implement: NotificationSettings (types, threshold, quiet hours, test button), LocationSettings (monitoring locations with map, radius adjustment), DataSettings (units, refresh interval, cache management), AccountSettings (Sign in with Apple optional, data export). Use @AppStorage with iCloud key-value sync. Create custom controls for complex settings. Add settings search. Implement data usage statistics. Create privacy report generator. Add app version and support links.",
+        "testStrategy": "Test preference persistence and sync, verify setting constraints, test data migration, validate iCloud sync, test settings search, verify privacy compliance, test data export functionality",
+        "priority": "medium",
+        "dependencies": [
+          6,
+          11
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Test SettingsViewModel Core Functionality",
+            "description": "Write comprehensive unit tests for SettingsViewModel including preference persistence, value validation, and state management",
+            "dependencies": [],
+            "details": "Create SettingsViewModelTests with test cases for: initialization with default values, preference updates triggering @Published properties, validation of setting constraints (e.g., radius limits, time ranges), error handling for invalid inputs, and proper cleanup on deinit. Mock UserDefaults and iCloud KVS for isolated testing.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Build Grouped Form UI Structure",
+            "description": "Implement SettingsView with organized Form sections using SwiftUI's grouped style for better iPad/iPhone adaptation",
+            "dependencies": [
+              1
+            ],
+            "details": "Create SettingsView with NavigationStack containing Form with sections: General, Notifications, Locations, Data & Storage, Account, Privacy. Use .formStyle(.grouped) for modern appearance. Implement section headers with SF Symbols. Add navigation to detail views for complex settings. Ensure proper layout on both iPhone and iPad with appropriate navigation styles.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implement Notification Settings Module",
+            "description": "Build comprehensive notification preferences interface with customizable alert types, thresholds, and quiet hours configuration",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Create NotificationSettingsView with toggles for each notification category (HighProbability, EventNearby, CommunityReport). Add Slider for probability threshold (0-100%). Implement quiet hours picker with start/end time selection. Create custom TimeRangePicker component. Add 'Test Notification' button that triggers sample notification. Include sound selection and critical alerts toggle.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Create Location Settings with Map Integration",
+            "description": "Develop location monitoring preferences with interactive map view for radius adjustment and location management",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Build LocationSettingsView with embedded MapKit view showing monitoring locations. Implement radius adjustment using map overlays with draggable circles. Add location list with swipe-to-delete. Create 'Add Location' flow with search and current location options. Include maximum locations limit (10) with appropriate messaging. Add location accuracy and background refresh toggles.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Build Data Management Settings Interface",
+            "description": "Implement data preferences for units, refresh intervals, cache management, and storage optimization",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Create DataSettingsView with unit system picker (Imperial/Metric), refresh interval slider (5-60 minutes), cache size display with clear cache button. Add auto-cleanup toggle and retention period picker. Implement storage usage visualization showing breakdown by data type. Include offline mode settings and cellular data usage controls.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Implement Account Settings with Sign in with Apple",
+            "description": "Build account management interface with optional Sign in with Apple integration and data export functionality",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Create AccountSettingsView with Sign in with Apple button (optional). Display account status and linked email when signed in. Implement data export with format options (JSON, CSV). Add account deletion flow with confirmation and data retention options. Include sync status indicator and last sync timestamp. Create privacy report generator showing all collected data.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Integrate iCloud Key-Value Store Sync",
+            "description": "Implement automatic preference synchronization across devices using iCloud KVS with conflict resolution",
+            "dependencies": [
+              1
+            ],
+            "details": "Create CloudSyncService wrapping NSUbiquitousKeyValueStore. Implement @AppStorage property wrapper extensions for iCloud sync. Add conflict resolution strategy (last-write-wins with local override option). Monitor sync status and handle quota limits. Create sync indicator UI component. Implement manual sync trigger and sync history log. Handle offline scenarios gracefully.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Create Custom Controls and Settings Search",
+            "description": "Build reusable custom controls for complex settings and implement search functionality across all preferences",
+            "dependencies": [
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "details": "Develop custom controls: TimeRangePicker for quiet hours, RadiusSlider with live preview, StorageUsageView with animated charts. Implement SettingsSearchView with searchable() modifier. Create search index for all settings with keywords. Add recent searches and popular settings quick access. Highlight matching settings and auto-navigate to results. Include search analytics for improving discoverability.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "title": "Integrate Sign in with Apple Authentication",
+        "description": "Implement optional user authentication using Sign in with Apple for personalization and data sync",
+        "details": "TDD: Test AuthenticationService state management. Implement ASAuthorizationController integration. Create seamless onboarding: anonymous usage by default, upgrade prompt for premium features. Handle authorization: request .email and .fullName scopes. Store user identifier in Keychain. Create account linking for existing anonymous data. Implement token refresh logic. Add account deletion compliance (Settings > Delete Account). Create privacy-preserving user profiles. Handle revocation notifications. Support multiple devices with same Apple ID. Add analytics opt-in during auth.",
+        "testStrategy": "Mock ASAuthorization for tests, test anonymous to authenticated transition, verify Keychain storage, test token refresh, validate account deletion, test multi-device scenarios, verify scope handling",
+        "priority": "low",
+        "dependencies": [
+          3,
+          12
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Write failing tests for AuthenticationService protocol and state management",
+            "description": "Create comprehensive unit tests for AuthenticationService including state transitions, anonymous user handling, and authenticated states",
+            "dependencies": [],
+            "details": "Define AuthenticationServiceProtocol with methods: signInWithApple(), linkAnonymousAccount(), refreshToken(), deleteAccount(). Write tests for state enum: .anonymous, .authenticated(user), .authenticating, .error(AuthError). Test state transitions and persistence. Mock ASAuthorizationController responses. Test error scenarios: network failures, canceled auth, invalid tokens",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement ASAuthorizationController integration with Sign in with Apple",
+            "description": "Create Sign in with Apple authentication flow with proper delegate handling and scope requests",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement ASAuthorizationControllerDelegate and ASAuthorizationControllerPresentationContextProviding. Request .email and .fullName scopes. Handle authorization success/failure callbacks. Extract user identifier, email, and name from credentials. Create AuthenticationCoordinator to manage presentation context. Handle first-time vs returning user flows. Implement proper error handling for user cancellation",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Build anonymous to authenticated account transition system",
+            "description": "Implement seamless data migration when anonymous users authenticate, preserving their existing data",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Create AnonymousDataMigrationService to handle transition. Implement data merging strategy: preserve anonymous reports, sightings, settings. Update CloudKit records with new authenticated user ID. Handle conflict resolution if authenticated account already exists. Create backup of anonymous data before migration. Implement rollback mechanism for failed migrations. Test with various data scenarios",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implement secure Keychain storage for authentication tokens",
+            "description": "Create KeychainService for secure storage of user credentials and tokens with proper access control",
+            "dependencies": [
+              2
+            ],
+            "details": "Create KeychainService with generic storage/retrieval methods. Store: user identifier, refresh token, access token, token expiry. Implement keychain access groups for app extensions. Use kSecAttrAccessibleWhenUnlockedThisDeviceOnly for security. Add biometric protection for sensitive operations. Handle keychain errors gracefully. Create migration for existing users. Test across device restores",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Create account linking logic for existing anonymous data",
+            "description": "Build system to link anonymous user data with newly authenticated accounts in CloudKit",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Implement CloudKitAccountLinker service. Query all anonymous records by device identifier. Update record ownership to authenticated user. Handle large datasets with batch operations. Implement progress tracking for UI feedback. Create conflict resolution for duplicate data. Verify data integrity after linking. Add analytics to track linking success rates",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Build token refresh implementation with automatic retry",
+            "description": "Implement JWT token refresh logic with automatic retry and fallback mechanisms",
+            "dependencies": [
+              4
+            ],
+            "details": "Create TokenRefreshService with Combine publishers. Implement refresh 5 minutes before expiry. Add retry logic with exponential backoff. Handle refresh token expiration. Queue requests during token refresh. Implement silent authentication for app launch. Add network reachability checks. Create fallback to re-authentication. Monitor refresh success rates",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Implement account deletion flow with GDPR compliance",
+            "description": "Create complete account deletion system following Apple guidelines and privacy regulations",
+            "dependencies": [
+              5
+            ],
+            "details": "Build account deletion UI in Settings. Implement two-step confirmation flow. Create server-side deletion API. Remove all user data from CloudKit. Clear local caches and Keychain. Handle in-progress uploads/downloads. Send deletion confirmation email. Implement 30-day recovery window. Add deletion audit logging. Test compliance with privacy laws",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Design privacy-preserving user profiles system",
+            "description": "Create user profile system that maintains privacy while enabling community features",
+            "dependencies": [
+              2
+            ],
+            "details": "Design minimal profile: display name, avatar color, reputation score. No email exposure in community features. Implement randomized usernames generator. Create avatar system with colors/shapes. Add privacy settings: hide from community, anonymous reports. Implement reputation without revealing identity. Test privacy across all features. Add profile export functionality",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 9,
+            "title": "Implement multi-device support with iCloud sync",
+            "description": "Enable authentication state sync across user's devices using iCloud Keychain and CloudKit",
+            "dependencies": [
+              4,
+              6
+            ],
+            "details": "Enable iCloud Keychain sync for auth tokens. Implement device registration system. Handle token conflicts across devices. Create device management UI. Implement remote logout functionality. Test iPad/iPhone simultaneous usage. Handle offline device scenarios. Add device-specific settings. Monitor sync conflicts. Test with Family Sharing scenarios",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "title": "Develop Offline Capability and Sync Engine",
+        "description": "Implement robust offline functionality with intelligent sync strategies for all features",
+        "details": "Create SyncEngine with conflict resolution. Implement offline queue for: API requests (weather data), CloudKit operations (reports, votes), Analytics events. Use CoreData for local cache with 24-hour retention. Create sync strategies: immediate for user reports, batched for analytics, scheduled for weather updates. Handle conflicts: last-write-wins for preferences, merge for community data. Show sync status indicators. Implement progressive sync on app launch. Add manual sync option. Monitor Reachability for connection changes. Create data priority system for limited connectivity.",
+        "testStrategy": "Test offline/online transitions, verify queue persistence, test conflict resolution, validate sync completeness, test partial sync scenarios, verify data integrity, measure sync performance",
+        "priority": "high",
+        "dependencies": [
+          3,
+          4,
+          9
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design and implement SyncEngine architecture with protocol-based approach",
+            "description": "Create the core SyncEngine system with clean architecture, protocol definitions, and dependency injection for testability",
+            "dependencies": [],
+            "details": "Design SyncEngine protocol with methods: syncAll(), syncEntity(type:), resolveConflicts(). Create SyncEngineImpl with dependency injection for: CoreDataManager, CloudKitService, NetworkService, ConflictResolver. Define SyncableEntity protocol with: entityType, lastModified, syncStatus, conflictResolution. Implement SyncCoordinator to manage sync operations. Create SyncConfiguration with: batchSize, retryPolicy, conflictStrategy. Design SyncResult enum with success/failure cases. Add SyncDelegate for progress callbacks",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement offline queue system with persistent storage",
+            "description": "Build robust offline queue that persists operations across app launches and handles various request types",
+            "dependencies": [
+              1
+            ],
+            "details": "Create OfflineQueue with CoreData backing: QueuedOperation entity with type, payload, priority, timestamp. Implement queue operations: enqueue(), dequeue(), peek(), remove(). Add operation types: weatherFetch, cloudKitSync, analyticsEvent, userReport. Create QueuePersistenceManager for CoreData operations. Implement queue ordering by priority and timestamp. Add queue size limits with overflow handling. Create QueueMonitor for debugging. Implement batch processing for efficiency",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Setup CoreData schema and cache infrastructure",
+            "description": "Design and implement CoreData models for caching all app data with proper relationships and migration support",
+            "dependencies": [],
+            "details": "Create .xcdatamodeld with entities: CachedWeatherData (24hr TTL), CachedReport (permanent), CachedVote, CachedAnalytics, SyncMetadata. Define relationships: Report-to-Votes (one-to-many), Report-to-Photos. Add indexes for: timestamp, location, syncStatus. Implement CoreDataStack with NSPersistentContainer. Create migration policies for schema updates. Add background context for sync operations. Implement cache eviction for expired data. Create CoreDataService protocol with CRUD operations",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Develop sync strategies for different data types",
+            "description": "Implement specialized sync strategies optimized for each data type's characteristics and requirements",
+            "dependencies": [
+              1,
+              2,
+              3
+            ],
+            "details": "Create SyncStrategy protocol with: shouldSync(), syncInterval, priority. Implement ImmediateSyncStrategy for user reports (trigger on creation). Create BatchedSyncStrategy for analytics (batch every 50 events or 5 minutes). Implement ScheduledSyncStrategy for weather (every 30 minutes). Add PrioritySyncStrategy for votes (immediate if online, batched offline). Create AdaptiveSyncStrategy that adjusts based on network quality. Implement SyncScheduler with Timer and BackgroundTasks. Add sync coalescence to prevent redundant syncs",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implement conflict resolution logic and merging strategies",
+            "description": "Build sophisticated conflict resolution system that handles various conflict scenarios intelligently",
+            "dependencies": [
+              1,
+              3
+            ],
+            "details": "Create ConflictResolver protocol with resolveConflict(local:remote:) method. Implement LastWriteWinsResolver for user preferences. Create MergeResolver for community data: combine votes, preserve all photos, merge descriptions. Add ServerWinsResolver for authoritative data. Implement ClientWinsResolver for offline-first scenarios. Create ConflictDetector to identify conflicts by comparing timestamps and checksums. Add ConflictLogger for debugging. Implement three-way merge for complex objects. Create UI for manual conflict resolution when needed",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Build sync status UI components and indicators",
+            "description": "Create comprehensive UI system to show sync status, progress, and any issues to users",
+            "dependencies": [
+              1
+            ],
+            "details": "Create SyncStatusView with states: syncing, synced, error, offline. Implement SyncProgressIndicator with circular progress for active syncs. Add SyncStatusBadge for list items showing pending changes. Create SyncErrorBanner for connection issues. Implement pull-to-refresh with haptic feedback. Add sync status to navigation bar with animated icon. Create SyncHistoryView showing recent sync operations. Implement accessibility labels for all sync states. Add subtle animations for status transitions",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Implement progressive sync on app launch",
+            "description": "Build intelligent progressive sync that prioritizes critical data and provides fast app startup",
+            "dependencies": [
+              1,
+              4
+            ],
+            "details": "Create ProgressiveSyncManager with priority levels: critical, high, medium, low. Implement Phase 1: sync user preferences and active reports (< 2 seconds). Phase 2: sync recent community feed (< 5 seconds). Phase 3: sync historical data and analytics. Add SyncOptimizer to skip unchanged data using checksums. Implement differential sync using last sync timestamp. Create background sync continuation if app is suspended. Add sync cancellation for app termination. Monitor sync progress with completion handlers",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Add manual sync option with user controls",
+            "description": "Provide users with manual sync controls and clear feedback about sync operations",
+            "dependencies": [
+              6
+            ],
+            "details": "Create ManualSyncButton with loading states and completion feedback. Implement sync options sheet: 'Sync All', 'Sync Reports Only', 'Sync Settings'. Add confirmation dialog for large sync operations. Create sync queue viewer showing pending operations. Implement 'Cancel Sync' functionality with proper cleanup. Add sync statistics: last sync time, data transferred, items synced. Create 'Force Sync' option for debugging. Add haptic feedback for sync completion. Implement rate limiting for manual syncs",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 9,
+            "title": "Integrate Reachability monitoring for network status",
+            "description": "Implement comprehensive network monitoring to intelligently manage sync operations based on connectivity",
+            "dependencies": [],
+            "details": "Integrate NWPathMonitor for network state monitoring. Create NetworkMonitor service with states: WiFi, Cellular, None. Implement ReachabilityManager with Combine publishers. Add network quality detection: excellent, good, poor. Create adaptive sync based on connection type (full on WiFi, limited on cellular). Implement network change notifications. Add retry queue for failed operations due to network. Create NetworkAwareCache that adjusts TTL based on connectivity. Monitor specific endpoint reachability",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 10,
+            "title": "Develop data priority system for sync operations",
+            "description": "Create intelligent prioritization system that ensures critical data syncs first",
+            "dependencies": [
+              2,
+              7
+            ],
+            "details": "Define DataPriority enum: critical, high, medium, low, background. Create PriorityQueue implementation with heap structure. Assign priorities: user reports (critical), votes (high), weather updates (medium), analytics (low). Implement dynamic priority adjustment based on: data age, user interaction, sync failures. Add priority boost for user-initiated actions. Create bandwidth allocation per priority level. Implement priority inheritance for related data. Add starvation prevention for low priority items",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 11,
+            "title": "Implement comprehensive sync testing suite",
+            "description": "Build extensive test coverage for all sync scenarios including edge cases and failure modes",
+            "dependencies": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "details": "Write unit tests for SyncEngine with mocked dependencies. Test offline queue persistence across app launches. Create integration tests for full sync cycles. Test conflict resolution with various scenarios. Implement network failure simulation tests. Add performance tests for large dataset syncs. Test sync cancellation and cleanup. Create stress tests with rapid online/offline transitions. Test data integrity with checksum validation. Add UI tests for sync status indicators. Test background sync completion",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 12,
+            "title": "Optimize sync performance and battery usage",
+            "description": "Fine-tune sync system for optimal performance while minimizing battery and data usage",
+            "dependencies": [
+              1,
+              4,
+              7,
+              10
+            ],
+            "details": "Profile sync operations with Instruments for performance bottlenecks. Implement sync batching to reduce network calls. Add compression for sync payloads (gzip). Create incremental sync using delta updates. Optimize CoreData fetch requests with proper predicates. Implement sync throttling on low battery (< 20%). Add data usage monitoring and limits. Create sync scheduling during optimal times. Implement caching strategies to minimize redundant syncs. Add performance metrics logging. Target < 3% battery impact for background sync",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "title": "Implement Analytics and Telemetry System",
+        "description": "Build privacy-focused analytics system for usage tracking, performance monitoring, and feature improvement",
+        "details": "Create AnalyticsService with privacy-first approach. Implement event tracking: screen views, feature usage, prediction accuracy, notification effectiveness. Use differential privacy for sensitive data. Create custom dashboard in CloudKit. Track performance metrics: app launch time, API response times, rendering performance. Implement crash reporting with MetricKit. Add opt-in during onboarding. Create data retention policy (90 days). Export aggregated insights for research. No third-party SDKs - Apple frameworks only. Generate weekly usage reports for development team.",
+        "testStrategy": "Test event batching and upload, verify privacy compliance, test opt-out functionality, validate metric accuracy, test crash report generation, verify data retention, test performance impact",
+        "priority": "low",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement AnalyticsService Core and Unit Tests",
+            "description": "Create the core AnalyticsService class with comprehensive unit tests following TDD principles",
+            "dependencies": [],
+            "details": "Design and implement the AnalyticsService protocol and concrete implementation. Write unit tests for event tracking, batching, and upload mechanisms. Ensure the service has proper initialization, configuration options, and shutdown procedures. Include tests for retry logic and error handling.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement Event Tracking System",
+            "description": "Build the event tracking infrastructure for capturing user interactions and app usage",
+            "dependencies": [
+              1
+            ],
+            "details": "Create event types and categories (screen views, feature usage, prediction accuracy, notification effectiveness). Implement event batching logic with appropriate throttling. Add context enrichment to events (app version, OS version, device type). Ensure proper thread safety for event collection.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Integrate Differential Privacy",
+            "description": "Implement differential privacy techniques to protect user data while maintaining analytical value",
+            "dependencies": [
+              2
+            ],
+            "details": "Research and implement appropriate differential privacy algorithms. Add noise to sensitive metrics before transmission. Create privacy budget management system. Implement local differential privacy where possible. Write tests to verify privacy guarantees are maintained.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Build CloudKit Analytics Dashboard",
+            "description": "Create a custom analytics dashboard using CloudKit for data visualization",
+            "dependencies": [
+              2
+            ],
+            "details": "Design CloudKit record types for analytics data. Implement dashboard views for key metrics. Create aggregation functions for data summarization. Add filtering capabilities by date ranges and event types. Implement access controls for dashboard data.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implement Performance Metrics Collection",
+            "description": "Add collection of performance-related metrics throughout the application",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement tracking for app launch time, API response times, and rendering performance. Create benchmarking utilities for consistent measurement. Add memory usage tracking. Implement battery consumption estimation. Create performance thresholds and alerting.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Integrate MetricKit for Crash Reporting",
+            "description": "Set up MetricKit integration for crash and performance reporting",
+            "dependencies": [
+              5
+            ],
+            "details": "Implement MXMetricManager delegate methods. Create crash report processing and storage. Add diagnostic log collection. Implement symbolication for crash reports. Create a system for notifying developers of critical issues.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Create Analytics Opt-In Flow",
+            "description": "Design and implement the user-facing opt-in experience for analytics collection",
+            "dependencies": [
+              1
+            ],
+            "details": "Create opt-in UI for onboarding flow. Implement consent management system. Add ability to change analytics preferences later. Create clear explanations of data usage. Implement proper state management for opted-out users. Test opt-in/opt-out transitions thoroughly.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Implement Data Retention and Insights Export",
+            "description": "Build data retention policies and aggregated insights export functionality",
+            "dependencies": [
+              2,
+              4
+            ],
+            "details": "Implement 90-day data retention policy with automatic purging. Create aggregated insights export functionality for research purposes. Ensure exports contain no personally identifiable information. Add scheduling for regular data cleanup. Implement audit logging for data retention compliance.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "title": "Design Adaptive UI for iPhone and iPad",
+        "description": "Create responsive layouts optimized for all iOS devices with proper size class handling",
+        "details": "Implement adaptive layouts using SwiftUI size classes. iPhone: compact width navigation with TabView, full-screen views, bottom sheets for details. iPad: NavigationSplitView with sidebar, multi-column layouts, floating panels, keyboard shortcuts (Cmd+R refresh, Cmd+N new report). Support multitasking: Split View, Slide Over. Implement proper safe area handling. Create compact and regular size variants for all major views. Add pointer interactions for iPad. Support external keyboard navigation. Optimize for all orientations. Test on iPhone SE to iPad Pro 12.9\".",
+        "testStrategy": "Test all size class combinations, verify multitasking modes, test keyboard navigation, validate pointer interactions, test orientation changes, verify layout performance, test Dynamic Type scaling",
+        "priority": "medium",
+        "dependencies": [
+          7,
+          8,
+          10
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 17,
+        "title": "Build Comprehensive Test Suite",
+        "description": "Establish full test coverage across unit, integration, and UI tests following TDD principles",
+        "details": "Configure test targets with proper dependencies. Unit Tests: achieve 95% coverage for Models, 90% for ViewModels, test all services with mocks. Integration Tests: API communication with URLProtocol stubs, CloudKit with test containers, Core Location with simulated locations. UI Tests: critical user journeys using XCUITest, accessibility testing with XCUIAccessibility, performance testing with XCTMetric. Create test data factories. Implement continuous integration with Xcode Cloud. Add pre-commit hooks for test execution. Generate coverage reports. Create visual regression tests for key screens.",
+        "testStrategy": "Verify minimum coverage thresholds enforced, all test categories execute successfully, CI/CD pipeline runs all tests, performance benchmarks established, accessibility tests pass WCAG guidelines",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 18,
+        "title": "Implement Performance Optimization",
+        "description": "Optimize app performance for battery life, memory usage, and smooth user experience",
+        "details": "Profile with Instruments: Time Profiler, Allocations, Energy Log. Optimize image handling: lazy loading, thumbnail generation, memory-mapped files for large images. Implement list virtualization for long feeds. Reduce battery usage: batch network requests, optimize location updates (significant-change for background), disable animations in low power mode. Memory optimization: image cache limits (50MB), proper subscription cleanup, weak references in closures. Optimize app launch: lazy module loading, defer non-critical initialization. Target metrics: <3s cold launch, <100MB memory, <2% battery/hour background.",
+        "testStrategy": "Automated performance tests with XCTMetric, memory leak detection with Instruments, battery usage profiling, stress test with 1000+ events, measure frame rates during scrolling, verify background execution time",
+        "priority": "medium",
+        "dependencies": [
+          14,
+          16
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 19,
+        "title": "Prepare App Store Submission",
+        "description": "Complete all requirements for successful App Store submission including metadata, assets, and compliance",
+        "details": "Create App Store Connect record. Prepare assets: App icon (1024x1024), screenshots for all device sizes (6.7\", 6.1\", 5.5\", 12.9\" iPad), App Preview video (30s max). Write compelling description with keywords: jubilee, Mobile Bay, fishing, marine life. Create privacy policy covering location data, CloudKit usage. Implement App Tracking Transparency if needed. Add export compliance for encryption. Create support URL and documentation. Beta test with TestFlight (50 users minimum). Address beta feedback. Submit for review with detailed review notes. Prepare for potential rejections.",
+        "testStrategy": "Validate all App Store guidelines compliance, test deep links and universal links, verify privacy manifest accuracy, test receipt validation, confirm all features work without login, test app thinning",
+        "priority": "medium",
+        "dependencies": [
+          17,
+          18
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 20,
+        "title": "Create Documentation and Onboarding",
+        "description": "Develop comprehensive user documentation, in-app onboarding, and developer documentation",
+        "details": "Create OnboardingView with 5 screens: welcome, value proposition, location permission education, notification benefits, first location setup. Implement skip option for experienced users. Add contextual tooltips for complex features using TipKit (iOS 17). Create in-app help center with FAQ, video tutorials. Write developer documentation: architecture overview, setup guide, API documentation. Create user guide website. Add AR step-by-step guides for key features. Implement onboarding analytics. Create feature discovery prompts. Localize for Spanish (Gulf Coast demographics).",
+        "testStrategy": "Test onboarding completion rates, verify tooltip triggers, test permission request flows, validate help content loading, test localization accuracy, verify AR guide functionality, test skip/complete paths",
+        "priority": "low",
+        "dependencies": [
+          16
+        ],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-07-19T19:05:39.234Z",
+      "updated": "2025-07-19T20:50:04.757Z",
+      "description": "Tasks for master context"
+    }
+  }
+}

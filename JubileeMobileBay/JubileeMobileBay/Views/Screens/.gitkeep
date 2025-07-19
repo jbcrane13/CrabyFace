@@ -1,0 +1,17 @@
+# Views/Screens Directory
+# 
+# This directory should contain full screen views:
+# - LoginView.swift (login screen)
+# - RegisterView.swift (registration screen)
+# - HomeView.swift (main home screen)
+# - ProfileView.swift (user profile screen)
+# - SettingsView.swift (app settings screen)
+# - DetailView.swift (item detail screen)
+# - SearchView.swift (search screen)
+# - OnboardingView.swift (first-time user flow)
+# 
+# Screen views should:
+# - Compose smaller components together
+# - Bind to their respective ViewModels
+# - Handle navigation and screen-level layout
+# - Adapt to iPad vs iPhone layouts when needed

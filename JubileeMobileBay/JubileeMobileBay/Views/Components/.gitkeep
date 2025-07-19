@@ -1,0 +1,17 @@
+# Views/Components Directory
+# 
+# This directory should contain reusable UI components:
+# - PrimaryButton.swift (styled button component)
+# - LoadingView.swift (loading indicator)
+# - ErrorView.swift (error display component)
+# - EmptyStateView.swift (empty list/data view)
+# - TextFieldView.swift (custom text input)
+# - CardView.swift (card container component)
+# - BadgeView.swift (notification badges)
+# - AvatarView.swift (user avatar display)
+# - ToastView.swift (toast notifications)
+# 
+# Components should be:
+# - Highly reusable across different screens
+# - Configurable through parameters
+# - Focused on presentation only (no business logic)

@@ -1,0 +1,14 @@
+# Views/Modifiers Directory
+# 
+# This directory should contain custom SwiftUI view modifiers:
+# - CardStyle.swift (consistent card styling)
+# - LoadingOverlay.swift (loading state modifier)
+# - ErrorAlert.swift (error presentation modifier)
+# - KeyboardAdaptive.swift (keyboard avoidance)
+# - Shimmer.swift (skeleton loading effect)
+# - ConditionalModifier.swift (conditional styling)
+# - DeviceSpecific.swift (iPad vs iPhone modifiers)
+# - AccessibilityModifiers.swift (accessibility enhancements)
+# 
+# View modifiers enable consistent styling and behavior
+# across the app while keeping views clean and focused
