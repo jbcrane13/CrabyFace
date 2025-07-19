@@ -188,4 +188,6 @@ For faster MapKit development:
 - EventAnnotation wraps JubileeEvent for map display
 - Mock data in EventService provides immediate visual feedback
 - Location permissions configured in Info.plist
+- MKCoordinateRegion doesn't conform to Equatable, so avoid onChange modifiers
+- Use mapItem.openInMaps() instead of custom URL construction
 
