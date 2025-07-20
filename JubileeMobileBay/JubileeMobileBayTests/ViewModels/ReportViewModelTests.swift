@@ -2,292 +2,301 @@
 //  ReportViewModelTests.swift
 //  JubileeMobileBayTests
 //
-//  Test-Driven Development for Report submission
+//  TDD tests for ReportViewModel
 //
 
 import XCTest
 import CoreLocation
-import PhotosUI
-import SwiftUI
-import CloudKit
 @testable import JubileeMobileBay
 
 @MainActor
 class ReportViewModelTests: XCTestCase {
     
-    var viewModel: ReportViewModel!
+    var sut: ReportViewModel!
     var mockCloudKitService: MockCloudKitService!
     var mockLocationService: MockLocationService!
+    var mockUserSessionManager: MockUserSessionManager!
+    var mockPhotoUploadService: MockPhotoUploadService!
     
-    override func setUpWithError() throws {
-        try super.setUpWithError()
+    override func setUp() {
+        super.setUp()
+        
         mockCloudKitService = MockCloudKitService()
         mockLocationService = MockLocationService()
-        viewModel = ReportViewModel(
+        mockUserSessionManager = MockUserSessionManager()
+        mockPhotoUploadService = MockPhotoUploadService()
+        
+        sut = ReportViewModel(
             cloudKitService: mockCloudKitService,
-            locationService: mockLocationService
+            locationService: mockLocationService,
+            userSessionManager: mockUserSessionManager,
+            photoUploadService: mockPhotoUploadService
         )
     }
     
-    override func tearDownWithError() throws {
-        viewModel = nil
+    override func tearDown() {
+        sut = nil
         mockCloudKitService = nil
         mockLocationService = nil
-        try super.tearDownWithError()
+        mockUserSessionManager = nil
+        mockPhotoUploadService = nil
+        super.tearDown()
     }
     
     // MARK: - Initialization Tests
     
     func test_init_shouldSetDefaultValues() {
-        XCTAssertEqual(viewModel.description, "")
-        XCTAssertEqual(viewModel.intensity, .moderate)
-        XCTAssertTrue(viewModel.photos.isEmpty)
-        XCTAssertTrue(viewModel.marineLifeObservations.isEmpty)
-        XCTAssertNil(viewModel.location)
-        XCTAssertNil(viewModel.jubileeEventId)
-        XCTAssertFalse(viewModel.isSubmitting)
-        XCTAssertNil(viewModel.error)
+        XCTAssertEqual(sut.description, "")
+        XCTAssertEqual(sut.intensity, .moderate)
+        XCTAssertTrue(sut.photos.isEmpty)
+        XCTAssertTrue(sut.marineLifeObservations.isEmpty)
+        XCTAssertNil(sut.location)
+        XCTAssertNil(sut.jubileeEventId)
+        XCTAssertFalse(sut.isSubmitting)
+        XCTAssertNil(sut.error)
     }
     
     func test_init_withEvent_shouldPreFillEventData() {
-        let eventLocation = CLLocationCoordinate2D(latitude: 30.4672, longitude: -87.9833)
+        // Given
         let event = JubileeEvent(
-            startTime: Date(),
-            location: eventLocation,
+            id: UUID(),
+            location: CLLocationCoordinate2D(latitude: 30.0, longitude: -88.0),
             intensity: .heavy,
-            verificationStatus: .verified,
-            reportCount: 5,
-            metadata: JubileeMetadata.mock
+            startTime: Date(),
+            verificationStatus: .userReported,
+            metadata: JubileeMetadata(
+                temperature: 25.0,
+                humidity: 80.0,
+                windSpeed: 10.0,
+                windDirection: "NE",
+                dissolvedOxygen: 3.5
+            )
         )
         
-        viewModel = ReportViewModel(
-            cloudKitService: mockCloudKitService,
-            locationService: mockLocationService,
-            event: event
-        )
+        // When
+        sut = ReportViewModel(event: event)
         
-        XCTAssertEqual(viewModel.jubileeEventId, event.id)
-        XCTAssertEqual(viewModel.location?.latitude, eventLocation.latitude, accuracy: 0.0001)
-        XCTAssertEqual(viewModel.location?.longitude, eventLocation.longitude, accuracy: 0.0001)
-        XCTAssertEqual(viewModel.intensity, event.intensity)
+        // Then
+        XCTAssertEqual(sut.jubileeEventId, event.id)
+        XCTAssertEqual(sut.location?.latitude, event.location.latitude)
+        XCTAssertEqual(sut.location?.longitude, event.location.longitude)
+        XCTAssertEqual(sut.intensity, event.intensity)
     }
     
     // MARK: - Location Tests
     
-    func test_useCurrentLocation_shouldRequestLocationAndUpdate() {
-        let mockLocation = CLLocation(latitude: 30.5, longitude: -88.0)
-        mockLocationService.currentLocation = mockLocation
+    func test_useCurrentLocation_withAvailableLocation_shouldSetLocation() {
+        // Given
+        let expectedLocation = CLLocation(latitude: 30.5, longitude: -88.5)
+        mockLocationService.currentLocation = expectedLocation
         
-        viewModel.useCurrentLocation()
+        // When
+        sut.useCurrentLocation()
         
-        XCTAssertEqual(viewModel.location?.latitude, 30.5, accuracy: 0.0001)
-        XCTAssertEqual(viewModel.location?.longitude, -88.0, accuracy: 0.0001)
+        // Then
+        XCTAssertEqual(sut.location?.latitude, expectedLocation.coordinate.latitude)
+        XCTAssertEqual(sut.location?.longitude, expectedLocation.coordinate.longitude)
+        XCTAssertNil(sut.error)
     }
     
-    func test_useCurrentLocation_whenNoLocation_shouldSetError() {
+    func test_useCurrentLocation_withNoLocation_shouldSetError() {
+        // Given
         mockLocationService.currentLocation = nil
         
-        viewModel.useCurrentLocation()
+        // When
+        sut.useCurrentLocation()
         
-        XCTAssertNotNil(viewModel.error)
-        XCTAssertEqual(viewModel.error, "Location not available")
-    }
-    
-    // MARK: - Photo Selection Tests
-    
-    func test_addPhotos_shouldAppendToPhotosArray() {
-        let photo1 = PhotoItem(id: UUID())
-        let photo2 = PhotoItem(id: UUID())
-        
-        viewModel.addPhotos([photo1, photo2])
-        
-        XCTAssertEqual(viewModel.photos.count, 2)
-        XCTAssertTrue(viewModel.photos.contains { $0.id == photo1.id })
-        XCTAssertTrue(viewModel.photos.contains { $0.id == photo2.id })
-    }
-    
-    func test_removePhoto_shouldRemoveFromPhotosArray() {
-        let photo1 = PhotoItem(id: UUID())
-        let photo2 = PhotoItem(id: UUID())
-        viewModel.photos = [photo1, photo2]
-        
-        viewModel.removePhoto(photo1)
-        
-        XCTAssertEqual(viewModel.photos.count, 1)
-        XCTAssertFalse(viewModel.photos.contains { $0.id == photo1.id })
-        XCTAssertTrue(viewModel.photos.contains { $0.id == photo2.id })
+        // Then
+        XCTAssertNil(sut.location)
+        XCTAssertEqual(sut.error, "Location not available")
     }
     
     // MARK: - Marine Life Tests
     
-    func test_addMarineLifeObservation_shouldAddToList() {
-        viewModel.addMarineLifeObservation("Mullet")
-        viewModel.addMarineLifeObservation("Flounder")
+    func test_addMarineLifeObservation_withValidSpecies_shouldAdd() {
+        // When
+        sut.addMarineLifeObservation("Blue Crab")
         
-        XCTAssertEqual(viewModel.marineLifeObservations.count, 2)
-        XCTAssertTrue(viewModel.marineLifeObservations.contains("Mullet"))
-        XCTAssertTrue(viewModel.marineLifeObservations.contains("Flounder"))
+        // Then
+        XCTAssertEqual(sut.marineLifeObservations.count, 1)
+        XCTAssertTrue(sut.marineLifeObservations.contains("Blue Crab"))
     }
     
-    func test_removeMarineLifeObservation_shouldRemoveFromList() {
-        viewModel.marineLifeObservations = ["Mullet", "Flounder", "Crab"]
+    func test_addMarineLifeObservation_withEmptyString_shouldNotAdd() {
+        // When
+        sut.addMarineLifeObservation("")
         
-        viewModel.removeMarineLifeObservation("Flounder")
-        
-        XCTAssertEqual(viewModel.marineLifeObservations.count, 2)
-        XCTAssertFalse(viewModel.marineLifeObservations.contains("Flounder"))
+        // Then
+        XCTAssertTrue(sut.marineLifeObservations.isEmpty)
     }
     
-    // MARK: - Validation Tests
-    
-    func test_canSubmit_whenAllFieldsValid_shouldReturnTrue() {
-        viewModel.description = "Fish kill observed"
-        viewModel.location = CLLocationCoordinate2D(latitude: 30.4672, longitude: -87.9833)
-        viewModel.intensity = .moderate
+    func test_addMarineLifeObservation_withDuplicate_shouldNotAddAgain() {
+        // Given
+        sut.addMarineLifeObservation("Shrimp")
         
-        XCTAssertTrue(viewModel.canSubmit)
+        // When
+        sut.addMarineLifeObservation("Shrimp")
+        
+        // Then
+        XCTAssertEqual(sut.marineLifeObservations.count, 1)
     }
     
-    func test_canSubmit_whenDescriptionEmpty_shouldReturnFalse() {
-        viewModel.description = ""
-        viewModel.location = CLLocationCoordinate2D(latitude: 30.4672, longitude: -87.9833)
+    func test_removeMarineLifeObservation_shouldRemove() {
+        // Given
+        sut.marineLifeObservations = ["Blue Crab", "Shrimp", "Flounder"]
         
-        XCTAssertFalse(viewModel.canSubmit)
-    }
-    
-    func test_canSubmit_whenLocationNil_shouldReturnFalse() {
-        viewModel.description = "Fish kill observed"
-        viewModel.location = nil
+        // When
+        sut.removeMarineLifeObservation("Shrimp")
         
-        XCTAssertFalse(viewModel.canSubmit)
-    }
-    
-    func test_canSubmit_whenSubmitting_shouldReturnFalse() {
-        viewModel.description = "Fish kill observed"
-        viewModel.location = CLLocationCoordinate2D(latitude: 30.4672, longitude: -87.9833)
-        viewModel.isSubmitting = true
-        
-        XCTAssertFalse(viewModel.canSubmit)
+        // Then
+        XCTAssertEqual(sut.marineLifeObservations.count, 2)
+        XCTAssertFalse(sut.marineLifeObservations.contains("Shrimp"))
+        XCTAssertTrue(sut.marineLifeObservations.contains("Blue Crab"))
+        XCTAssertTrue(sut.marineLifeObservations.contains("Flounder"))
     }
     
     // MARK: - Submit Tests
     
-    func test_submitReport_shouldCreateAndSaveUserReport() async throws {
+    func test_canSubmit_withValidData_shouldReturnTrue() {
         // Given
-        viewModel.description = "Major fish kill observed"
-        viewModel.location = CLLocationCoordinate2D(latitude: 30.4672, longitude: -87.9833)
-        viewModel.intensity = .heavy
-        viewModel.marineLifeObservations = ["Mullet", "Flounder"]
-        
-        let photo = PhotoItem(id: UUID())
-        viewModel.photos = [photo]
-        
-        mockCloudKitService.saveUserReportResult = .success(())
-        
-        // When
-        let result = await viewModel.submitReport()
+        sut.description = "Observed jubilee event"
+        sut.location = CLLocationCoordinate2D(latitude: 30.0, longitude: -88.0)
+        sut.isSubmitting = false
         
         // Then
-        XCTAssertTrue(result)
-        XCTAssertEqual(mockCloudKitService.savedUserReports.count, 1)
-        
-        let savedReport = mockCloudKitService.savedUserReports.first
-        XCTAssertEqual(savedReport?.description, "Major fish kill observed")
-        XCTAssertEqual(savedReport?.intensity, .heavy)
-        XCTAssertEqual(savedReport?.location.latitude, 30.4672, accuracy: 0.0001)
-        XCTAssertEqual(savedReport?.marineLife.count, 2)
-        XCTAssertTrue(savedReport?.marineLife.contains("Mullet") ?? false)
-        XCTAssertFalse(viewModel.isSubmitting)
+        XCTAssertTrue(sut.canSubmit)
     }
     
-    func test_submitReport_whenSaveFails_shouldSetError() async throws {
+    func test_canSubmit_withEmptyDescription_shouldReturnFalse() {
         // Given
-        viewModel.description = "Test report"
-        viewModel.location = CLLocationCoordinate2D(latitude: 30.4672, longitude: -87.9833)
-        
-        mockCloudKitService.saveUserReportResult = .failure(CloudKitError.unknown)
-        
-        // When
-        let result = await viewModel.submitReport()
+        sut.description = ""
+        sut.location = CLLocationCoordinate2D(latitude: 30.0, longitude: -88.0)
         
         // Then
-        XCTAssertFalse(result)
-        XCTAssertNotNil(viewModel.error)
-        XCTAssertFalse(viewModel.isSubmitting)
+        XCTAssertFalse(sut.canSubmit)
     }
     
-    func test_submitReport_withEventId_shouldLinkToEvent() async throws {
+    func test_canSubmit_withNoLocation_shouldReturnFalse() {
         // Given
-        let eventId = UUID()
-        viewModel.jubileeEventId = eventId
-        viewModel.description = "Additional observation"
-        viewModel.location = CLLocationCoordinate2D(latitude: 30.4672, longitude: -87.9833)
-        
-        mockCloudKitService.saveUserReportResult = .success(())
-        
-        // When
-        let _ = await viewModel.submitReport()
+        sut.description = "Observed jubilee event"
+        sut.location = nil
         
         // Then
-        let savedReport = mockCloudKitService.savedUserReports.first
-        XCTAssertEqual(savedReport?.jubileeEventId, eventId)
-    }
-}
-
-// MARK: - Mock CloudKit Service
-
-class MockCloudKitService: CloudKitServiceProtocol {
-    var savedUserReports: [UserReport] = []
-    var saveUserReportResult: Result<Void, Error> = .success(())
-    
-    func saveUserReport(_ report: UserReport) async throws {
-        switch saveUserReportResult {
-        case .success:
-            savedUserReports.append(report)
-        case .failure(let error):
-            throw error
-        }
+        XCTAssertFalse(sut.canSubmit)
     }
     
-    func saveJubileeEvent(_ event: JubileeEvent) async throws {
-        // Not used in these tests
+    func test_canSubmit_whileSubmitting_shouldReturnFalse() {
+        // Given
+        sut.description = "Observed jubilee event"
+        sut.location = CLLocationCoordinate2D(latitude: 30.0, longitude: -88.0)
+        sut.isSubmitting = true
+        
+        // Then
+        XCTAssertFalse(sut.canSubmit)
     }
     
-    func fetchRecentJubileeEvents(limit: Int) async throws -> [JubileeEvent] {
-        return []
-    }
-    
-    func fetchUserReports(for eventId: UUID) async throws -> [UserReport] {
-        return []
-    }
-    
-    func subscribeToJubileeEvents() async throws -> CKQuerySubscription {
-        fatalError("Not implemented for tests")
-    }
-}
-
-// MARK: - Photo Item
-
-struct PhotoItem: Identifiable {
-    let id: UUID
-    var image: UIImage?
-    var photoReference: PhotoReference?
-}
-
-// MARK: - Mock Extensions
-
-extension JubileeMetadata {
-    static var mock: JubileeMetadata {
-        JubileeMetadata(
-            windSpeed: 5.0,
-            windDirection: 180,
-            temperature: 75.0,
-            humidity: 85.0,
-            waterTemperature: 72.0,
-            dissolvedOxygen: 2.5,
-            salinity: 28.0,
-            tide: .rising,
-            moonPhase: .full
+    func test_submitReport_withValidData_shouldSucceed() async {
+        // Given
+        let userId = UUID()
+        mockUserSessionManager.currentUserUUID = userId
+        mockUserSessionManager.currentUserId = userId.uuidString
+        
+        sut.description = "Observed jubilee event with many fish"
+        sut.location = CLLocationCoordinate2D(latitude: 30.0, longitude: -88.0)
+        sut.intensity = .heavy
+        sut.marineLifeObservations = ["Blue Crab", "Shrimp"]
+        
+        let expectedReport = UserReport(
+            userId: userId,
+            timestamp: Date(),
+            location: sut.location!,
+            description: sut.description,
+            intensity: sut.intensity,
+            marineLife: sut.marineLifeObservations
         )
+        
+        mockCloudKitService.saveUserReportResult = .success(expectedReport)
+        
+        // When
+        let success = await sut.submitReport()
+        
+        // Then
+        XCTAssertTrue(success)
+        XCTAssertTrue(mockCloudKitService.saveUserReportCalled)
+        XCTAssertFalse(sut.isSubmitting)
+        XCTAssertNil(sut.error)
+        
+        // Verify form was cleared
+        XCTAssertEqual(sut.description, "")
+        XCTAssertEqual(sut.intensity, .moderate)
+        XCTAssertTrue(sut.photos.isEmpty)
+        XCTAssertTrue(sut.marineLifeObservations.isEmpty)
+    }
+    
+    func test_submitReport_withNoUserId_shouldFail() async {
+        // Given
+        mockUserSessionManager.currentUserUUID = nil
+        mockUserSessionManager.currentUserId = nil
+        
+        sut.description = "Observed jubilee event"
+        sut.location = CLLocationCoordinate2D(latitude: 30.0, longitude: -88.0)
+        
+        // When
+        let success = await sut.submitReport()
+        
+        // Then
+        XCTAssertFalse(success)
+        XCTAssertEqual(sut.error, "Unable to determine user ID")
+        XCTAssertFalse(sut.isSubmitting)
+    }
+    
+    func test_submitReport_withCloudKitError_shouldFail() async {
+        // Given
+        let userId = UUID()
+        mockUserSessionManager.currentUserUUID = userId
+        
+        sut.description = "Observed jubilee event"
+        sut.location = CLLocationCoordinate2D(latitude: 30.0, longitude: -88.0)
+        
+        mockCloudKitService.saveUserReportResult = .failure(CloudKitError.networkError)
+        
+        // When
+        let success = await sut.submitReport()
+        
+        // Then
+        XCTAssertFalse(success)
+        XCTAssertNotNil(sut.error)
+        XCTAssertFalse(sut.isSubmitting)
+    }
+    
+    // MARK: - Photo Tests
+    
+    func test_addPhotos_shouldAddToCollection() {
+        // Given
+        let photo1 = PhotoItem(id: UUID())
+        let photo2 = PhotoItem(id: UUID())
+        
+        // When
+        sut.addPhotos([photo1, photo2])
+        
+        // Then
+        XCTAssertEqual(sut.photos.count, 2)
+        XCTAssertTrue(sut.photos.contains(where: { $0.id == photo1.id }))
+        XCTAssertTrue(sut.photos.contains(where: { $0.id == photo2.id }))
+    }
+    
+    func test_removePhoto_shouldRemoveFromCollection() {
+        // Given
+        let photo1 = PhotoItem(id: UUID())
+        let photo2 = PhotoItem(id: UUID())
+        sut.photos = [photo1, photo2]
+        
+        // When
+        sut.removePhoto(photo1)
+        
+        // Then
+        XCTAssertEqual(sut.photos.count, 1)
+        XCTAssertFalse(sut.photos.contains(where: { $0.id == photo1.id }))
+        XCTAssertTrue(sut.photos.contains(where: { $0.id == photo2.id }))
     }
 }

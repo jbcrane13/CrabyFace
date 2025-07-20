@@ -1,0 +1,211 @@
+{
+  "version": "1.0",
+  "recordTypes": [
+    {
+      "name": "JubileeEvent",
+      "fields": [
+        {
+          "name": "location",
+          "type": "LOCATION"
+        },
+        {
+          "name": "intensity",
+          "type": "STRING"
+        },
+        {
+          "name": "startTime",
+          "type": "DATE_TIME"
+        },
+        {
+          "name": "endTime",
+          "type": "DATE_TIME"
+        },
+        {
+          "name": "verificationStatus",
+          "type": "STRING"
+        },
+        {
+          "name": "reportCount",
+          "type": "INT64"
+        },
+        {
+          "name": "temperature",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "humidity",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "windSpeed",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "windDirection",
+          "type": "INT64"
+        },
+        {
+          "name": "waterTemperature",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "dissolvedOxygen",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "salinity",
+          "type": "DOUBLE"
+        },
+        {
+          "name": "tide",
+          "type": "STRING"
+        },
+        {
+          "name": "moonPhase",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "name": "UserReport",
+      "fields": [
+        {
+          "name": "jubileeEventId",
+          "type": "STRING"
+        },
+        {
+          "name": "userId",
+          "type": "STRING"
+        },
+        {
+          "name": "timestamp",
+          "type": "DATE_TIME"
+        },
+        {
+          "name": "description",
+          "type": "STRING"
+        },
+        {
+          "name": "intensity",
+          "type": "STRING"
+        },
+        {
+          "name": "photoURLs",
+          "type": "STRING_LIST"
+        },
+        {
+          "name": "location",
+          "type": "LOCATION"
+        }
+      ]
+    },
+    {
+      "name": "CommunityPost",
+      "fields": [
+        {
+          "name": "userId",
+          "type": "STRING"
+        },
+        {
+          "name": "userName",
+          "type": "STRING"
+        },
+        {
+          "name": "title",
+          "type": "STRING"
+        },
+        {
+          "name": "description",
+          "type": "STRING"
+        },
+        {
+          "name": "location",
+          "type": "LOCATION"
+        },
+        {
+          "name": "photoURLs",
+          "type": "STRING_LIST"
+        },
+        {
+          "name": "marineLifeTypes",
+          "type": "STRING_LIST"
+        },
+        {
+          "name": "likeCount",
+          "type": "INT64"
+        },
+        {
+          "name": "commentCount",
+          "type": "INT64"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATE_TIME"
+        }
+      ]
+    },
+    {
+      "name": "UserProfile",
+      "fields": [
+        {
+          "name": "appleUserID",
+          "type": "STRING"
+        },
+        {
+          "name": "email",
+          "type": "STRING"
+        },
+        {
+          "name": "displayName",
+          "type": "STRING"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATE_TIME"
+        }
+      ]
+    },
+    {
+      "name": "PostLike",
+      "fields": [
+        {
+          "name": "postId",
+          "type": "STRING"
+        },
+        {
+          "name": "userId",
+          "type": "STRING"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATE_TIME"
+        }
+      ]
+    },
+    {
+      "name": "PostComment",
+      "fields": [
+        {
+          "name": "postId",
+          "type": "STRING"
+        },
+        {
+          "name": "userId",
+          "type": "STRING"
+        },
+        {
+          "name": "userName",
+          "type": "STRING"
+        },
+        {
+          "name": "text",
+          "type": "STRING"
+        },
+        {
+          "name": "createdAt",
+          "type": "DATE_TIME"
+        }
+      ]
+    }
+  ]
+}

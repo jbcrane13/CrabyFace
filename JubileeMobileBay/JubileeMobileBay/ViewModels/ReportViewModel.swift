@@ -27,6 +27,8 @@ class ReportViewModel: ObservableObject {
     
     private let cloudKitService: CloudKitService
     private let locationService: LocationServiceProtocol
+    private let userSessionManager: UserSessionManagerProtocol
+    private let photoUploadService: PhotoUploadService
     
     // MARK: - Computed Properties
     
@@ -40,9 +42,13 @@ class ReportViewModel: ObservableObject {
     
     init(cloudKitService: CloudKitService? = nil,
          locationService: LocationServiceProtocol? = nil,
+         userSessionManager: UserSessionManagerProtocol? = nil,
+         photoUploadService: PhotoUploadService? = nil,
          event: JubileeEvent? = nil) {
         self.cloudKitService = cloudKitService ?? CloudKitService()
         self.locationService = locationService ?? LocationService()
+        self.userSessionManager = userSessionManager ?? UserSessionManager.shared
+        self.photoUploadService = photoUploadService ?? PhotoUploadService()
         
         // Pre-fill with event data if provided
         if let event = event {
@@ -74,24 +80,40 @@ class ReportViewModel: ObservableObject {
     }
     
     func loadPhoto(from item: PhotosPickerItem) async -> PhotoItem? {
-        guard let data = try? await item.loadTransferable(type: Data.self),
-              let image = UIImage(data: data) else {
+        do {
+            // Check photo library permissions first
+            guard await photoUploadService.requestPhotoLibraryAccess() else {
+                error = "Photo library access denied"
+                return nil
+            }
+            
+            // Load image data
+            guard let data = try await item.loadTransferable(type: Data.self),
+                  let image = UIImage(data: data) else {
+                return nil
+            }
+            
+            var photoItem = PhotoItem(id: UUID())
+            photoItem.image = image
+            
+            // Upload to CloudKit in background
+            Task {
+                do {
+                    let references = try await photoUploadService.uploadPhotos(from: [item])
+                    if let reference = references.first {
+                        photoItem.photoReference = reference
+                    }
+                } catch {
+                    print("Photo upload failed: \(error.localizedDescription)")
+                    // Continue with local image for now
+                }
+            }
+            
+            return photoItem
+        } catch {
+            self.error = "Failed to load photo: \(error.localizedDescription)"
             return nil
         }
-        
-        var photoItem = PhotoItem(id: UUID())
-        photoItem.image = image
-        
-        // In a real app, we would upload to CloudKit Assets here
-        // For now, we'll create a mock photo reference
-        let mockUrl = URL(string: "https://cloudkit.example.com/photo/\(photoItem.id)")!
-        photoItem.photoReference = PhotoReference(
-            id: photoItem.id,
-            url: mockUrl,
-            thumbnailUrl: mockUrl
-        )
-        
-        return photoItem
     }
     
     // MARK: - Marine Life Methods
@@ -118,12 +140,45 @@ class ReportViewModel: ObservableObject {
         error = nil
         
         do {
-            // Create photo references (in real app, would upload to CloudKit)
-            let photoReferences = photos.compactMap { $0.photoReference }
+            // Upload any photos that don't have references yet
+            var photoReferences: [PhotoReference] = []
             
-            // Create user report
+            for photo in photos {
+                if let reference = photo.photoReference {
+                    photoReferences.append(reference)
+                } else if let image = photo.image {
+                    // Upload image if not already uploaded
+                    do {
+                        let references = try await photoUploadService.uploadReportPhotos(
+                            for: UserReport(
+                                userId: UUID(),
+                                timestamp: Date(),
+                                location: location,
+                                description: description,
+                                intensity: intensity
+                            ),
+                            images: [image]
+                        )
+                        if let reference = references.first {
+                            photoReferences.append(reference)
+                        }
+                    } catch {
+                        print("Failed to upload photo: \(error.localizedDescription)")
+                        // Continue without this photo
+                    }
+                }
+            }
+            
+            // Get authenticated user ID or use anonymous ID
+            guard let userUUID = userSessionManager.currentUserUUID else {
+                error = "Unable to determine user ID"
+                isSubmitting = false
+                return false
+            }
+            
+            // Create user report with proper user ID
             let report = UserReport(
-                userId: UUID(), // In real app, would use Sign in with Apple user ID
+                userId: userUUID,
                 timestamp: Date(),
                 location: location,
                 jubileeEventId: jubileeEventId,
@@ -134,7 +189,7 @@ class ReportViewModel: ObservableObject {
             )
             
             // Save to CloudKit
-            try await cloudKitService.saveUserReport(report)
+            _ = try await cloudKitService.saveUserReport(report)
             
             // Clear form on success
             clearForm()

@@ -86,15 +86,30 @@ class CloudKitService: ObservableObject {
     // MARK: - Save Operations
     
     func saveUserReport(_ report: UserReport) async throws -> UserReport {
-        let record = CKRecord(recordType: RecordType.userReport.rawValue)
+        // Validate before saving
+        try CloudKitValidator.validateUserReport(report)
         
-        if let jubileeEventId = report.jubileeEventId {
-            record[UserReportField.jubileeEventId.rawValue] = jubileeEventId.uuidString as CKRecordValue
-        }
-        record[UserReportField.userId.rawValue] = report.userId.uuidString as CKRecordValue
-        record[UserReportField.timestamp.rawValue] = report.timestamp as CKRecordValue
-        record[UserReportField.description.rawValue] = report.description as CKRecordValue
-        record[UserReportField.intensity.rawValue] = report.intensity.rawValue as CKRecordValue
+        // Use error recovery for save operation
+        return try await performWithRetry(
+            operation: {
+                let record = CKRecord(recordType: RecordType.userReport.rawValue)
+                
+                if let jubileeEventId = report.jubileeEventId {
+                    record[UserReportField.jubileeEventId.rawValue] = jubileeEventId.uuidString as CKRecordValue
+                }
+                record[UserReportField.userId.rawValue] = report.userId.uuidString as CKRecordValue
+                record[UserReportField.timestamp.rawValue] = report.timestamp as CKRecordValue
+                record[UserReportField.description.rawValue] = CloudKitValidator.sanitizeString(report.description) as CKRecordValue
+                record[UserReportField.intensity.rawValue] = report.intensity.rawValue as CKRecordValue
+                
+                // Continue with the rest of the save operation
+                return try await self.saveUserReportInternal(record: record, report: report)
+            },
+            operationType: .save(CKRecord(recordType: RecordType.userReport.rawValue))
+        )
+    }
+    
+    private func saveUserReportInternal(record: CKRecord, report: UserReport) async throws -> UserReport {
         
         // Save location
         let location = CLLocation(
@@ -113,29 +128,36 @@ class CloudKitService: ObservableObject {
     }
     
     func saveJubileeEvent(_ event: JubileeEvent) async throws -> JubileeEvent {
-        let record = CKRecord(recordType: RecordType.jubileeEvent.rawValue)
+        // Validate before saving
+        try CloudKitValidator.validateJubileeEvent(event)
         
-        let location = CLLocation(
-            latitude: event.location.latitude,
-            longitude: event.location.longitude
+        // Use error recovery for save operation
+        return try await performWithRetry(
+            operation: {
+                let record = CKRecord(recordType: RecordType.jubileeEvent.rawValue)
+                
+                let location = CLLocation(
+                    latitude: event.location.latitude,
+                    longitude: event.location.longitude
+                )
+                record[JubileeEventField.location.rawValue] = location as CKRecordValue
+                record[JubileeEventField.intensity.rawValue] = event.intensity.rawValue as CKRecordValue
+                record[JubileeEventField.startTime.rawValue] = event.startTime as CKRecordValue
+                
+                if let endTime = event.endTime {
+                    record[JubileeEventField.endTime.rawValue] = endTime as CKRecordValue
+                }
+                
+                record[JubileeEventField.verificationStatus.rawValue] = event.verificationStatus.rawValue as CKRecordValue
+                
+                // Save metadata as embedded fields
+                self.saveJubileeMetadata(event.metadata, to: record)
+                
+                let _ = try await self.publicDatabase.save(record)
+                return event
+            },
+            operationType: .save(CKRecord(recordType: RecordType.jubileeEvent.rawValue))
         )
-        record[JubileeEventField.location.rawValue] = location as CKRecordValue
-        record[JubileeEventField.intensity.rawValue] = event.intensity.rawValue as CKRecordValue
-        record[JubileeEventField.startTime.rawValue] = event.startTime as CKRecordValue
-        
-        if let endTime = event.endTime {
-            record[JubileeEventField.endTime.rawValue] = endTime as CKRecordValue
-        }
-        
-        record[JubileeEventField.verificationStatus.rawValue] = event.verificationStatus.rawValue as CKRecordValue
-        
-        // Save metadata as embedded fields
-        saveJubileeMetadata(event.metadata, to: record)
-        
-        record["reportCount"] = event.reportCount as CKRecordValue
-        
-        let _ = try await publicDatabase.save(record)
-        return event
     }
     
     private func saveJubileeMetadata(_ metadata: JubileeMetadata, to record: CKRecord) {
@@ -257,7 +279,10 @@ class CloudKitService: ObservableObject {
         
         subscription.notificationInfo = notificationInfo
         
-        return try await publicDatabase.save(subscription) as! CKQuerySubscription
+        guard let savedSubscription = try await publicDatabase.save(subscription) as? CKQuerySubscription else {
+            throw CloudKitError.invalidData
+        }
+        return savedSubscription
     }
     
     // MARK: - Record Conversion
@@ -480,30 +505,46 @@ extension CloudKitService {
     }
     
     func createCommunityPost(from report: UserReport, user: User? = nil) async throws -> CommunityPost {
-        let record = CKRecord(recordType: RecordType.communityPost.rawValue)
-        
-        // Use authenticated user or generate anonymous user
-        let userId = user?.appleUserID ?? UUID().uuidString
+        // Use UserSessionManager for consistent user tracking
+        let userId = user?.appleUserID ?? UserSessionManager.shared.currentUserId ?? UserSessionManager.shared.generateAnonymousUserId()
         let userName = user?.displayName ?? "JubileeSpotter\(Int.random(in: 100...999))"
+        let title = "Jubilee Event - \(report.intensity.displayName)"
+        let photoURLs = report.photos.map { $0.url.absoluteString }
         
-        record[CommunityPostField.userId.rawValue] = userId
-        record[CommunityPostField.userName.rawValue] = userName
-        record[CommunityPostField.title.rawValue] = "Jubilee Event - \(report.intensity.displayName)"
-        record[CommunityPostField.description.rawValue] = report.description
-        record[CommunityPostField.location.rawValue] = CLLocation(latitude: report.location.latitude, longitude: report.location.longitude)
-        record[CommunityPostField.photoURLs.rawValue] = report.photos.map { $0.url.absoluteString }
-        record[CommunityPostField.marineLifeTypes.rawValue] = report.marineLife
-        record[CommunityPostField.likeCount.rawValue] = 0
-        record[CommunityPostField.commentCount.rawValue] = 0
-        record[CommunityPostField.createdAt.rawValue] = Date()
+        // Validate before creating
+        try CloudKitValidator.validateCommunityPost(
+            title: title,
+            description: report.description,
+            location: report.location,
+            photoURLs: photoURLs
+        )
         
-        let savedRecord = try await publicDatabase.save(record)
-        
-        guard let post = communityPostFromRecord(savedRecord) else {
-            throw CloudKitError.invalidData
-        }
-        
-        return post
+        // Use error recovery for save operation
+        return try await performWithRetry(
+            operation: {
+                let record = CKRecord(recordType: RecordType.communityPost.rawValue)
+                
+                record[CommunityPostField.userId.rawValue] = userId
+                record[CommunityPostField.userName.rawValue] = CloudKitValidator.sanitizeString(userName)
+                record[CommunityPostField.title.rawValue] = CloudKitValidator.sanitizeString(title)
+                record[CommunityPostField.description.rawValue] = CloudKitValidator.sanitizeString(report.description)
+                record[CommunityPostField.location.rawValue] = CLLocation(latitude: report.location.latitude, longitude: report.location.longitude)
+                record[CommunityPostField.photoURLs.rawValue] = photoURLs
+                record[CommunityPostField.marineLifeTypes.rawValue] = report.marineLife
+                record[CommunityPostField.likeCount.rawValue] = 0
+                record[CommunityPostField.commentCount.rawValue] = 0
+                record[CommunityPostField.createdAt.rawValue] = Date()
+                
+                let savedRecord = try await self.publicDatabase.save(record)
+                
+                guard let post = self.communityPostFromRecord(savedRecord) else {
+                    throw CloudKitError.invalidData
+                }
+                
+                return post
+            },
+            operationType: .save(CKRecord(recordType: RecordType.communityPost.rawValue))
+        )
     }
     
     func likePost(postId: String) async throws {
@@ -601,8 +642,8 @@ extension CloudKitService {
     }
     
     private func getCurrentUserId() -> String {
-        // In a real app, this would come from authentication
-        return UUID().uuidString
+        // Use UserSessionManager for consistent user tracking
+        return UserSessionManager.shared.currentUserId ?? UserSessionManager.shared.generateAnonymousUserId()
     }
     
     func fetchComments(for postId: String) async throws -> [CommunityComment] {
@@ -636,14 +677,26 @@ extension CloudKitService {
     }
     
     func saveUser(_ user: User) async throws {
-        let record = CKRecord(recordType: RecordType.userProfile.rawValue, recordID: CKRecord.ID(recordName: user.id))
+        // Validate user before saving
+        try CloudKitValidator.validateUser(user)
         
-        record[UserProfileField.appleUserID.rawValue] = user.appleUserID
-        record[UserProfileField.email.rawValue] = user.email
-        record[UserProfileField.displayName.rawValue] = user.displayName
-        record[UserProfileField.createdAt.rawValue] = user.createdAt
+        // Use error recovery for save operation
+        try await performWithRetry(
+            operation: {
+                let record = CKRecord(recordType: RecordType.userProfile.rawValue, recordID: CKRecord.ID(recordName: user.id))
+                
+                record[UserProfileField.appleUserID.rawValue] = user.appleUserID
+                record[UserProfileField.email.rawValue] = CloudKitValidator.sanitizeString(user.email)
+                record[UserProfileField.displayName.rawValue] = CloudKitValidator.sanitizeString(user.displayName)
+                record[UserProfileField.createdAt.rawValue] = user.createdAt
+                
+                _ = try await self.privateDatabase.save(record)
+            },
+            operationType: .save(CKRecord(recordType: RecordType.userProfile.rawValue))
+        )
         
-        _ = try await privateDatabase.save(record)
+        // Update UserSessionManager with saved user
+        UserSessionManager.shared.setCurrentUser(user)
     }
     
     func fetchCurrentUser() async throws -> User? {

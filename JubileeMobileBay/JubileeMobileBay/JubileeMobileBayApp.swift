@@ -1,8 +1,9 @@
 import SwiftUI
+import CloudKit
 
 @main
 struct JubileeMobileBayApp: App {
-    @StateObject private var cloudKitService = CloudKitService()
+    @StateObject private var cloudKitService: CloudKitService
     @StateObject private var authenticationService: AuthenticationService
     
     init() {

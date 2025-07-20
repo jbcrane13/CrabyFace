@@ -1,66 +1,31 @@
 
 # Claude Development Guidelines - iOS/iPadOS TDD-MVVM-SwiftUI
-
-## Memory Usage
+## Memory usage
 
 Follow these steps for each interaction:
 
-### 1. User Identification
-- You should assume that you are interacting with default_user
-- If you have not identified default_user, proactively try to do so
+1. User Identification:
+   - You should assume that you are interacting with default_user
+   - If you have not identified default_user, proactively try to do so.
 
-### 2. Memory Retrieval
-- Always begin your chat by saying only "Remembering..." and retrieve all relevant information from your knowledge graph
-- Always refer to your knowledge graph as your "memory"
+2. Memory Retrieval:
+   - Always begin your chat by saying only "Remembering..." and retrieve all relevant information from your knowledge graph
+   - Always refer to your knowledge graph as your "memory"
 
-### 3. Memory Categories
-While conversing with the user, be attentive to any new information that falls into these categories:
-- **Basic Identity**: age, gender, location, job title, education level, etc.
-- **Behaviors**: interests, habits, etc.
-- **Preferences**: communication style, preferred language, etc.
-- **Goals**: goals, targets, aspirations, etc.
-- **Relationships**: personal and professional relationships up to 3 degrees of separation
+3. Memory
+   - While conversing with the user, be attentive to any new information that falls into these categories:
+     a) Basic Identity (age, gender, location, job title, education level, etc.)
+     b) Behaviors (interests, habits, etc.)
+     c) Preferences (communication style, preferred language, etc.)
+     d) Goals (goals, targets, aspirations, etc.)
+     e) Relationships (personal and professional relationships up to 3 degrees of separation)
 
-### 4. Memory Update
-If any new information was gathered during the interaction, update your memory as follows:
-- Create entities for recurring organizations, people, and significant events
-- Connect them to the current entities using relations
-- Store facts about them as observations
-
-## Continuous Learning and Development
-
-### During Task Execution
-- Actively identify information, techniques, or knowledge that would accelerate future similar tasks
-- Document specific challenges encountered and their optimal solutions
-- Note any architectural patterns, debugging approaches, or optimization strategies that proved effective
-- Record tool configurations, command sequences, or setup procedures that save time
-
-### Lessons Learned Documentation
-- Maintain a `lessonslearned.md` file in the project root directory
-- Structure entries with:
-  - **Date and Context**: When and what type of task was being performed
-  - **Challenge/Issue**: Specific problem or inefficiency encountered
-  - **Solution**: Detailed resolution with code examples, commands, or procedures
-  - **Prevention**: How to avoid this issue in future iterations
-  - **Optimization**: Faster/better approaches discovered for similar tasks
-
-### Review and Application
-- Review `lessonslearned.md` at the start of each new task to leverage previous insights
-- Apply documented patterns and solutions to accelerate current work
-- Update existing entries when discovering improved approaches
-- Cross-reference lessons learned when encountering similar challenges
-
-### Documentation Standards
-- Use clear, searchable headings and tags for easy reference
-- Include code snippets, file paths, and specific commands where applicable
-- Maintain chronological order with most recent lessons at the top
-- Keep entries concise but comprehensive enough for future context
-
-### Other Development Rules
-- Use IDE diagnostics to find and fix errors
-- Follow established coding conventions and patterns
-- Maintain consistent code quality throughout the project
-
+4. Memory Update:
+   - If any new information was gathered during the interaction, update your memory as follows:
+     a) Create entities for recurring organizations, people, and significant events
+     b) Connect them to the current entities using relations
+     c) Store facts about them as observations
+     
 ## Project Architecture Mandate
 
 This project follows:
@@ -68,38 +33,38 @@ This project follows:
 - **MVVM Architecture** - Strict separation of Model, View, and ViewModel
 - **SwiftUI** - Modern declarative UI framework for iOS/iPadOS
 
-### MVVM-TDD Workflow
+## MVVM-TDD Workflow
 
-#### Testing Order (ALWAYS follow this sequence):
+### Testing Order (ALWAYS follow this sequence):
 1. **Model Tests** → Model Implementation
 2. **ViewModel Tests** → ViewModel Implementation  
 3. **View Tests** → View Implementation
 4. **Integration Tests** → Full feature validation
 
-### MVVM Architecture Rules
+## MVVM Architecture Rules
 
-#### Model Layer
+### Model Layer
 - Pure Swift structs/classes
 - No SwiftUI or Combine imports
 - Responsible for data structures and business logic
 - Must be 100% testable without UI
 
-#### ViewModel Layer
+### ViewModel Layer
 - ObservableObject classes with @Published properties
 - Contains all presentation logic
 - No SwiftUI View imports (only Combine/Foundation)
 - Handles all business logic and state management
 - Must be testable in isolation from Views
 
-#### View Layer
+### View Layer
 - SwiftUI Views only
 - No business logic - only UI binding and presentation
 - Binds to ViewModel via @StateObject/@ObservedObject
 - All logic delegated to ViewModel
 
-### TDD Implementation for MVVM
+## TDD Implementation for MVVM
 
-#### 1. Model TDD Cycle
+### 1. Model TDD Cycle
 
 ```swift
 // STEP 1: Write failing Model test
@@ -128,7 +93,7 @@ struct User: Identifiable, Equatable {
 // STEP 3: Refactor if needed (keeping tests green)
 ```
 
-#### 2. ViewModel TDD Cycle
+### 2. ViewModel TDD Cycle
 
 ```swift
 // STEP 1: Write failing ViewModel test
@@ -186,7 +151,7 @@ class LoginViewModel: ObservableObject {
 }
 ```
 
-#### 3. View TDD Cycle
+### 3. View TDD Cycle
 
 ```swift
 // STEP 1: Write failing View test using ViewInspector
@@ -235,9 +200,9 @@ struct LoginView: View {
 }
 ```
 
-### iOS/iPadOS Specific Testing Requirements
+## iOS/iPadOS Specific Testing Requirements
 
-#### Universal App Considerations
+### Universal App Considerations
 ```swift
 // Test for both iPhone and iPad layouts
 func test_dashboardView_oniPad_shouldShowSplitView() throws {
@@ -255,16 +220,16 @@ func test_dashboardView_oniPhone_shouldShowNavigationStack() throws {
 }
 ```
 
-#### iPadOS Features Testing
+### iPadOS Features Testing
 - **Multitasking**: Test multiple window scenarios
 - **Drag & Drop**: Test drag and drop interactions
 - **Keyboard Shortcuts**: Test keyboard command handling
 - **Pencil Support**: Test pencil interactions if applicable
 - **Split View**: Test master-detail navigation
 
-### Required Test Coverage by MVVM Layer
+## Required Test Coverage by MVVM Layer
 
-#### Model Layer (95%+ coverage)
+### Model Layer (95%+ coverage)
 - All initializers
 - All computed properties
 - All methods
@@ -272,7 +237,7 @@ func test_dashboardView_oniPhone_shouldShowNavigationStack() throws {
 - Equatable/Hashable implementations
 - Validation logic
 
-#### ViewModel Layer (90%+ coverage)
+### ViewModel Layer (90%+ coverage)
 - All @Published property changes
 - All public methods
 - All state transitions
@@ -280,7 +245,7 @@ func test_dashboardView_oniPhone_shouldShowNavigationStack() throws {
 - Async operations with proper expectations
 - Combine pipeline logic
 
-#### View Layer (80%+ coverage)
+### View Layer (80%+ coverage)
 - All user interactions
 - All conditional rendering
 - State-based UI changes
@@ -288,9 +253,9 @@ func test_dashboardView_oniPhone_shouldShowNavigationStack() throws {
 - iPad vs iPhone layout differences
 - Dark mode appearance
 
-### MVVM-Specific Testing Patterns
+## MVVM-Specific Testing Patterns
 
-#### Dependency Injection for Testability
+### Dependency Injection for Testability
 ```swift
 // ALWAYS use protocols for dependencies
 protocol AuthServiceProtocol {
@@ -311,7 +276,7 @@ class MockAuthService: AuthServiceProtocol {
 }
 ```
 
-#### Testing @Published Properties
+### Testing @Published Properties
 ```swift
 func test_viewModel_publishedPropertyChanges() {
     let expectation = expectation(description: "Published property updated")
@@ -330,7 +295,7 @@ func test_viewModel_publishedPropertyChanges() {
 }
 ```
 
-#### Testing View-ViewModel Binding
+### Testing View-ViewModel Binding
 ```swift
 func test_view_bindsToViewModelState() throws {
     let viewModel = ItemListViewModel()
@@ -348,7 +313,7 @@ func test_view_bindsToViewModelState() throws {
 }
 ```
 
-### File Organization for MVVM-TDD
+## File Organization for MVVM-TDD
 
 ```
 YourApp/
@@ -369,18 +334,18 @@ YourApp/
     └── LoginFlowTests.swift
 ```
 
-### TDD-MVVM Checklist
+## TDD-MVVM Checklist
 
 Before submitting ANY code:
 
-#### Model Checklist
+### Model Checklist
 - [ ] Model test written first and failing
 - [ ] Model implementation minimal to pass test
 - [ ] Model has no UI dependencies
 - [ ] Model is Equatable/Codable if needed
 - [ ] All Model business logic tested
 
-#### ViewModel Checklist
+### ViewModel Checklist
 - [ ] ViewModel test written first and failing
 - [ ] Dependencies injected via protocols
 - [ ] All @Published properties have tests
@@ -388,7 +353,7 @@ Before submitting ANY code:
 - [ ] Error states tested
 - [ ] No SwiftUI imports in ViewModel
 
-#### View Checklist
+### View Checklist
 - [ ] View test written first using ViewInspector
 - [ ] View contains no business logic
 - [ ] All UI states tested
@@ -396,15 +361,15 @@ Before submitting ANY code:
 - [ ] Accessibility tested
 - [ ] Dark mode tested
 
-#### Integration Checklist
+### Integration Checklist
 - [ ] Full user flow tested
 - [ ] Navigation tested
 - [ ] Data flow between screens tested
 - [ ] State persistence tested
 
-### Common MVVM-TDD Violations
+## Common MVVM-TDD Violations
 
-#### ❌ NEVER DO:
+### ❌ NEVER DO:
 - Put business logic in Views
 - Import SwiftUI in ViewModels
 - Create ViewModels without protocol-based dependencies
@@ -413,7 +378,7 @@ Before submitting ANY code:
 - Create tight coupling between layers
 - Write integration tests before unit tests
 
-#### ✅ ALWAYS DO:
+### ✅ ALWAYS DO:
 - Test ViewModels in complete isolation
 - Use protocols for all dependencies
 - Test public interfaces only
@@ -422,7 +387,7 @@ Before submitting ANY code:
 - Write focused, single-behavior tests
 - Maintain clear separation of concerns
 
-### Example Full TDD-MVVM Feature Flow
+## Example Full TDD-MVVM Feature Flow
 
 ```swift
 // 1. Start with Model Test
@@ -497,7 +462,7 @@ struct TodoListView: View {
 }
 ```
 
-### Performance Testing for iPad
+## Performance Testing for iPad
 
 ```swift
 // Test large datasets for iPad

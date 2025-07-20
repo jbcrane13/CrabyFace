@@ -70,9 +70,13 @@ class AuthenticationViewModel: ObservableObject {
     
     func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest) {
         // Configure the request using the authentication service
-        let serviceRequest = authenticationService.createSignInWithAppleRequest()
-        request.requestedScopes = serviceRequest.requestedScopes
-        request.nonce = serviceRequest.nonce
+        do {
+            let serviceRequest = try authenticationService.createSignInWithAppleRequest()
+            request.requestedScopes = serviceRequest.requestedScopes
+            request.nonce = serviceRequest.nonce
+        } catch {
+            errorMessage = error.localizedDescription
+        }
     }
     
     func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>) async {

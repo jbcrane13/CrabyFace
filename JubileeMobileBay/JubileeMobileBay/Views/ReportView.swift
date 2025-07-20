@@ -12,8 +12,6 @@ import CoreLocation
 
 struct ReportView: View {
     @StateObject var viewModel: ReportViewModel
-    @State private var selectedPhotos: [PhotosPickerItem] = []
-    @State private var showingPhotoPicker = false
     @State private var showingMarineLifePicker = false
     @State private var newMarineLife = ""
     @State private var showingSuccessAlert = false
@@ -81,31 +79,7 @@ struct ReportView: View {
                 
                 // Photos Section
                 Section(header: Text("Photos")) {
-                    if !viewModel.photos.isEmpty {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 10) {
-                                ForEach(viewModel.photos) { photo in
-                                    PhotoThumbnailView(photo: photo) {
-                                        viewModel.removePhoto(photo)
-                                    }
-                                }
-                            }
-                            .padding(.vertical, 5)
-                        }
-                    }
-                    
-                    PhotosPicker(
-                        selection: $selectedPhotos,
-                        maxSelectionCount: 5,
-                        matching: .images
-                    ) {
-                        Label("Add Photos", systemImage: "photo.on.rectangle.angled")
-                    }
-                    .onChange(of: selectedPhotos) { _ in
-                        Task {
-                            await loadSelectedPhotos()
-                        }
-                    }
+                    PhotoPickerView(viewModel: viewModel)
                 }
                 
                 // Marine Life Section
@@ -194,15 +168,6 @@ struct ReportView: View {
         }
     }
     
-    private func loadSelectedPhotos() async {
-        for item in selectedPhotos {
-            if let photo = await viewModel.loadPhoto(from: item) {
-                viewModel.addPhotos([photo])
-            }
-        }
-        selectedPhotos = []
-    }
-    
     private func submitReport() async {
         let success = await viewModel.submitReport()
         if success {
@@ -232,38 +197,6 @@ struct LocationAnnotation: Identifiable {
     let coordinate: CLLocationCoordinate2D
 }
 
-// MARK: - Photo Thumbnail View
-
-struct PhotoThumbnailView: View {
-    let photo: PhotoItem
-    let onDelete: () -> Void
-    
-    var body: some View {
-        ZStack(alignment: .topTrailing) {
-            if let image = photo.image {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 80, height: 80)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-            } else {
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.secondary.opacity(0.3))
-                    .frame(width: 80, height: 80)
-                    .overlay(
-                        ProgressView()
-                    )
-            }
-            
-            Button(action: onDelete) {
-                Image(systemName: "xmark.circle.fill")
-                    .foregroundColor(.white)
-                    .background(Circle().fill(Color.black.opacity(0.6)))
-            }
-            .padding(4)
-        }
-    }
-}
 
 // MARK: - Preview
 

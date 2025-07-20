@@ -20,6 +20,13 @@
 		25AAE7992E2C9CF900C98E2C /* DemoDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AAE7982E2C9CF900C98E2C /* DemoDataService.swift */; };
 		25AAE79B2E2C9D1D00C98E2C /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AAE79A2E2C9D1D00C98E2C /* DashboardView.swift */; };
 		25AAE79D2E2C9E7B00C98E2C /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AAE79C2E2C9E7B00C98E2C /* Color+Hex.swift */; };
+		25AAE7C02E2D871800C98E2C /* PhotoUploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AAE7BE2E2D871800C98E2C /* PhotoUploadService.swift */; };
+		25AAE7C12E2D871800C98E2C /* CloudKitErrorRecovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AAE7BC2E2D871800C98E2C /* CloudKitErrorRecovery.swift */; };
+		25AAE7C22E2D871800C98E2C /* UserSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AAE7BF2E2D871800C98E2C /* UserSessionManager.swift */; };
+		25AAE7C32E2D871800C98E2C /* CloudKitValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AAE7BD2E2D871800C98E2C /* CloudKitValidator.swift */; };
+		25AAE7C52E2D874700C98E2C /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AAE7C42E2D874700C98E2C /* PhotoPickerView.swift */; };
+		25AAE7C82E2D87E100C98E2C /* MockServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AAE7C62E2D87E100C98E2C /* MockServices.swift */; };
+		25AAE7C92E2D87E100C98E2C /* PhotoPickerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AAE7C72E2D87E100C98E2C /* PhotoPickerViewTests.swift */; };
 		2E2E90CD329479FC51E17584 /* JubileeEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4468F0718504EFA782915D21 /* JubileeEnums.swift */; };
 		3969F25337B9FB7FB89E3740 /* JubileeMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE97EE742DD10A97129EC61 /* JubileeMapView.swift */; };
 		3E62F7ABAB1A2904C8611107 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A95D008249593E9AFBACE0 /* LocationService.swift */; };
@@ -80,6 +87,13 @@
 		25AAE7982E2C9CF900C98E2C /* DemoDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoDataService.swift; sourceTree = "<group>"; };
 		25AAE79A2E2C9D1D00C98E2C /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		25AAE79C2E2C9E7B00C98E2C /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		25AAE7BC2E2D871800C98E2C /* CloudKitErrorRecovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitErrorRecovery.swift; sourceTree = "<group>"; };
+		25AAE7BD2E2D871800C98E2C /* CloudKitValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitValidator.swift; sourceTree = "<group>"; };
+		25AAE7BE2E2D871800C98E2C /* PhotoUploadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoUploadService.swift; sourceTree = "<group>"; };
+		25AAE7BF2E2D871800C98E2C /* UserSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSessionManager.swift; sourceTree = "<group>"; };
+		25AAE7C42E2D874700C98E2C /* PhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
+		25AAE7C62E2D87E100C98E2C /* MockServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServices.swift; sourceTree = "<group>"; };
+		25AAE7C72E2D87E100C98E2C /* PhotoPickerViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerViewTests.swift; sourceTree = "<group>"; };
 		28A38CAEB2F9FECCEBFB7190 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		2D7E06F53AFBD7E47A5DEB37 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		2E05F228B454D107A3AEBF2A /* JubileeEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JubileeEvent.swift; sourceTree = "<group>"; };
@@ -259,6 +273,7 @@
 		539A9EDEA74164883182770F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				25AAE7C42E2D874700C98E2C /* PhotoPickerView.swift */,
 				25AAE79A2E2C9D1D00C98E2C /* DashboardView.swift */,
 				25AAE7962E2C957600C98E2C /* LoginView.swift */,
 				25AAE7902E2C850500C98E2C /* CommunityFeedView.swift */,
@@ -368,6 +383,8 @@
 		E5D70B4041FEBBA763B0535E /* JubileeMobileBayTests */ = {
 			isa = PBXGroup;
 			children = (
+				25AAE7C62E2D87E100C98E2C /* MockServices.swift */,
+				25AAE7C72E2D87E100C98E2C /* PhotoPickerViewTests.swift */,
 				1828E5D10E0B371227A82D27 /* CloudKitServiceTests.swift */,
 				5371A0C7CD7DA8A8C5BBA0B8 /* Info.plist */,
 				273D41170C1FEBC3CDA2E9F9 /* Models */,
@@ -381,6 +398,10 @@
 		ED83EC836F51A5F9E02FF078 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				25AAE7BC2E2D871800C98E2C /* CloudKitErrorRecovery.swift */,
+				25AAE7BD2E2D871800C98E2C /* CloudKitValidator.swift */,
+				25AAE7BE2E2D871800C98E2C /* PhotoUploadService.swift */,
+				25AAE7BF2E2D871800C98E2C /* UserSessionManager.swift */,
 				25AAE7982E2C9CF900C98E2C /* DemoDataService.swift */,
 				25AAE7922E2C954E00C98E2C /* AuthenticationService.swift */,
 				E657B15B9A85ED9F61B214A6 /* CloudKitSchemaSetup.swift */,
@@ -505,6 +526,8 @@
 				6C5C825B0D6EE79A7E4A89A5 /* MapViewModelTests.swift in Sources */,
 				8C125E7BFE2C07ED82AD2E8E /* ReportViewModelTests.swift in Sources */,
 				DBFDDDDA9D0EAA4DF941C662 /* ReportViewTests.swift in Sources */,
+				25AAE7C82E2D87E100C98E2C /* MockServices.swift in Sources */,
+				25AAE7C92E2D87E100C98E2C /* PhotoPickerViewTests.swift in Sources */,
 				DB8B457942B77D3A831E22B4 /* UserReportTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -522,6 +545,10 @@
 				25AAE7992E2C9CF900C98E2C /* DemoDataService.swift in Sources */,
 				25AAE79B2E2C9D1D00C98E2C /* DashboardView.swift in Sources */,
 				25AAE7952E2C956B00C98E2C /* AuthenticationViewModel.swift in Sources */,
+				25AAE7C02E2D871800C98E2C /* PhotoUploadService.swift in Sources */,
+				25AAE7C12E2D871800C98E2C /* CloudKitErrorRecovery.swift in Sources */,
+				25AAE7C22E2D871800C98E2C /* UserSessionManager.swift in Sources */,
+				25AAE7C32E2D871800C98E2C /* CloudKitValidator.swift in Sources */,
 				2E2E90CD329479FC51E17584 /* JubileeEnums.swift in Sources */,
 				1E4DD6A8A85E6B4DF874545B /* JubileeEvent.swift in Sources */,
 				3969F25337B9FB7FB89E3740 /* JubileeMapView.swift in Sources */,
@@ -540,6 +567,7 @@
 				25AAE7972E2C957600C98E2C /* LoginView.swift in Sources */,
 				4BFF0BBF07C15DB314B41536 /* ReportView.swift in Sources */,
 				60A0103946111963A16047C8 /* ReportViewModel.swift in Sources */,
+				25AAE7C52E2D874700C98E2C /* PhotoPickerView.swift in Sources */,
 				9B7BFF272E2B447E69152AA5 /* TimeRange.swift in Sources */,
 				25AAE78F2E2C84DD00C98E2C /* CommunityFeedViewModel.swift in Sources */,
 				7FD8DB9D4604D48E06D7490F /* UserReport.swift in Sources */,
