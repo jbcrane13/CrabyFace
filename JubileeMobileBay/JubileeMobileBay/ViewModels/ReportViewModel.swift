@@ -25,7 +25,7 @@ class ReportViewModel: ObservableObject {
     @Published var isSubmitting = false
     @Published var error: String?
     
-    private let cloudKitService: CloudKitServiceProtocol
+    private let cloudKitService: CloudKitService
     private let locationService: LocationServiceProtocol
     
     // MARK: - Computed Properties
@@ -38,7 +38,7 @@ class ReportViewModel: ObservableObject {
     
     // MARK: - Initialization
     
-    init(cloudKitService: CloudKitServiceProtocol? = nil,
+    init(cloudKitService: CloudKitService? = nil,
          locationService: LocationServiceProtocol? = nil,
          event: JubileeEvent? = nil) {
         self.cloudKitService = cloudKitService ?? CloudKitService()
@@ -163,15 +163,3 @@ class ReportViewModel: ObservableObject {
     }
 }
 
-// MARK: - CloudKit Service Protocol
-
-protocol CloudKitServiceProtocol {
-    func saveUserReport(_ report: UserReport) async throws
-    func saveJubileeEvent(_ event: JubileeEvent) async throws
-    func fetchRecentJubileeEvents(limit: Int) async throws -> [JubileeEvent]
-    func fetchUserReports(for eventId: UUID) async throws -> [UserReport]
-    func subscribeToJubileeEvents() async throws -> CKQuerySubscription
-}
-
-// Make CloudKitService conform to protocol
-extension CloudKitService: CloudKitServiceProtocol {}

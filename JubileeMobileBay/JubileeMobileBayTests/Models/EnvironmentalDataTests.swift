@@ -304,6 +304,8 @@ final class EnvironmentalDataTests: XCTestCase {
 
 // MARK: - Mock Extensions
 
+// Commenting out duplicate mock - already defined in model file
+/*
 extension EnvironmentalData {
     static var mock: EnvironmentalData {
         EnvironmentalData(
@@ -324,3 +326,4 @@ extension EnvironmentalData {
         )
     }
 }
+*/

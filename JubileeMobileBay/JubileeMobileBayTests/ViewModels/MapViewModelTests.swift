@@ -341,6 +341,8 @@ extension EnvironmentalData {
     }
 }
 
+// Commenting out duplicate mock - already defined in model file
+/*
 extension JubileeMetadata {
     static func mock() -> JubileeMetadata {
         return JubileeMetadata(
@@ -356,3 +358,4 @@ extension JubileeMetadata {
         )
     }
 }
+*/

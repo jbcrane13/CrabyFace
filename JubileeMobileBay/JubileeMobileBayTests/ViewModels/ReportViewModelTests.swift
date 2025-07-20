@@ -9,6 +9,7 @@ import XCTest
 import CoreLocation
 import PhotosUI
 import SwiftUI
+import CloudKit
 @testable import JubileeMobileBay
 
 @MainActor

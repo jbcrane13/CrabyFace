@@ -315,7 +315,7 @@ class MockCKDatabase: CKDatabase {
     
     var saveResult: Result<CKRecord, Error> = .success(CKRecord(recordType: "Mock"))
     var queryResult: Result<[CKRecord], Error> = .success([])
-    var saveSubscriptionResult: Result<CKSubscription, Error> = .success(CKQuerySubscription())
+    var saveSubscriptionResult: Result<CKSubscription, Error> = .success(CKQuerySubscription(recordType: "Mock", predicate: NSPredicate(value: true)))
     
     override func save(_ record: CKRecord, completionHandler: @escaping (CKRecord?, Error?) -> Void) {
         savedRecords.append(record)
@@ -327,7 +327,7 @@ class MockCKDatabase: CKDatabase {
         }
     }
     
-    func perform(_ query: CKQuery, inZoneWith zoneID: CKRecordZone.ID?, completionHandler: @escaping ([CKRecord]?, Error?) -> Void) {
+    override func perform(_ query: CKQuery, inZoneWith zoneID: CKRecordZone.ID?, completionHandler: @escaping ([CKRecord]?, Error?) -> Void) {
         performedQueries.append(query)
         switch queryResult {
         case .success(let records):

@@ -206,6 +206,8 @@ final class JubileeEventTests: XCTestCase {
 
 // MARK: - Mock Extensions
 
+// Commenting out duplicate mock - already defined in model file
+/*
 extension JubileeMetadata {
     static var mock: JubileeMetadata {
         JubileeMetadata(
@@ -221,7 +223,10 @@ extension JubileeMetadata {
         )
     }
 }
+*/
 
+// Commenting out duplicate mock - already defined in model file
+/*
 extension JubileeEvent {
     static var mock: JubileeEvent {
         JubileeEvent(
@@ -236,3 +241,4 @@ extension JubileeEvent {
         )
     }
 }
+*/

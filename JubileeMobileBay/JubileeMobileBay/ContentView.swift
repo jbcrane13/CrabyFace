@@ -1,6 +1,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var cloudKitService: CloudKitService
+    @EnvironmentObject var authenticationService: AuthenticationService
+    @State private var showingLoginSheet = false
+    
     var body: some View {
         TabView {
             DashboardView()
@@ -13,7 +17,7 @@ struct ContentView: View {
                     Label("Map", systemImage: "map.fill")
                 }
             
-            CommunityPlaceholderView()
+            CommunityFeedView(cloudKitService: cloudKitService)
                 .tabItem {
                     Label("Community", systemImage: "person.3.fill")
                 }
@@ -26,29 +30,6 @@ struct ContentView: View {
     }
 }
 
-struct DashboardView: View {
-    var body: some View {
-        NavigationStack {
-            VStack {
-                Image(systemName: "water.waves")
-                    .font(.system(size: 80))
-                    .foregroundColor(.blue)
-                    .padding()
-                
-                Text("Welcome to Jubilee Mobile Bay")
-                    .font(.title)
-                    .multilineTextAlignment(.center)
-                
-                Text("Monitor and predict jubilee events")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .padding(.top, 2)
-            }
-            .padding()
-            .navigationTitle("Dashboard")
-        }
-    }
-}
 
 struct MapPlaceholderView: View {
     var body: some View {
@@ -59,20 +40,41 @@ struct MapPlaceholderView: View {
     }
 }
 
-struct CommunityPlaceholderView: View {
-    var body: some View {
-        NavigationStack {
-            Text("Community Feed - Coming Soon")
-                .navigationTitle("Community Reports")
-        }
-    }
-}
 
 struct SettingsPlaceholderView: View {
+    @EnvironmentObject var authenticationService: AuthenticationService
+    @State private var showingLoginSheet = false
+    
     var body: some View {
         NavigationStack {
-            Text("Settings - Coming Soon")
-                .navigationTitle("Settings")
+            List {
+                Section("Account") {
+                    if let user = authenticationService.currentUser {
+                        AuthenticatedUserView(user: user) {
+                            await authenticationService.signOut()
+                        }
+                    } else {
+                        Button {
+                            showingLoginSheet = true
+                        } label: {
+                            Label("Sign in with Apple", systemImage: "person.crop.circle.badge.plus")
+                        }
+                    }
+                }
+                
+                Section("About") {
+                    HStack {
+                        Text("Version")
+                        Spacer()
+                        Text("1.0.0")
+                            .foregroundColor(.secondary)
+                    }
+                }
+            }
+            .navigationTitle("Settings")
+            .sheet(isPresented: $showingLoginSheet) {
+                LoginView(authenticationService: authenticationService)
+            }
         }
     }
 }

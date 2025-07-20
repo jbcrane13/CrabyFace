@@ -114,3 +114,52 @@ User profile and preferences.
 
 ### Private Database
 - **Owner**: Full access to their UserProfile record
+
+## Community Features Schema
+
+### CommunityPost (Public Database)
+User-generated posts about jubilee sightings in a social feed format.
+
+**Fields:**
+- `userId` (String) - ID of the user who created the post
+- `userName` (String) - Display name of the user
+- `title` (String) - Post title (max 100 chars)
+- `description` (String) - Detailed description (max 500 chars)
+- `location` (Location) - Geographic coordinates
+- `photoURLs` (String List) - URLs to uploaded photos (max 10)
+- `marineLifeTypes` (String List) - Observed marine life types
+- `likeCount` (Int64) - Number of likes
+- `commentCount` (Int64) - Number of comments
+- `createdAt` (Date) - Creation timestamp
+
+**Indexes:**
+- `createdAt` (SORTABLE)
+- `location` (QUERYABLE)
+- `userId` (QUERYABLE)
+- `likeCount` (SORTABLE)
+
+### PostLike (Public Database)
+Tracks which users liked which posts.
+
+**Fields:**
+- `postId` (String) - Reference to CommunityPost recordID
+- `userId` (String) - User who liked the post
+- `createdAt` (Date) - When the like was created
+
+**Indexes:**
+- `postId` (QUERYABLE)
+- `userId` (QUERYABLE)
+
+### PostComment (Public Database)
+Comments on community posts.
+
+**Fields:**
+- `postId` (String) - Reference to CommunityPost recordID
+- `userId` (String) - ID of commenter
+- `userName` (String) - Display name of commenter
+- `text` (String) - Comment text (max 200 chars)
+- `createdAt` (Date) - Comment timestamp
+
+**Indexes:**
+- `postId` (QUERYABLE, SORTABLE by createdAt)
+- `userId` (QUERYABLE)

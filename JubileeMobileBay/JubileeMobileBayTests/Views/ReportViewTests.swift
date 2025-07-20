@@ -7,7 +7,7 @@
 
 import XCTest
 import SwiftUI
-import ViewInspector
+// import ViewInspector // TODO: Add ViewInspector SPM dependency
 import CoreLocation
 @testable import JubileeMobileBay
 
@@ -204,4 +204,4 @@ class ReportViewTests: XCTestCase {
 }
 
 // Extension to make ReportView inspectable
-extension ReportView: Inspectable {}
+// extension ReportView: Inspectable {} // TODO: Re-enable when ViewInspector is added
