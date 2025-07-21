@@ -195,3 +195,13 @@ final class DashboardViewModel: ObservableObject {
     }
 }
 
+// MARK: - CloudKit Protocol
+
+protocol CloudKitServiceProtocol {
+    func fetchRecentJubileeEvents(limit: Int) async throws -> [JubileeEvent]
+    func saveJubileeEvent(_ event: JubileeEvent) async throws -> JubileeEvent
+    func updateJubileeEvent(_ event: JubileeEvent) async throws -> JubileeEvent
+    func deleteJubileeEvent(_ event: JubileeEvent) async throws
+}
+
+extension CloudKitService: CloudKitServiceProtocol {}

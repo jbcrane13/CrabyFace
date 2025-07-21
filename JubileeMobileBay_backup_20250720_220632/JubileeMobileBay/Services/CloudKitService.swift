@@ -10,7 +10,7 @@ import CloudKit
 import CoreLocation
 
 @MainActor
-class CloudKitService: ObservableObject, CloudKitServiceProtocol {
+class CloudKitService: ObservableObject {
     
     // MARK: - Properties
     
@@ -283,58 +283,6 @@ class CloudKitService: ObservableObject, CloudKitServiceProtocol {
             throw CloudKitError.invalidData
         }
         return savedSubscription
-    }
-    
-    // MARK: - Community Posts
-    
-    func createCommunityPost(from report: UserReport) async throws -> CommunityPost {
-        let record = CKRecord(recordType: RecordType.communityPost.rawValue)
-        
-        // Set basic fields
-        record["title"] = "Jubilee Event Report at \(report.location.latitude), \(report.location.longitude)"
-        record["body"] = """
-            Intensity: \(report.intensity.rawValue)
-            Marine Life: \(report.marineLife.joined(separator: ", "))
-            
-            \(report.description)
-            """
-        
-        // Get user info - use anonymous if not available
-        let userName = UserSessionManager.shared.currentUser?.displayName ?? "JubileeSpotter\(Int.random(in: 100...999))"
-        let userId = UserSessionManager.shared.currentUserId ?? UserSessionManager.shared.generateAnonymousUserId()
-        
-        record["authorUsername"] = userName
-        record["timestamp"] = Date()
-        
-        // Convert location to CLLocation for CloudKit
-        let location = CLLocation(latitude: report.location.latitude, longitude: report.location.longitude)
-        record["location"] = location
-        
-        record["reportId"] = report.id.uuidString
-        record["verified"] = false
-        record["imageCount"] = report.photos.count
-        record["userId"] = userId
-        
-        // Save record
-        let savedRecord = try await publicDatabase.save(record)
-        
-        // Create and return community post
-        let post = CommunityPost(
-            id: savedRecord.recordID.recordName,
-            userId: userId,
-            userName: userName,
-            title: record["title"] as? String ?? "",
-            description: record["body"] as? String ?? "",
-            location: report.location,
-            photoURLs: report.photos.map { $0.url.absoluteString },
-            marineLifeTypes: Set(report.marineLife.map { _ in MarineLifeType.other }),
-            createdAt: Date(),
-            likeCount: 0,
-            commentCount: 0,
-            isLikedByCurrentUser: false
-        )
-        
-        return post
     }
     
     // MARK: - Record Conversion

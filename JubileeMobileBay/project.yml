@@ -1,0 +1,73 @@
+name: JubileeMobileBay
+options:
+  bundleIdPrefix: com.jubileemobilebay
+  xcodeVersion: "16.0"
+  deploymentTarget:
+    iOS: "18.0"
+  groupSortPosition: top
+  generateEmptyDirectories: true
+  groupOrdering:
+    - JubileeMobileBay:
+      - JubileeMobileBayApp.swift
+      - ContentView.swift
+      - Models
+      - Views
+      - ViewModels
+      - Services
+      - Utilities
+      - Resources
+    - JubileeMobileBayTests
+
+configs:
+  Debug: debug
+  Release: release
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    ENABLE_PREVIEWS: YES
+    DEVELOPMENT_TEAM: ""
+    PRODUCT_BUNDLE_IDENTIFIER: com.jubileemobilebay.app
+    INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+    INFOPLIST_KEY_UILaunchScreen_Generation: YES
+    INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+    INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+    INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: "JubileeMobileBay needs your location to track jubilee events in your area"
+    INFOPLIST_KEY_NSCameraUsageDescription: "JubileeMobileBay needs camera access to capture jubilee event photos"
+    INFOPLIST_KEY_NSPhotoLibraryUsageDescription: "JubileeMobileBay needs photo library access to save and share jubilee event photos"
+
+targets:
+  JubileeMobileBay:
+    type: application
+    platform: iOS
+    deploymentTarget: "18.0"
+    sources:
+      - path: JubileeMobileBay
+        excludes:
+          - "**/*.md"
+          - "**/.gitkeep"
+    settings:
+      base:
+        PRODUCT_NAME: JubileeMobileBay
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_ENTITLEMENTS: JubileeMobileBay/JubileeMobileBay.entitlements
+    dependencies: []
+    preBuildScripts: []
+    postBuildScripts: []
+
+  JubileeMobileBayTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "18.0"
+    sources:
+      - path: JubileeMobileBayTests
+        excludes:
+          - "**/*.md"
+          - "**/.gitkeep"
+    dependencies:
+      - target: JubileeMobileBay
+    settings:
+      base:
+        BUNDLE_LOADER: "$(TEST_HOST)"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/JubileeMobileBay.app/JubileeMobileBay"
