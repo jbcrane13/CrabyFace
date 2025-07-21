@@ -141,9 +141,11 @@ struct EventMapMarker: View {
     
     var markerColor: Color {
         switch event.intensity {
+        case .minimal: return .gray
         case .light: return .green
         case .moderate: return .yellow
         case .heavy: return .red
+        case .extreme: return .black
         }
     }
     
@@ -219,9 +221,11 @@ struct MapFilterView: View {
     
     private func colorForIntensity(_ intensity: JubileeIntensity) -> Color {
         switch intensity {
+        case .minimal: return .gray
         case .light: return .green
         case .moderate: return .yellow
         case .heavy: return .red
+        case .extreme: return .black
         }
     }
 }
@@ -388,9 +392,11 @@ struct EventDetailView: View {
     
     private func colorForIntensity(_ intensity: JubileeIntensity) -> Color {
         switch intensity {
+        case .minimal: return .gray
         case .light: return .green
         case .moderate: return .yellow
         case .heavy: return .red
+        case .extreme: return .black
         }
     }
 }

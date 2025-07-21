@@ -1,5 +1,173 @@
 # Lessons Learned - JubileeMobileBay iOS/iPadOS App
 
+## Date: 2025-01-21 - Phase 3 Push Notification System Implementation
+
+### Context: Implemented push notifications for comment replies with permission management
+
+### Push Notification Architecture
+- **Challenge**: Integrating push notifications with CloudKit subscriptions
+- **Solution**: Created comprehensive NotificationManager with permission handling
+- **Key Components**:
+  - NotificationManager singleton for centralized notification handling
+  - AppDelegate adapter for SwiftUI app lifecycle
+  - Permission request UI with clear value proposition
+  - Badge management for unread notifications
+
+### CloudKit Push Notification Integration
+- **Key Implementation**:
+  ```swift
+  // Enhanced subscription with notification info
+  let notificationInfo = CKSubscription.NotificationInfo()
+  notificationInfo.shouldSendContentAvailable = true
+  notificationInfo.shouldBadge = true
+  notificationInfo.alertBody = "New reply to your comment"
+  notificationInfo.soundName = "default"
+  notificationInfo.desiredKeys = ["postId", "userId", "userName", "text", "parentCommentId"]
+  ```
+- **Benefit**: Users receive immediate notifications for replies to their comments
+
+### Permission Management Strategy
+- **Smart Permission Requests**: Only show permission dialog when user is actively engaging
+- **Implementation**:
+  ```swift
+  if !notificationManager.hasNotificationPermission &&
+     !UserDefaults.standard.bool(forKey: "hasDeclinedNotificationPermission") {
+      if !viewModel.comments.isEmpty || !viewModel.newCommentText.isEmpty {
+          showNotificationPermission = true
+      }
+  }
+  ```
+- **UX Consideration**: Don't annoy users with immediate permission requests
+
+### Notification UI Components
+- **NotificationPermissionView**: Beautiful onboarding for notification permissions
+- **NotificationBadgeView**: Visual indicator of notification status
+- **Key Features**:
+  - Clear benefits explanation
+  - Non-intrusive permission flow
+  - Visual feedback for notification status
+
+### AppDelegate Integration in SwiftUI
+- **Challenge**: SwiftUI apps don't have traditional AppDelegate
+- **Solution**: @UIApplicationDelegateAdaptor
+  ```swift
+  @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+  ```
+- **Benefits**: Handle remote notification registration and processing
+
+### Subscription Lifecycle Management
+- **Auto-subscribe**: When viewing comments with notifications enabled
+- **Auto-unsubscribe**: When leaving comment thread (in deinit)
+- **Per-post subscriptions**: Users only get notified for posts they engage with
+
+### Key Architecture Decisions
+1. **Singleton Pattern**: NotificationManager as single source of truth
+2. **EnvironmentObject**: Easy access throughout SwiftUI view hierarchy
+3. **UserDefaults**: Persist permission decisions and device tokens
+4. **NotificationCenter**: Bridge between AppDelegate and SwiftUI views
+
+### Entitlements Configuration
+- **Required**: aps-environment key in entitlements
+  ```xml
+  <key>aps-environment</key>
+  <string>development</string>
+  ```
+- **Note**: Must be added for push notifications to work
+
+### Testing Considerations
+- **Simulator Limitations**: Push notifications don't work in simulator
+- **Device Testing**: Required for full notification flow testing
+- **CloudKit Dashboard**: Use for testing subscription creation
+
+## Date: 2025-01-21 - Phase 3 Real-time Comment System Implementation
+
+### Context: Implemented CloudKit subscriptions for real-time comment updates with threading
+
+### CloudKit Subscription Architecture
+- **Challenge**: Implementing real-time updates for threaded comments
+- **Solution**: Extended CloudKitService with comment-specific subscriptions
+- **Key Implementation**:
+  ```swift
+  // Subscribe to comment updates for specific post
+  func subscribeToComments(for postId: String) async throws -> CKQuerySubscription {
+      let subscription = CKQuerySubscription(
+          recordType: RecordType.postComment.rawValue,
+          predicate: NSPredicate(format: "%K == %@", "postId", postId),
+          subscriptionID: "comment-subscription-\(postId)",
+          options: [.firesOnRecordCreation, .firesOnRecordUpdate, .firesOnRecordDeletion]
+      )
+  }
+  ```
+
+### Comment Threading Implementation
+- **Tree Structure**: Built using parent-child relationships with depth tracking
+- **Key Features**:
+  - Depth-based indentation (max 4 levels for UI clarity)
+  - Reply count tracking at each level
+  - Expand/collapse functionality
+  - Soft delete (preserves thread structure)
+- **Performance**: LazyVStack for efficient rendering of large threads
+
+### Real-time Update Handling
+- **Notification Processing**:
+  ```swift
+  @objc private func handleCloudKitNotification(_ notification: Notification) {
+      switch queryNotification.queryNotificationReason {
+      case .recordCreated: await handleNewComment(recordID: recordID)
+      case .recordUpdated: await handleUpdatedComment(recordID: recordID)
+      case .recordDeleted: await handleDeletedComment(recordID: recordID)
+      }
+  }
+  ```
+- **Local State Management**: Optimistic updates with rollback on error
+
+### Comment Actions Architecture
+- **Unified Action Enum**:
+  ```swift
+  enum CommentAction {
+      case like(commentId: String)
+      case reply(to: String, text: String)
+      case delete(commentId: String)
+      case report(commentId: String, reason: ReportReason)
+  }
+  ```
+- **Benefits**: Single handler method, consistent error handling, easy testing
+
+### CloudKit Schema Extensions
+- **New Record Types**:
+  - PostComment: Main comment records with threading
+  - CommentLike: Separate records for like tracking
+  - CommentReport: Moderation support
+- **Indexing**: postId field indexed for efficient queries
+
+### MVVM Pattern Success
+- **CommentThreadViewModel**: Manages all comment state and CloudKit interactions
+- **Clean Separation**: Views only handle UI, all logic in ViewModel
+- **Subscription Lifecycle**: Automatic setup/cleanup in init/deinit
+
+### SwiftUI Optimizations
+- **ScrollViewReader**: Auto-scroll to new comments/replies
+- **Matched Geometry**: Smooth expand/collapse animations
+- **Focus Management**: Auto-focus reply composers
+- **Conditional Rendering**: Efficient tree rebuilding
+
+### Error Handling Patterns
+- **Optimistic Updates**: Update UI immediately, rollback on error
+- **User Feedback**: Clear error messages for failed actions
+- **Graceful Degradation**: Continue showing cached data on network issues
+
+### Key Challenges Solved
+1. **Threading Depth**: Limited to 4 levels for UI clarity while maintaining full depth in data model
+2. **Real-time Sync**: CloudKit subscriptions with proper cleanup on view dismissal
+3. **Performance**: Lazy loading and smart tree rebuilding for large comment threads
+4. **Race Conditions**: Proper async/await handling for concurrent updates
+
+### Next Steps
+- Implement push notifications for comment replies (Phase 3 task 6.3.5)
+- Add offline comment drafts with sync on reconnect
+- Implement comment search and filtering
+- Add rich text support for comments
+
 ## Date: 2025-01-21 - Phase 2 Camera Streaming Implementation
 
 ### Context: Implemented camera capture service with grid layout for multiple feeds
@@ -301,6 +469,79 @@ task-master update-subtask         # Log implementation progress
 - Task Master integration for structured workflows
 
 **Metrics**: 81 files added/modified, 7000+ lines of code, zero compilation errors after fixing LocationService crash.
+
+## Date: 2025-01-21 - Project Build Cleanup and Phase 3 Completion
+
+### Context: Fixed build errors and successfully completed Phase 3 notification system
+
+### Build Error Resolution Process
+- **Issue**: Multiple build errors after regenerating project with xcodegen
+- **Root Causes**:
+  1. CloudKitService protocol conformance issue (addReply method signature mismatch)
+  2. Missing CommunityComment.fromCloudKitRecord method
+  3. ReportView namespace conflict in CommentRowView.swift
+  4. Swift 6 concurrency warnings in CameraService
+  5. Missing UIKit import in CameraServiceProtocol
+
+### Solution Process
+1. **Protocol Conformance**: Fixed addReply method signature to match protocol requirement
+2. **CloudKit Integration**: Added fromCloudKitRecord static method to CommunityComment extension
+3. **Namespace Conflict**: Renamed ReportView to CommentReportView in CommentRowView.swift
+4. **Concurrency Fixes**: Added nonisolated keyword to Swift 6 incompatible delegate methods
+5. **Missing Imports**: Added UIKit import to CameraServiceProtocol for UIDeviceOrientation
+
+### Key Fixes Applied
+```swift
+// Fixed protocol method signature
+func addReply(to postId: String, parentCommentId: String, text: String) async throws -> CommunityComment
+
+// Added CloudKit conversion method
+extension CommunityComment {
+    static func fromCloudKitRecord(_ record: CKRecord) throws -> CommunityComment {
+        // Implementation handles all CloudKit record conversion
+    }
+}
+
+// Fixed namespace conflict
+struct CommentReportView: View { // Was ReportView
+
+// Fixed Swift 6 concurrency
+nonisolated func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?)
+```
+
+### Systematic Debugging Approach
+- **Build Filtering**: Used xcodebuild with grep filters to isolate specific errors
+- **Incremental Fixes**: Addressed one error at a time to avoid cascading issues
+- **Protocol Verification**: Checked protocol requirements against implementations
+- **Import Management**: Ensured all required frameworks are imported
+
+### Phase 3 Implementation Status
+**✅ Completed Features**:
+- Real-time comment threading with CloudKit subscriptions
+- Push notification system for comment replies
+- Notification permission management with UI
+- Badge management and background updates
+- CloudKit integration with proper error handling
+- Complete MVVM architecture maintained
+
+### Prevention Strategies
+1. **Protocol-First Development**: Always define protocols before implementations
+2. **Incremental Building**: Build after each major change to catch errors early
+3. **Import Hygiene**: Add all necessary imports at file creation time
+4. **Concurrency Safety**: Use Swift 6 concurrency patterns from the start
+5. **Namespace Planning**: Use descriptive names to avoid conflicts
+
+### Next Phase Readiness
+- All Phase 3 deliverables implemented and building
+- Project structure cleaned and organized
+- Build system stable with minimal warnings
+- Ready for Phase 4 development or production deployment
+
+### Tools That Proved Invaluable
+- **xcodegen**: Clean project file generation from YAML
+- **TodoWrite**: Task progress tracking during complex debugging
+- **Systematic grep filtering**: Quick error identification
+- **Incremental commit strategy**: Easy rollback if needed
 
 ## Date: 2025-01-20 - Xcode Project File Cleanup Script Issue
 

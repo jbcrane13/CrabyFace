@@ -1,13 +1,26 @@
 import Foundation
 import CoreML
+import CoreLocation
 
+@MainActor
 final class PredictionService: PredictionServiceProtocol {
     private let weatherAPI: WeatherAPIProtocol
     private let marineAPI: MarineDataProtocol
+    private let coreMLService: CoreMLPredictionService
+    
+    // Model management properties
+    var isModelLoaded: Bool {
+        coreMLService.isModelLoaded
+    }
+    
+    var currentModelVersion: String {
+        coreMLService.currentModelVersion
+    }
     
     init(weatherAPI: WeatherAPIProtocol, marineAPI: MarineDataProtocol) {
         self.weatherAPI = weatherAPI
         self.marineAPI = marineAPI
+        self.coreMLService = CoreMLPredictionService(weatherAPI: weatherAPI, marineAPI: marineAPI)
     }
     
     // MARK: - Public Methods
@@ -307,5 +320,41 @@ final class PredictionService: PredictionServiceProtocol {
         let factorText = factors.isEmpty ? "" : ". Key factors: \(factors.joined(separator: ", "))"
         
         return "\(directionText) \(rateText)\(factorText)"
+    }
+    
+    // MARK: - Phase 4 ML-based Methods
+    
+    func predictJubileeEvent(location: CLLocation, date: Date) async throws -> JubileePrediction {
+        return try await coreMLService.predictJubileeEvent(location: location, date: date)
+    }
+    
+    func predictJubileeEvent(coordinate: CLLocationCoordinate2D, date: Date) async throws -> JubileePrediction {
+        return try await coreMLService.predictJubileeEvent(coordinate: coordinate, date: date)
+    }
+    
+    func updateModelWithNewData() async throws {
+        try await coreMLService.updateModelWithNewData()
+    }
+    
+    func getModelPerformanceMetrics() async throws -> ModelPerformanceMetrics {
+        return try await coreMLService.getModelPerformanceMetrics()
+    }
+    
+    func loadModel() async throws {
+        try await coreMLService.loadModel()
+    }
+    
+    func unloadModel() {
+        coreMLService.unloadModel()
+    }
+    
+    
+    
+    func getPredictionHistory(for location: CLLocation, dateRange: DateInterval) async throws -> PredictionHistory {
+        return try await coreMLService.getPredictionHistory(for: location, dateRange: dateRange)
+    }
+    
+    func getConfidenceInterval(for prediction: JubileePrediction) -> ConfidenceInterval {
+        return coreMLService.getConfidenceInterval(for: prediction)
     }
 }

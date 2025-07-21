@@ -1,0 +1,109 @@
+{
+	"meta": {
+		"generatedAt": "2025-07-21T06:47:38.967Z",
+		"tasksAnalyzed": 12,
+		"totalTasks": 12,
+		"analysisCount": 12,
+		"thresholdScore": 5,
+		"projectName": "Taskmaster",
+		"usedResearch": true
+	},
+	"complexityAnalysis": [
+		{
+			"taskId": 1,
+			"taskTitle": "Core ML Integration for Jubilee Prediction",
+			"complexityScore": 8,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Break down the Core ML integration task into detailed subtasks covering model creation, service implementation, data structure design, environmental data integration, model versioning, update mechanisms, and background processing.",
+			"reasoning": "This task involves complex machine learning integration requiring specialized knowledge of Core ML, model training, prediction services, and background processing. The implementation details show multiple interconnected components including model creation, service protocols, data structures, and background tasks. The high complexity comes from combining ML with environmental data sources and implementing versioning/update mechanisms."
+		},
+		{
+			"taskId": 2,
+			"taskTitle": "Advanced Analytics Dashboard with Charts Framework",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Divide the analytics dashboard implementation into subtasks covering framework integration, architecture design, chart implementations, data service creation, layout design, and interactive features.",
+			"reasoning": "This task requires implementing a sophisticated visualization system with multiple chart types and a modular architecture. It involves SwiftUI integration with Charts framework, creating data aggregation services, and implementing interactive features. The complexity comes from designing a flexible dashboard architecture while ensuring good performance with potentially large datasets."
+		},
+		{
+			"taskId": 3,
+			"taskTitle": "Offline Data Synchronization with Core Data",
+			"complexityScore": 9,
+			"recommendedSubtasks": 8,
+			"expansionPrompt": "Break down the offline synchronization implementation into subtasks covering Core Data model enhancement, sync service implementation, background task scheduling, sync prioritization, conflict resolution, UI indicators, data compression, and retry mechanisms.",
+			"reasoning": "Offline synchronization with conflict resolution is one of the most complex mobile app features. This task involves Core Data model changes, CloudKit synchronization, conflict detection and resolution strategies, background processing, and handling various network conditions. The high complexity stems from ensuring data integrity across devices while managing network failures and conflicts."
+		},
+		{
+			"taskId": 4,
+			"taskTitle": "Advanced Prediction Algorithms with Multi-factor Analysis",
+			"complexityScore": 9,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Divide the advanced prediction algorithm implementation into subtasks covering model extension, feature extraction, confidence scoring, real-time updates, feedback loop implementation, location-specific adjustments, and seasonal calibration.",
+			"reasoning": "This task involves sophisticated machine learning algorithms with multiple environmental factors and statistical methods. It requires deep understanding of feature extraction, normalization, confidence scoring, and model improvement through feedback loops. The complexity is high due to the statistical nature of the work and the need to continuously improve prediction accuracy."
+		},
+		{
+			"taskId": 5,
+			"taskTitle": "Data Export and Scientific Sharing Functionality",
+			"complexityScore": 6,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Break down the data export functionality into subtasks covering export service implementation, standardized format creation, citation generator, export UI, and sharing mechanisms.",
+			"reasoning": "This task involves creating standardized data export capabilities with scientific citation tools. While technically straightforward compared to ML tasks, it requires careful attention to scientific data standards, metadata formatting, and citation accuracy. The complexity comes from ensuring exported data meets scientific research requirements while providing flexible sharing options."
+		},
+		{
+			"taskId": 6,
+			"taskTitle": "User Profiles with Research Credentials",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Divide the research profile implementation into subtasks covering CloudKit schema extension, verification system creation, reputation scoring, profile editor UI, institutional integration, and privacy controls.",
+			"reasoning": "This task requires implementing a sophisticated user profile system with credential verification and institutional affiliations. It involves CloudKit schema design, verification services, reputation algorithms, and privacy considerations. The complexity comes from building a trustworthy academic verification system while maintaining appropriate privacy controls."
+		},
+		{
+			"taskId": 7,
+			"taskTitle": "Geographic Heat Maps and Location Analytics",
+			"complexityScore": 8,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Break down the geographic heat map implementation into subtasks covering MapKit overlay creation, data aggregation services, dynamic coloring, time-based animation, location clustering, custom callouts, and predictive overlay integration.",
+			"reasoning": "This task involves advanced MapKit customization with sophisticated rendering techniques. It requires custom overlay renderers, complex data aggregation, and integration with prediction models. The complexity stems from the need for efficient rendering of heat maps with potentially large datasets while maintaining good performance and visual clarity."
+		},
+		{
+			"taskId": 8,
+			"taskTitle": "Personalized Dashboards and User Preferences",
+			"complexityScore": 7,
+			"recommendedSubtasks": 6,
+			"expansionPrompt": "Divide the personalized dashboard implementation into subtasks covering configuration system design, drag-and-drop UI, preference persistence, recommendation engine, adaptive UI, and dashboard sharing.",
+			"reasoning": "This task requires creating a flexible dashboard customization system with user preference tracking and intelligent recommendations. It involves complex UI interactions, CloudKit synchronization, and recommendation algorithms. The complexity comes from building an intuitive customization experience while implementing behavior-based recommendations."
+		},
+		{
+			"taskId": 9,
+			"taskTitle": "Advanced Search and Filtering System",
+			"complexityScore": 8,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Break down the search and filtering system into subtasks covering search architecture design, filter implementation, search index optimization, saved searches, smart suggestions, search UI, and result highlighting.",
+			"reasoning": "This task involves implementing a sophisticated search system with multi-criteria filtering and smart suggestions. It requires careful architecture design, optimized indexing, and complex query handling. The high complexity stems from creating a flexible yet performant search system that can handle various filter combinations while providing relevant suggestions."
+		},
+		{
+			"taskId": 10,
+			"taskTitle": "Environmental Correlation Analysis",
+			"complexityScore": 8,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Divide the correlation analysis implementation into subtasks covering analysis service creation, statistical engine development, threshold detection, visualization tools, species-specific views, location-based profiling, and predictive insights.",
+			"reasoning": "This task requires implementing statistical correlation analysis between environmental factors and jubilee events. It involves complex statistical calculations, threshold detection algorithms, and visualization of correlation data. The high complexity comes from the statistical nature of the work and the need to identify meaningful patterns in environmental data."
+		},
+		{
+			"taskId": 11,
+			"taskTitle": "Performance Optimization and Battery Usage",
+			"complexityScore": 8,
+			"recommendedSubtasks": 7,
+			"expansionPrompt": "Break down the performance optimization task into subtasks covering location tracking optimization, data usage controls, caching strategies, image processing optimization, background task prioritization, battery monitoring, and ML execution optimization.",
+			"reasoning": "This task involves sophisticated performance optimization across multiple subsystems. It requires deep understanding of iOS battery usage patterns, caching strategies, background processing, and ML optimization techniques. The complexity comes from balancing performance needs with battery conservation while maintaining app functionality in various conditions."
+		},
+		{
+			"taskId": 12,
+			"taskTitle": "Integration Testing and Quality Assurance",
+			"complexityScore": 7,
+			"recommendedSubtasks": 8,
+			"expansionPrompt": "Divide the integration testing task into subtasks covering test suite creation, performance testing framework, UI testing, coverage reporting, regression testing, snapshot testing, load testing, and accessibility testing.",
+			"reasoning": "This task requires implementing comprehensive testing across all new features while maintaining high test coverage. It involves various testing methodologies including integration tests, performance tests, UI tests, and accessibility tests. The complexity comes from ensuring all components work together seamlessly while meeting performance and accessibility requirements."
+		}
+	]
+}

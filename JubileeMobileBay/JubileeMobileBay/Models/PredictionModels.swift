@@ -66,3 +66,16 @@ struct PredictionConfiguration {
     static let humidityWeight = 0.1
     static let trendWeight = 0.1
 }
+
+// MARK: - Confidence Interval
+struct ConfidenceInterval {
+    let lower: Double
+    let upper: Double
+    let confidence: Double
+    
+    init(lower: Double, upper: Double, confidence: Double = 0.95) {
+        self.lower = lower
+        self.upper = upper
+        self.confidence = confidence
+    }
+}

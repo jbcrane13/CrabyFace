@@ -31,4 +31,13 @@ protocol CloudKitServiceProtocol {
     func unlikePost(postId: String) async throws
     func fetchComments(for postId: String) async throws -> [CommunityComment]
     func addComment(to postId: String, text: String) async throws -> CommunityComment
+    func addReply(to postId: String, parentCommentId: String, text: String) async throws -> CommunityComment
+    func likeComment(commentId: String) async throws
+    func unlikeComment(commentId: String) async throws
+    func deleteComment(commentId: String) async throws
+    func reportComment(commentId: String, reason: ReportReason) async throws
+    
+    // Comment Subscriptions
+    func subscribeToComments(for postId: String) async throws -> CKQuerySubscription
+    func unsubscribeFromComments(for postId: String) async throws
 }

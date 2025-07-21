@@ -1,0 +1,79 @@
+name: JubileeMobileBay
+options:
+  bundleIdPrefix: com.jubileemobilebay
+  deploymentTarget:
+    iOS: 18.0
+  developmentLanguage: en
+  xcodeVersion: 16.0
+  createIntermediateGroups: true
+  
+settings:
+  base:
+    PRODUCT_NAME: JubileeMobileBay
+    MARKETING_VERSION: 1.0
+    CURRENT_PROJECT_VERSION: 1
+    DEVELOPMENT_TEAM: 32XZRDTGK3
+    CODE_SIGN_STYLE: Automatic
+    SWIFT_VERSION: 5.0
+    TARGETED_DEVICE_FAMILY: 1,2
+    IPHONEOS_DEPLOYMENT_TARGET: 18.0
+    INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+    INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+    INFOPLIST_KEY_UILaunchScreen_Generation: YES
+    INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+    INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+    INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: "JubileeMobileBay needs your location to show nearby jubilee events and allow accurate reporting."
+    INFOPLIST_KEY_NSCameraUsageDescription: "JubileeMobileBay needs camera access to capture photos of marine life for reports."
+    INFOPLIST_KEY_NSPhotoLibraryUsageDescription: "JubileeMobileBay needs photo library access to select photos for your reports."
+    LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/Frameworks"
+    ENABLE_PREVIEWS: YES
+    ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+
+targets:
+  JubileeMobileBay:
+    type: application
+    platform: iOS
+    sources:
+      - path: JubileeMobileBay
+        excludes:
+          - "**/.DS_Store"
+          - "Protocols/**"  # Exclude the deleted duplicate directory
+      - path: JubileeMobileBay/Assets.xcassets
+        type: folder
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.jubileemobilebay.app
+        CODE_SIGN_ENTITLEMENTS: JubileeMobileBay/JubileeMobileBay.entitlements
+    dependencies: []
+    preBuildScripts: []
+    postBuildScripts: []
+
+  JubileeMobileBayTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: JubileeMobileBayTests
+        excludes:
+          - "**/.DS_Store"
+    dependencies:
+      - target: JubileeMobileBay
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.jubileemobilebay.appTests
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/JubileeMobileBay.app/JubileeMobileBay"
+
+  JubileeMobileBayUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: JubileeMobileBayUITests
+        excludes:
+          - "**/.DS_Store"
+    dependencies:
+      - target: JubileeMobileBay
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.jubileemobilebay.appUITests
+        TEST_TARGET_NAME: JubileeMobileBay

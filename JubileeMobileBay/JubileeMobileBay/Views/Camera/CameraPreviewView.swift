@@ -107,20 +107,27 @@ class CameraPreviewUIView: UIView {
     }
     
     private func updateOrientation(_ orientation: UIDeviceOrientation) {
-        guard let connection = sampleBufferDisplayLayer.connection else { return }
+        // AVSampleBufferDisplayLayer doesn't have connection property
+        // Instead, we need to handle orientation by transforming the layer
+        var transform = CGAffineTransform.identity
         
         switch orientation {
         case .portrait:
-            connection.videoOrientation = .portrait
+            transform = CGAffineTransform.identity
         case .portraitUpsideDown:
-            connection.videoOrientation = .portraitUpsideDown
+            transform = CGAffineTransform(rotationAngle: .pi)
         case .landscapeLeft:
-            connection.videoOrientation = .landscapeRight
+            transform = CGAffineTransform(rotationAngle: .pi / 2)
         case .landscapeRight:
-            connection.videoOrientation = .landscapeLeft
+            transform = CGAffineTransform(rotationAngle: -.pi / 2)
         default:
             break
         }
+        
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        sampleBufferDisplayLayer.setAffineTransform(transform)
+        CATransaction.commit()
     }
 }
 

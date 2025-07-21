@@ -159,12 +159,16 @@ struct ReportView: View {
     
     private func intensityIcon(for intensity: JubileeIntensity) -> String {
         switch intensity {
+        case .minimal:
+            return "circle.dotted"
         case .light:
             return "circle"
         case .moderate:
             return "circle.lefthalf.filled"
         case .heavy:
             return "circle.fill"
+        case .extreme:
+            return "exclamationmark.circle.fill"
         }
     }
     

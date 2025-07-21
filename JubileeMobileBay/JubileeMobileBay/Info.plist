@@ -35,6 +35,18 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>processing</string>
+	</array>
+	<key>CFBundleDisplayName</key>
+	<string></string>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.jubileemobilebay.model-update</string>
+	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

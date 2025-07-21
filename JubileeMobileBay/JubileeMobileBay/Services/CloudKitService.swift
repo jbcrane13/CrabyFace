@@ -699,20 +699,267 @@ extension CloudKitService {
     }
     
     func fetchComments(for postId: String) async throws -> [CommunityComment] {
-        // Placeholder implementation
-        return []
+        let predicate = NSPredicate(format: "%K == %@", "postId", postId)
+        let query = CKQuery(recordType: RecordType.postComment.rawValue, predicate: predicate)
+        query.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: true)]
+        
+        let records = try await publicDatabase.perform(query)
+        var comments = records.compactMap { communityCommentFromRecord($0) }
+        
+        // Build comment tree structure
+        var commentMap: [String: CommunityComment] = [:]
+        var rootComments: [CommunityComment] = []
+        
+        // First pass: create map of all comments
+        for comment in comments {
+            commentMap[comment.id] = comment
+        }
+        
+        // Second pass: build tree structure
+        for comment in comments {
+            if let parentId = comment.parentCommentId,
+               var parentComment = commentMap[parentId] {
+                parentComment.addReply(comment)
+                commentMap[parentId] = parentComment
+            } else {
+                rootComments.append(comment)
+            }
+        }
+        
+        return rootComments
     }
     
     func addComment(to postId: String, text: String) async throws -> CommunityComment {
-        // Placeholder implementation
-        let comment = CommunityComment(
-            id: UUID().uuidString,
-            postId: postId,
-            userId: getCurrentUserId(),
-            userName: "User",
-            text: text,
-            createdAt: Date()
+        let record = CKRecord(recordType: RecordType.postComment.rawValue)
+        
+        let userId = getCurrentUserId()
+        let userName = UserSessionManager.shared.currentUser?.displayName ?? "JubileeSpotter\(Int.random(in: 100...999))"
+        
+        // Set the record fields
+        record["postId"] = postId as CKRecordValue
+        record["userId"] = userId as CKRecordValue
+        record["userName"] = userName as CKRecordValue
+        record["text"] = text as CKRecordValue
+        record["parentCommentId"] = "" as CKRecordValue // Empty for top-level comments
+        record["depth"] = 0 as CKRecordValue
+        record["likeCount"] = 0 as CKRecordValue
+        record["replyCount"] = 0 as CKRecordValue
+        record["createdAt"] = Date() as CKRecordValue
+        record["isDeleted"] = false as CKRecordValue
+        
+        let savedRecord = try await privateDatabase.save(record)
+        return try CommunityComment.fromCloudKitRecord(savedRecord)
+    }
+    
+    func addReply(to postId: String, parentCommentId: String, text: String) async throws -> CommunityComment {
+        let record = CKRecord(recordType: RecordType.postComment.rawValue)
+        
+        let userId = getCurrentUserId()
+        let userName = UserSessionManager.shared.currentUser?.displayName ?? "JubileeSpotter\(Int.random(in: 100...999))"
+        
+        // Calculate depth based on parent
+        // Fetch parent to get its depth
+        let parentRecord = try await publicDatabase.fetch(withRecordID: CKRecord.ID(recordName: parentCommentId))
+        let depth = (parentRecord["depth"] as? Int ?? 0) + 1
+        
+        record["postId"] = postId
+        record["parentCommentId"] = parentCommentId
+        record["userId"] = userId
+        record["userName"] = userName
+        record["text"] = text
+        record["createdAt"] = Date()
+        record["likeCount"] = 0
+        record["replyCount"] = 0
+        record["depth"] = depth
+        record["isDeleted"] = false
+        record["isEdited"] = false
+        
+        let savedRecord = try await publicDatabase.save(record)
+        
+        // Update parent's reply count
+        try await incrementCommentReplyCount(commentId: parentCommentId, by: 1)
+        
+        // Update post's comment count
+        try await incrementPostCommentCount(postId: postId, by: 1)
+        
+        guard let comment = communityCommentFromRecord(savedRecord) else {
+            throw CloudKitError.invalidData
+        }
+        
+        return comment
+    }
+    
+    func likeComment(commentId: String) async throws {
+        // Check if already liked
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
+            NSPredicate(format: "%K == %@", "commentId", commentId),
+            NSPredicate(format: "%K == %@", "userId", getCurrentUserId())
+        ])
+        
+        let query = CKQuery(recordType: "CommentLike", predicate: predicate)
+        let existingLikes = try await publicDatabase.perform(query, resultsLimit: 1)
+        
+        guard existingLikes.isEmpty else {
+            return // Already liked
+        }
+        
+        // Create like record
+        let likeRecord = CKRecord(recordType: "CommentLike")
+        likeRecord["commentId"] = commentId
+        likeRecord["userId"] = getCurrentUserId()
+        likeRecord["createdAt"] = Date()
+        
+        _ = try await publicDatabase.save(likeRecord)
+        
+        // Update comment like count
+        try await incrementCommentLikeCount(commentId: commentId, by: 1)
+    }
+    
+    func unlikeComment(commentId: String) async throws {
+        // Find existing like
+        let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
+            NSPredicate(format: "%K == %@", "commentId", commentId),
+            NSPredicate(format: "%K == %@", "userId", getCurrentUserId())
+        ])
+        
+        let query = CKQuery(recordType: "CommentLike", predicate: predicate)
+        let likes = try await publicDatabase.perform(query, resultsLimit: 1)
+        
+        guard let likeRecord = likes.first else {
+            return // Not liked
+        }
+        
+        // Delete like record
+        _ = try await publicDatabase.delete(withRecordID: likeRecord.recordID)
+        
+        // Update comment like count
+        try await incrementCommentLikeCount(commentId: commentId, by: -1)
+    }
+    
+    func deleteComment(commentId: String) async throws {
+        let recordId = CKRecord.ID(recordName: commentId)
+        let record = try await publicDatabase.fetch(withRecordID: recordId)
+        
+        // Soft delete - mark as deleted but keep in database
+        record["isDeleted"] = true
+        record["text"] = "[Comment deleted]"
+        record["updatedAt"] = Date()
+        
+        _ = try await publicDatabase.save(record)
+    }
+    
+    func reportComment(commentId: String, reason: ReportReason) async throws {
+        let reportRecord = CKRecord(recordType: "CommentReport")
+        
+        reportRecord["commentId"] = commentId
+        reportRecord["reporterId"] = getCurrentUserId()
+        reportRecord["reason"] = reason.rawValue
+        reportRecord["createdAt"] = Date()
+        
+        _ = try await publicDatabase.save(reportRecord)
+    }
+    
+    // MARK: - Comment Subscriptions
+    
+    func subscribeToComments(for postId: String) async throws -> CKQuerySubscription {
+        let predicate = NSPredicate(format: "%K == %@", "postId", postId)
+        
+        let subscription = CKQuerySubscription(
+            recordType: RecordType.postComment.rawValue,
+            predicate: predicate,
+            subscriptionID: "comment-subscription-\(postId)",
+            options: [.firesOnRecordCreation, .firesOnRecordUpdate, .firesOnRecordDeletion]
         )
+        
+        let notificationInfo = CKSubscription.NotificationInfo()
+        notificationInfo.shouldSendContentAvailable = true
+        notificationInfo.shouldBadge = true
+        notificationInfo.alertBody = "New reply to your comment"
+        notificationInfo.soundName = "default"
+        notificationInfo.desiredKeys = ["postId", "userId", "userName", "text", "parentCommentId", "postTitle"]
+        
+        subscription.notificationInfo = notificationInfo
+        
+        guard let savedSubscription = try await publicDatabase.save(subscription) as? CKQuerySubscription else {
+            throw CloudKitError.invalidData
+        }
+        
+        return savedSubscription
+    }
+    
+    func unsubscribeFromComments(for postId: String) async throws {
+        let subscriptionID = "comment-subscription-\(postId)"
+        
+        do {
+            _ = try await publicDatabase.deleteSubscription(withID: subscriptionID)
+        } catch {
+            // Ignore error if subscription doesn't exist
+            print("Failed to unsubscribe from comments: \(error)")
+        }
+    }
+    
+    // MARK: - Helper Methods
+    
+    private func incrementPostCommentCount(postId: String, by amount: Int) async throws {
+        let recordId = CKRecord.ID(recordName: postId)
+        let record = try await publicDatabase.fetch(withRecordID: recordId)
+        let currentCount = record[CommunityPostField.commentCount.rawValue] as? Int ?? 0
+        record[CommunityPostField.commentCount.rawValue] = max(0, currentCount + amount)
+        _ = try await publicDatabase.save(record)
+    }
+    
+    private func incrementCommentLikeCount(commentId: String, by amount: Int) async throws {
+        let recordId = CKRecord.ID(recordName: commentId)
+        let record = try await publicDatabase.fetch(withRecordID: recordId)
+        let currentCount = record["likeCount"] as? Int ?? 0
+        record["likeCount"] = max(0, currentCount + amount)
+        _ = try await publicDatabase.save(record)
+    }
+    
+    private func incrementCommentReplyCount(commentId: String, by amount: Int) async throws {
+        let recordId = CKRecord.ID(recordName: commentId)
+        let record = try await publicDatabase.fetch(withRecordID: recordId)
+        let currentCount = record["replyCount"] as? Int ?? 0
+        record["replyCount"] = max(0, currentCount + amount)
+        _ = try await publicDatabase.save(record)
+    }
+    
+    private func communityCommentFromRecord(_ record: CKRecord) -> CommunityComment? {
+        guard let postId = record["postId"] as? String,
+              let userId = record["userId"] as? String,
+              let userName = record["userName"] as? String,
+              let text = record["text"] as? String,
+              let createdAt = record["createdAt"] as? Date else {
+            return nil
+        }
+        
+        let parentCommentId = record["parentCommentId"] as? String
+        let updatedAt = record["updatedAt"] as? Date
+        let likeCount = record["likeCount"] as? Int ?? 0
+        let replyCount = record["replyCount"] as? Int ?? 0
+        let depth = record["depth"] as? Int ?? 0
+        let isDeleted = record["isDeleted"] as? Bool ?? false
+        let isEdited = record["isEdited"] as? Bool ?? false
+        
+        var comment = CommunityComment(
+            id: record.recordID.recordName,
+            postId: postId,
+            parentCommentId: parentCommentId,
+            userId: userId,
+            userName: userName,
+            text: text,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            likeCount: likeCount,
+            replyCount: replyCount,
+            depth: depth,
+            isDeleted: isDeleted,
+            isEdited: isEdited
+        )
+        
+        // Note: We don't set replies here as they will be built by the tree structure
+        // isLikedByCurrentUser would need to be fetched separately
+        
         return comment
     }
 }
@@ -820,6 +1067,20 @@ extension CKDatabase {
                     continuation.resume(throwing: error)
                 } else if let recordID = recordID {
                     continuation.resume(returning: recordID)
+                } else {
+                    continuation.resume(throwing: CloudKitError.unknown)
+                }
+            }
+        }
+    }
+    
+    func deleteSubscription(withID subscriptionID: CKSubscription.ID) async throws -> CKSubscription.ID {
+        try await withCheckedThrowingContinuation { continuation in
+            delete(withSubscriptionID: subscriptionID) { subscriptionID, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else if let subscriptionID = subscriptionID {
+                    continuation.resume(returning: subscriptionID)
                 } else {
                     continuation.resume(throwing: CloudKitError.unknown)
                 }

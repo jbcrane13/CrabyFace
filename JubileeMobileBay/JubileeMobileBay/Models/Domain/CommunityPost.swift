@@ -18,9 +18,12 @@ struct CommunityPost: Identifiable, Equatable, Hashable {
     let photoURLs: [String]
     let marineLifeTypes: Set<MarineLifeType>
     let createdAt: Date
+    let updatedAt: Date?
     var likeCount: Int
     var commentCount: Int
     var isLikedByCurrentUser: Bool
+    var isPinned: Bool
+    var isLocked: Bool // Prevents new comments
     
     init(
         id: String,
@@ -32,9 +35,12 @@ struct CommunityPost: Identifiable, Equatable, Hashable {
         photoURLs: [String] = [],
         marineLifeTypes: Set<MarineLifeType> = [],
         createdAt: Date = Date(),
+        updatedAt: Date? = nil,
         likeCount: Int = 0,
         commentCount: Int = 0,
-        isLikedByCurrentUser: Bool = false
+        isLikedByCurrentUser: Bool = false,
+        isPinned: Bool = false,
+        isLocked: Bool = false
     ) {
         self.id = id
         self.userId = userId
@@ -45,9 +51,12 @@ struct CommunityPost: Identifiable, Equatable, Hashable {
         self.photoURLs = photoURLs
         self.marineLifeTypes = marineLifeTypes
         self.createdAt = createdAt
+        self.updatedAt = updatedAt
         self.likeCount = likeCount
         self.commentCount = commentCount
         self.isLikedByCurrentUser = isLikedByCurrentUser
+        self.isPinned = isPinned
+        self.isLocked = isLocked
     }
     
     // MARK: - Computed Properties
@@ -56,11 +65,21 @@ struct CommunityPost: Identifiable, Equatable, Hashable {
         !photoURLs.isEmpty
     }
     
+    var hasComments: Bool {
+        commentCount > 0
+    }
+    
     var formattedDate: String {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .short
         return formatter.string(from: createdAt)
+    }
+    
+    var timeAgo: String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .abbreviated
+        return formatter.localizedString(for: createdAt, relativeTo: Date())
     }
     
     var marineLifeText: String {
@@ -72,6 +91,26 @@ struct CommunityPost: Identifiable, Equatable, Hashable {
         return sortedTypes
             .map { $0.displayName }
             .joined(separator: ", ")
+    }
+    
+    // MARK: - Mutation Methods
+    
+    mutating func incrementCommentCount() {
+        commentCount += 1
+    }
+    
+    mutating func decrementCommentCount() {
+        commentCount = max(0, commentCount - 1)
+    }
+    
+    mutating func toggleLike() {
+        if isLikedByCurrentUser {
+            likeCount = max(0, likeCount - 1)
+            isLikedByCurrentUser = false
+        } else {
+            likeCount += 1
+            isLikedByCurrentUser = true
+        }
     }
     
     // MARK: - Equatable
@@ -99,50 +138,3 @@ extension CLLocationCoordinate2D: Equatable {
 }
 */
 
-// MARK: - CommunityComment
-
-struct CommunityComment: Identifiable, Equatable, Hashable {
-    let id: String
-    let postId: String
-    let userId: String
-    let userName: String
-    let text: String
-    let createdAt: Date
-    
-    init(
-        id: String,
-        postId: String,
-        userId: String,
-        userName: String,
-        text: String,
-        createdAt: Date = Date()
-    ) {
-        self.id = id
-        self.postId = postId
-        self.userId = userId
-        self.userName = userName
-        self.text = text
-        self.createdAt = createdAt
-    }
-    
-    // MARK: - Computed Properties
-    
-    var formattedDate: String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        return formatter.string(from: createdAt)
-    }
-    
-    // MARK: - Equatable
-    
-    static func == (lhs: CommunityComment, rhs: CommunityComment) -> Bool {
-        lhs.id == rhs.id
-    }
-    
-    // MARK: - Hashable
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-}

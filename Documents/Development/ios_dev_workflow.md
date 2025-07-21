@@ -11,6 +11,7 @@ Execute a complete development cycle from build verification to feature implemen
 - Launch the app on iOS Simulator
 - Verify successful build and runtime execution
 - Document any build warnings or issues encountered
+- screenshot the app dashboard and community tabs
 
 **Version Control**
 - If build succeeds: commit all changes to GitHub with descriptive commit message

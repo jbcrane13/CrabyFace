@@ -3,23 +3,49 @@ import Foundation
 // MARK: - Jubilee Intensity
 
 enum JubileeIntensity: String, CaseIterable, Codable {
+    case minimal = "minimal"
     case light = "light"
     case moderate = "moderate"
     case heavy = "heavy"
+    case extreme = "extreme"
     
     var displayName: String {
         switch self {
-        case .light: return "Light"
-        case .moderate: return "Moderate"
-        case .heavy: return "Heavy"
+        case .minimal: return "Minimal Activity"
+        case .light: return "Light Activity"
+        case .moderate: return "Moderate Activity"
+        case .heavy: return "Heavy Activity"
+        case .extreme: return "Extreme Activity"
         }
     }
     
     var colorHex: String {
         switch self {
+        case .minimal: return "#808080"    // Gray
         case .light: return "#90EE90"      // Light green
         case .moderate: return "#FFD700"   // Gold
         case .heavy: return "#FF6B6B"      // Light red
+        case .extreme: return "#FF0000"    // Red
+        }
+    }
+    
+    var colorName: String {
+        switch self {
+        case .minimal: return "gray"
+        case .light: return "blue"
+        case .moderate: return "green"
+        case .heavy: return "orange"
+        case .extreme: return "red"
+        }
+    }
+    
+    var score: Double {
+        switch self {
+        case .minimal: return 0.1
+        case .light: return 0.3
+        case .moderate: return 0.5
+        case .heavy: return 0.7
+        case .extreme: return 0.9
         }
     }
 }
