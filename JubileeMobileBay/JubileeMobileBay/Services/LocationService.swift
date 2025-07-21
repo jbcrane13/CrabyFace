@@ -10,7 +10,7 @@ import CoreLocation
 import Combine
 
 @MainActor
-class LocationService: NSObject, ObservableObject, LocationServiceProtocol {
+class LocationService: NSObject, ObservableObject {
     @Published private(set) var authorizationStatus: CLAuthorizationStatus = .notDetermined
     @Published private(set) var currentLocation: CLLocation?
     
@@ -173,3 +173,6 @@ extension LocationService: CLLocationManagerDelegate {
         }
     }
 }
+
+// MARK: - LocationServiceProtocol Conformance
+extension LocationService: @preconcurrency LocationServiceProtocol {}

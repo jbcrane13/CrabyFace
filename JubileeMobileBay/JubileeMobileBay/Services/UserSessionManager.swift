@@ -17,7 +17,7 @@ protocol UserSessionManagerProtocol {
 }
 
 @MainActor
-final class UserSessionManager: ObservableObject, UserSessionManagerProtocol {
+final class UserSessionManager: ObservableObject, @preconcurrency UserSessionManagerProtocol {
     
     // MARK: - Singleton
     
