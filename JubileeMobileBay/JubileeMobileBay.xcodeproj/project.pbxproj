@@ -42,6 +42,7 @@
 		25AAE7E42E2DB8A700C98E2C /* WeatherDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AAE7E32E2DB8A700C98E2C /* WeatherDataTests.swift */; };
 		25AAE7E52E2DB8A700C98E2C /* MarineDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AAE7E22E2DB8A700C98E2C /* MarineDataTests.swift */; };
 		25AAE7E72E2DC6B000C98E2C /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AAE7E62E2DC6B000C98E2C /* DashboardViewModel.swift */; };
+		25AAE7E92E2DCB8300C98E2C /* PredictionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AAE7E82E2DCB8300C98E2C /* PredictionServiceProtocol.swift */; };
 		2E2E90CD329479FC51E17584 /* JubileeEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4468F0718504EFA782915D21 /* JubileeEnums.swift */; };
 		3969F25337B9FB7FB89E3740 /* JubileeMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE97EE742DD10A97129EC61 /* JubileeMapView.swift */; };
 		3E62F7ABAB1A2904C8611107 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A95D008249593E9AFBACE0 /* LocationService.swift */; };
@@ -124,6 +125,7 @@
 		25AAE7E22E2DB8A700C98E2C /* MarineDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarineDataTests.swift; sourceTree = "<group>"; };
 		25AAE7E32E2DB8A700C98E2C /* WeatherDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataTests.swift; sourceTree = "<group>"; };
 		25AAE7E62E2DC6B000C98E2C /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		25AAE7E82E2DCB8300C98E2C /* PredictionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionServiceProtocol.swift; sourceTree = "<group>"; };
 		28A38CAEB2F9FECCEBFB7190 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		2D7E06F53AFBD7E47A5DEB37 /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		2E05F228B454D107A3AEBF2A /* JubileeEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JubileeEvent.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 		00648A7A2B7CA630EA70DAF1 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				25AAE7E82E2DCB8300C98E2C /* PredictionServiceProtocol.swift */,
 				25AAE7D62E2DB83900C98E2C /* MarineDataProtocol.swift */,
 				25AAE7D72E2DB83900C98E2C /* URLSessionProtocol.swift */,
 				25AAE7D82E2DB83900C98E2C /* WeatherAPIProtocol.swift */,
@@ -605,6 +608,7 @@
 				25AAE7C02E2D871800C98E2C /* PhotoUploadService.swift in Sources */,
 				25AAE7C12E2D871800C98E2C /* CloudKitErrorRecovery.swift in Sources */,
 				25AAE7C22E2D871800C98E2C /* UserSessionManager.swift in Sources */,
+				25AAE7E92E2DCB8300C98E2C /* PredictionServiceProtocol.swift in Sources */,
 				25AAE7C32E2D871800C98E2C /* CloudKitValidator.swift in Sources */,
 				2E2E90CD329479FC51E17584 /* JubileeEnums.swift in Sources */,
 				1E4DD6A8A85E6B4DF874545B /* JubileeEvent.swift in Sources */,
