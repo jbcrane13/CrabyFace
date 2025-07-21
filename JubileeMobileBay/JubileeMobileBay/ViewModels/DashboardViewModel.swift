@@ -195,7 +195,7 @@ final class DashboardViewModel: ObservableObject {
     }
 }
 
-// MARK: - Protocol Conformances
+// MARK: - CloudKit Protocol
 
 protocol CloudKitServiceProtocol {
     func fetchRecentJubileeEvents(limit: Int) async throws -> [JubileeEvent]

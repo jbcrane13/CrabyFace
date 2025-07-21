@@ -5,7 +5,7 @@ The following files need to be added to the Xcode project:
 ## ViewModels
 - `JubileeMobileBay/ViewModels/DashboardViewModel.swift`
 
-## Services  
+## Services/Protocols
 - `JubileeMobileBay/Services/Protocols/PredictionServiceProtocol.swift`
 
 Please open Xcode and manually add these files to the project by:
