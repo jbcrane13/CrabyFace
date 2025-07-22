@@ -161,7 +161,13 @@ struct InteractiveChartOverlay: View {
             
             // Selection indicator
             if isInteracting, let date = selectedDate, let value = selectedValue {
-                if let position = chartProxy.position(forX: date, y: value) {
+                if let xPosition = chartProxy.position(forX: date) {
+                    // Calculate y position based on the chart height and value
+                    let yRange = geometry.size.height
+                    let normalizedValue = (value - (dataPoints.map { $0.value }.min() ?? 0)) / 
+                                        ((dataPoints.map { $0.value }.max() ?? 1) - (dataPoints.map { $0.value }.min() ?? 0))
+                    let yPosition = yRange * (1 - normalizedValue)
+                    
                     ZStack {
                         Circle()
                             .fill(ChartTheme.primaryColor.opacity(0.2))
@@ -171,7 +177,7 @@ struct InteractiveChartOverlay: View {
                             .fill(ChartTheme.primaryColor)
                             .frame(width: 8, height: 8)
                     }
-                    .position(position)
+                    .position(x: xPosition, y: yPosition)
                     .allowsHitTesting(false)
                 }
             }
@@ -179,10 +185,10 @@ struct InteractiveChartOverlay: View {
     }
     
     private func updateSelection(at location: CGPoint, in geometry: GeometryProxy) {
-        guard let (date, _) = chartProxy.value(at: location) else { return }
+        guard let date = chartProxy.value(atX: location.x, as: Date.self) else { return }
         
         // Find nearest data point
-        let nearest = dataPoints.min(by: { abs($0.date.timeIntervalSince(date as! Date)) < abs($1.date.timeIntervalSince(date as! Date)) })
+        let nearest = dataPoints.min(by: { abs($0.date.timeIntervalSince(date)) < abs($1.date.timeIntervalSince(date)) })
         
         selectedDate = nearest?.date
         selectedValue = nearest?.value

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Charts
+import CoreLocation
 
 struct InteractiveDashboardView: View {
     @StateObject private var dashboardManager = InteractiveDashboardManager()
@@ -14,7 +15,7 @@ struct InteractiveDashboardView: View {
     @State private var configuration = DashboardConfiguration.default
     
     // Interactive Features
-    @State private var selectedTimeRange = TimeRange.week
+    @State private var selectedTimeRange = DashboardTimeRange.week
     @State private var customDateRange: DateInterval?
     @State private var showingDateRangePicker = false
     @State private var activeFilters: Set<FilterOption> = []
@@ -250,7 +251,7 @@ struct InteractiveDashboardView: View {
     
     private var timeRangeButton: some View {
         Menu {
-            ForEach(TimeRange.allCases, id: \.self) { range in
+            ForEach(DashboardTimeRange.allCases, id: \.self) { range in
                 Button(action: {
                     selectedTimeRange = range
                     Task { await refreshDashboard() }
@@ -377,7 +378,7 @@ enum FilterOption: Hashable {
     static let chartTypes: [FilterOption] = DashboardViewType.allCases.map { .chartType($0) }
 }
 
-enum TimeRange: Hashable, CaseIterable {
+enum DashboardTimeRange: Hashable, CaseIterable {
     case hour
     case day
     case week
@@ -385,7 +386,7 @@ enum TimeRange: Hashable, CaseIterable {
     case year
     case custom(from: Date, to: Date)
     
-    static var allCases: [TimeRange] {
+    static var allCases: [DashboardTimeRange] {
         [.hour, .day, .week, .month, .year]
     }
     
@@ -560,7 +561,7 @@ struct DateRangePickerView: View {
 // MARK: - Dashboard State Management
 
 struct DashboardState: Codable {
-    let timeRange: TimeRange
+    let timeRange: DashboardTimeRange
     let activeFilters: Set<FilterOption>
     let layout: DashboardLayout
     let columnCount: Int
@@ -575,14 +576,14 @@ struct DashboardState: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         // Decode with defaults
-        self.timeRange = (try? container.decode(TimeRange.self, forKey: .timeRange)) ?? .week
+        self.timeRange = (try? container.decode(DashboardTimeRange.self, forKey: .timeRange)) ?? .week
         self.activeFilters = (try? container.decode(Set<FilterOption>.self, forKey: .activeFilters)) ?? []
         self.layout = (try? container.decode(DashboardLayout.self, forKey: .layout)) ?? .grid
         self.columnCount = (try? container.decode(Int.self, forKey: .columnCount)) ?? 2
         self.configuration = (try? container.decode(DashboardConfiguration.self, forKey: .configuration)) ?? .default
     }
     
-    init(timeRange: TimeRange, activeFilters: Set<FilterOption>, layout: DashboardLayout, columnCount: Int, configuration: DashboardConfiguration) {
+    init(timeRange: DashboardTimeRange, activeFilters: Set<FilterOption>, layout: DashboardLayout, columnCount: Int, configuration: DashboardConfiguration) {
         self.timeRange = timeRange
         self.activeFilters = activeFilters
         self.layout = layout

@@ -38,7 +38,11 @@ targets:
       - path: JubileeMobileBay
         excludes:
           - "**/.DS_Store"
-          - "Protocols/**"  # Exclude the deleted duplicate directory
+          - "Models/ML/CreateMLTrainer.swift"  # Training script - macOS only
+          - "Models/ML/JubileePredictorWrapper.swift"  # References undefined types
+          - "Models/ML/*.py"  # Python training scripts
+          - "Models/ML/*.md"  # Documentation files
+          - "Models/Legacy/**"  # Deprecated legacy types
       - path: JubileeMobileBay/Assets.xcassets
         type: folder
         buildPhase: resources

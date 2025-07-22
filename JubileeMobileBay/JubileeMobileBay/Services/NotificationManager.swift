@@ -86,7 +86,7 @@ class NotificationManager: NSObject, ObservableObject {
     func handleDeviceToken(_ deviceToken: Data) {
         let tokenString = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         userDefaults.set(tokenString, forKey: deviceTokenKey)
-        print("Device token registered: \(tokenString)")
+        // Device token stored securely - not logging for security
     }
     
     func handleRemoteNotificationRegistrationError(_ error: Error) {

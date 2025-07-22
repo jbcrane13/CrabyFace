@@ -1,0 +1,93 @@
+{
+  "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/JubileeMobileBay/Services/CameraService.swift" : {
+    "const-values" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraService.swiftconstvalues",
+    "dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraService.d",
+    "diagnostics" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraService.dia",
+    "object" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraService.o",
+    "swift-dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraService.swiftdeps"
+  },
+  "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/JubileeMobileBay/Services/CloudKitErrorRecovery.swift" : {
+    "const-values" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitErrorRecovery.swiftconstvalues",
+    "dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitErrorRecovery.d",
+    "diagnostics" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitErrorRecovery.dia",
+    "object" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitErrorRecovery.o",
+    "swift-dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitErrorRecovery.swiftdeps"
+  },
+  "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/JubileeMobileBay/Services/CloudKitSchemaSetup.swift" : {
+    "const-values" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitSchemaSetup.swiftconstvalues",
+    "dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitSchemaSetup.d",
+    "diagnostics" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitSchemaSetup.dia",
+    "object" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitSchemaSetup.o",
+    "swift-dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitSchemaSetup.swiftdeps"
+  },
+  "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/JubileeMobileBay/Services/CloudKitService.swift" : {
+    "const-values" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitService.swiftconstvalues",
+    "dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitService.d",
+    "diagnostics" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitService.dia",
+    "object" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitService.o",
+    "swift-dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitService.swiftdeps"
+  },
+  "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/JubileeMobileBay/Services/CloudKitValidator.swift" : {
+    "const-values" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitValidator.swiftconstvalues",
+    "dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitValidator.d",
+    "diagnostics" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitValidator.dia",
+    "object" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitValidator.o",
+    "swift-dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitValidator.swiftdeps"
+  },
+  "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/JubileeMobileBay/Services/Protocols/CameraServiceProtocol.swift" : {
+    "const-values" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraServiceProtocol.swiftconstvalues",
+    "dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraServiceProtocol.d",
+    "diagnostics" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraServiceProtocol.dia",
+    "object" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraServiceProtocol.o",
+    "swift-dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraServiceProtocol.swiftdeps"
+  },
+  "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/JubileeMobileBay/Services/Protocols/CloudKitServiceProtocol.swift" : {
+    "const-values" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitServiceProtocol.swiftconstvalues",
+    "dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitServiceProtocol.d",
+    "diagnostics" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitServiceProtocol.dia",
+    "object" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitServiceProtocol.o",
+    "swift-dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitServiceProtocol.swiftdeps"
+  },
+  "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/JubileeMobileBay/Services/Sync/CloudKitSyncService.swift" : {
+    "const-values" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitSyncService.swiftconstvalues",
+    "dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitSyncService.d",
+    "diagnostics" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitSyncService.dia",
+    "object" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitSyncService.o",
+    "swift-dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CloudKitSyncService.swiftdeps"
+  },
+  "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/JubileeMobileBay/Utilities/Extensions/Color+Hex.swift" : {
+    "const-values" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/Color+Hex.swiftconstvalues",
+    "dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/Color+Hex.d",
+    "diagnostics" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/Color+Hex.dia",
+    "object" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/Color+Hex.o",
+    "swift-dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/Color+Hex.swiftdeps"
+  },
+  "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/JubileeMobileBay/ViewModels/CameraViewModel.swift" : {
+    "const-values" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraViewModel.swiftconstvalues",
+    "dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraViewModel.d",
+    "diagnostics" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraViewModel.dia",
+    "object" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraViewModel.o",
+    "swift-dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraViewModel.swiftdeps"
+  },
+  "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/JubileeMobileBay/Views/Analytics/Charts/ChartTheme.swift" : {
+    "const-values" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/ChartTheme.swiftconstvalues",
+    "dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/ChartTheme.d",
+    "diagnostics" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/ChartTheme.dia",
+    "object" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/ChartTheme.o",
+    "swift-dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/ChartTheme.swiftdeps"
+  },
+  "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/JubileeMobileBay/Views/Analytics/Dashboard/ChartGestureModifiers.swift" : {
+    "const-values" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/ChartGestureModifiers.swiftconstvalues",
+    "dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/ChartGestureModifiers.d",
+    "diagnostics" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/ChartGestureModifiers.dia",
+    "object" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/ChartGestureModifiers.o",
+    "swift-dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/ChartGestureModifiers.swiftdeps"
+  },
+  "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/JubileeMobileBay/Views/Camera/CameraPreviewView.swift" : {
+    "const-values" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraPreviewView.swiftconstvalues",
+    "dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraPreviewView.d",
+    "diagnostics" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraPreviewView.dia",
+    "object" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraPreviewView.o",
+    "swift-dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraPreviewView.swiftdeps"
+  }
+}

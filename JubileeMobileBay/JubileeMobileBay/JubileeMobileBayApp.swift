@@ -8,10 +8,15 @@ struct JubileeMobileBayApp: App {
     @StateObject private var authenticationService: AuthenticationService
     @StateObject private var notificationManager = NotificationManager.shared
     
+    let coreDataStack = CoreDataStack.shared
+    
     init() {
         let cloudKit = CloudKitService()
         _cloudKitService = StateObject(wrappedValue: cloudKit)
         _authenticationService = StateObject(wrappedValue: AuthenticationService(cloudKitService: cloudKit))
+        
+        // Perform any necessary Core Data migrations
+        CoreDataMigrationManager.performMigrationsIfNeeded(for: coreDataStack.persistentContainer)
     }
     
     var body: some Scene {
@@ -20,6 +25,7 @@ struct JubileeMobileBayApp: App {
                 .environmentObject(cloudKitService)
                 .environmentObject(authenticationService)
                 .environmentObject(notificationManager)
+                .environment(\.managedObjectContext, coreDataStack.viewContext)
                 .task {
                     // Check if user is already authenticated on app launch
                     try? await authenticationService.checkAuthentication()

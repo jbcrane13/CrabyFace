@@ -104,8 +104,7 @@ struct BarChart: View {
                                 label: point.category,
                                 value: point.displayPercentage.isEmpty ? nil : point.displayPercentage
                             )
-                        },
-                        orientation: .horizontal
+                        }
                     )
                     .padding(.horizontal, ChartTheme.chartPadding)
                     .padding(.bottom, ChartTheme.chartPadding)
@@ -184,7 +183,6 @@ struct BarChart: View {
                 AxisMarks { value in
                     AxisValueLabel()
                         .font(ChartTheme.captionFont)
-                        .foregroundColor(.secondary)
                 }
             }
             .chartYAxis {
@@ -193,10 +191,8 @@ struct BarChart: View {
                         .foregroundStyle(ChartTheme.gridLineColor)
                     AxisValueLabel()
                         .font(ChartTheme.captionFont)
-                        .foregroundColor(.secondary)
                 }
             }
-            .chartAngleSelection(value: .constant(nil))
             .chartBackground { chartProxy in
                 GeometryReader { geometry in
                     Rectangle()

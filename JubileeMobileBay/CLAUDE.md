@@ -1,421 +1,556 @@
-# Task Master AI - Claude Code Integration Guide
 
-## Essential Commands
+# Claude Development Guidelines - iOS/iPadOS TDD-MVVM-SwiftUI
+## Memory usage
 
-### Core Workflow Commands
+Follow these steps for each interaction:
 
-```bash
-# Project Setup
-task-master init                                    # Initialize Task Master in current project
-task-master parse-prd .taskmaster/docs/prd.txt      # Generate tasks from PRD document
-task-master models --setup                        # Configure AI models interactively
+1. User Identification:
+   - You should assume that you are interacting with default_user
+   - If you have not identified default_user, proactively try to do so.
 
-# Daily Development Workflow
-task-master list                                   # Show all tasks with status
-task-master next                                   # Get next available task to work on
-task-master show <id>                             # View detailed task information (e.g., task-master show 1.2)
-task-master set-status --id=<id> --status=done    # Mark task complete
+2. Memory Retrieval:
+   - Always begin your chat by saying only "Remembering..." and retrieve all relevant information from your knowledge graph
+   - Always refer to your knowledge graph as your "memory"
 
-# Task Management
-task-master add-task --prompt="description" --research        # Add new task with AI assistance
-task-master expand --id=<id> --research --force              # Break task into subtasks
-task-master update-task --id=<id> --prompt="changes"         # Update specific task
-task-master update --from=<id> --prompt="changes"            # Update multiple tasks from ID onwards
-task-master update-subtask --id=<id> --prompt="notes"        # Add implementation notes to subtask
+3. Memory
+   - While conversing with the user, be attentive to any new information that falls into these categories:
+     a) Basic Identity (age, gender, location, job title, education level, etc.)
+     b) Behaviors (interests, habits, etc.)
+     c) Preferences (communication style, preferred language, etc.)
+     d) Goals (goals, targets, aspirations, etc.)
+     e) Relationships (personal and professional relationships up to 3 degrees of separation)
 
-# Analysis & Planning
-task-master analyze-complexity --research          # Analyze task complexity
-task-master complexity-report                      # View complexity analysis
-task-master expand --all --research               # Expand all eligible tasks
+4. Memory Update:
+   - If any new information was gathered during the interaction, update your memory as follows:
+     a) Create entities for recurring organizations, people, and significant events
+     b) Connect them to the current entities using relations
+     c) Store facts about them as observations
+     
+## Project Architecture Mandate
 
-# Dependencies & Organization
-task-master add-dependency --id=<id> --depends-on=<id>       # Add task dependency
-task-master move --from=<id> --to=<id>                       # Reorganize task hierarchy
-task-master validate-dependencies                            # Check for dependency issues
-task-master generate                                         # Update task markdown files (usually auto-called)
+This project follows:
+- **Test-Driven Development (TDD)** - No production code without failing tests
+- **MVVM Architecture** - Strict separation of Model, View, and ViewModel
+- **SwiftUI** - Modern declarative UI framework for iOS/iPadOS
+
+## MVVM-TDD Workflow
+
+### Testing Order (ALWAYS follow this sequence):
+1. **Model Tests** → Model Implementation
+2. **ViewModel Tests** → ViewModel Implementation  
+3. **View Tests** → View Implementation
+4. **Integration Tests** → Full feature validation
+
+## MVVM Architecture Rules
+
+### Model Layer
+- Pure Swift structs/classes
+- No SwiftUI or Combine imports
+- Responsible for data structures and business logic
+- Must be 100% testable without UI
+
+### ViewModel Layer
+- ObservableObject classes with @Published properties
+- Contains all presentation logic
+- No SwiftUI View imports (only Combine/Foundation)
+- Handles all business logic and state management
+- Must be testable in isolation from Views
+
+### View Layer
+- SwiftUI Views only
+- No business logic - only UI binding and presentation
+- Binds to ViewModel via @StateObject/@ObservedObject
+- All logic delegated to ViewModel
+
+## TDD Implementation for MVVM
+
+### 1. Model TDD Cycle
+
+```swift
+// STEP 1: Write failing Model test
+func test_user_initialization_shouldSetAllProperties() {
+    // RED: This fails because User doesn't exist
+    let user = User(
+        id: UUID(),
+        email: "test@example.com",
+        name: "Test User",
+        role: .standard
+    )
+    
+    XCTAssertEqual(user.email, "test@example.com")
+    XCTAssertEqual(user.name, "Test User")
+    XCTAssertEqual(user.role, .standard)
+}
+
+// STEP 2: Implement minimal Model
+struct User: Identifiable, Equatable {
+    let id: UUID
+    let email: String
+    let name: String
+    let role: UserRole
+}
+
+// STEP 3: Refactor if needed (keeping tests green)
 ```
 
-## Key Files & Project Structure
+### 2. ViewModel TDD Cycle
 
-### Core Files
-
-- `.taskmaster/tasks/tasks.json` - Main task data file (auto-managed)
-- `.taskmaster/config.json` - AI model configuration (use `task-master models` to modify)
-- `.taskmaster/docs/prd.txt` - Product Requirements Document for parsing
-- `.taskmaster/tasks/*.txt` - Individual task files (auto-generated from tasks.json)
-- `.env` - API keys for CLI usage
-
-### Claude Code Integration Files
-
-- `CLAUDE.md` - Auto-loaded context for Claude Code (this file)
-- `.claude/settings.json` - Claude Code tool allowlist and preferences
-- `.claude/commands/` - Custom slash commands for repeated workflows
-- `.mcp.json` - MCP server configuration (project-specific)
-
-### Directory Structure
-
-```
-project/
-├── .taskmaster/
-│   ├── tasks/              # Task files directory
-│   │   ├── tasks.json      # Main task database
-│   │   ├── task-1.md      # Individual task files
-│   │   └── task-2.md
-│   ├── docs/              # Documentation directory
-│   │   ├── prd.txt        # Product requirements
-│   ├── reports/           # Analysis reports directory
-│   │   └── task-complexity-report.json
-│   ├── templates/         # Template files
-│   │   └── example_prd.txt  # Example PRD template
-│   └── config.json        # AI models & settings
-├── .claude/
-│   ├── settings.json      # Claude Code configuration
-│   └── commands/         # Custom slash commands
-├── .env                  # API keys
-├── .mcp.json            # MCP configuration
-└── CLAUDE.md            # This file - auto-loaded by Claude Code
-```
-
-## MCP Integration
-
-Task Master provides an MCP server that Claude Code can connect to. Configure in `.mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "task-master-ai": {
-      "command": "npx",
-      "args": ["-y", "--package=task-master-ai", "task-master-ai"],
-      "env": {
-        "ANTHROPIC_API_KEY": "your_key_here",
-        "PERPLEXITY_API_KEY": "your_key_here",
-        "OPENAI_API_KEY": "OPENAI_API_KEY_HERE",
-        "GOOGLE_API_KEY": "GOOGLE_API_KEY_HERE",
-        "XAI_API_KEY": "XAI_API_KEY_HERE",
-        "OPENROUTER_API_KEY": "OPENROUTER_API_KEY_HERE",
-        "MISTRAL_API_KEY": "MISTRAL_API_KEY_HERE",
-        "AZURE_OPENAI_API_KEY": "AZURE_OPENAI_API_KEY_HERE",
-        "OLLAMA_API_KEY": "OLLAMA_API_KEY_HERE"
-      }
+```swift
+// STEP 1: Write failing ViewModel test
+class LoginViewModelTests: XCTestCase {
+    func test_login_withValidCredentials_shouldUpdateStateToAuthenticated() {
+        // RED: LoginViewModel doesn't exist
+        let mockAuth = MockAuthService()
+        let viewModel = LoginViewModel(authService: mockAuth)
+        
+        mockAuth.mockResult = .success(User.mock)
+        
+        viewModel.login(email: "test@example.com", password: "password")
+        
+        XCTAssertEqual(viewModel.state, .authenticated)
+        XCTAssertNotNil(viewModel.currentUser)
     }
-  }
+    
+    func test_login_withInvalidCredentials_shouldShowError() {
+        let mockAuth = MockAuthService()
+        let viewModel = LoginViewModel(authService: mockAuth)
+        
+        mockAuth.mockResult = .failure(.invalidCredentials)
+        
+        viewModel.login(email: "wrong@example.com", password: "wrong")
+        
+        XCTAssertEqual(viewModel.state, .error("Invalid credentials"))
+        XCTAssertNil(viewModel.currentUser)
+    }
+}
+
+// STEP 2: Implement ViewModel to pass tests
+@MainActor
+class LoginViewModel: ObservableObject {
+    @Published var state: ViewState = .idle
+    @Published var currentUser: User?
+    
+    private let authService: AuthServiceProtocol
+    
+    init(authService: AuthServiceProtocol) {
+        self.authService = authService
+    }
+    
+    func login(email: String, password: String) {
+        Task {
+            state = .loading
+            do {
+                let user = try await authService.login(email: email, password: password)
+                currentUser = user
+                state = .authenticated
+            } catch {
+                state = .error(error.localizedDescription)
+            }
+        }
+    }
 }
 ```
 
-### Essential MCP Tools
+### 3. View TDD Cycle
 
-```javascript
-help; // = shows available taskmaster commands
-// Project setup
-initialize_project; // = task-master init
-parse_prd; // = task-master parse-prd
+```swift
+// STEP 1: Write failing View test using ViewInspector
+func test_loginView_whenFieldsEmpty_shouldDisableLoginButton() throws {
+    // RED: LoginView doesn't exist
+    let viewModel = LoginViewModel(authService: MockAuthService())
+    let view = LoginView(viewModel: viewModel)
+    
+    let button = try view.inspect().find(button: "Login")
+    XCTAssertTrue(try button.isDisabled())
+}
 
-// Daily workflow
-get_tasks; // = task-master list
-next_task; // = task-master next
-get_task; // = task-master show <id>
-set_task_status; // = task-master set-status
+func test_loginView_whenLoading_shouldShowProgressView() throws {
+    let viewModel = LoginViewModel(authService: MockAuthService())
+    viewModel.state = .loading
+    let view = LoginView(viewModel: viewModel)
+    
+    XCTAssertNoThrow(try view.inspect().find(ViewType.ProgressView.self))
+}
 
-// Task management
-add_task; // = task-master add-task
-expand_task; // = task-master expand
-update_task; // = task-master update-task
-update_subtask; // = task-master update-subtask
-update; // = task-master update
-
-// Analysis
-analyze_project_complexity; // = task-master analyze-complexity
-complexity_report; // = task-master complexity-report
-```
-
-## Claude Code Workflow Integration
-
-### Standard Development Workflow
-
-#### 1. Project Initialization
-
-```bash
-# Initialize Task Master
-task-master init
-
-# Create or obtain PRD, then parse it
-task-master parse-prd .taskmaster/docs/prd.txt
-
-# Analyze complexity and expand tasks
-task-master analyze-complexity --research
-task-master expand --all --research
-```
-
-If tasks already exist, another PRD can be parsed (with new information only!) using parse-prd with --append flag. This will add the generated tasks to the existing list of tasks..
-
-#### 2. Daily Development Loop
-
-```bash
-# Start each session
-task-master next                           # Find next available task
-task-master show <id>                     # Review task details
-
-# During implementation, check in code context into the tasks and subtasks
-task-master update-subtask --id=<id> --prompt="implementation notes..."
-
-# Complete tasks
-task-master set-status --id=<id> --status=done
-```
-
-#### 3. Multi-Claude Workflows
-
-For complex projects, use multiple Claude Code sessions:
-
-```bash
-# Terminal 1: Main implementation
-cd project && claude
-
-# Terminal 2: Testing and validation
-cd project-test-worktree && claude
-
-# Terminal 3: Documentation updates
-cd project-docs-worktree && claude
-```
-
-### Custom Slash Commands
-
-Create `.claude/commands/taskmaster-next.md`:
-
-```markdown
-Find the next available Task Master task and show its details.
-
-Steps:
-
-1. Run `task-master next` to get the next task
-2. If a task is available, run `task-master show <id>` for full details
-3. Provide a summary of what needs to be implemented
-4. Suggest the first implementation step
-```
-
-Create `.claude/commands/taskmaster-complete.md`:
-
-```markdown
-Complete a Task Master task: $ARGUMENTS
-
-Steps:
-
-1. Review the current task with `task-master show $ARGUMENTS`
-2. Verify all implementation is complete
-3. Run any tests related to this task
-4. Mark as complete: `task-master set-status --id=$ARGUMENTS --status=done`
-5. Show the next available task with `task-master next`
-```
-
-## Tool Allowlist Recommendations
-
-Add to `.claude/settings.json`:
-
-```json
-{
-  "allowedTools": [
-    "Edit",
-    "Bash(task-master *)",
-    "Bash(git commit:*)",
-    "Bash(git add:*)",
-    "Bash(npm run *)",
-    "mcp__task_master_ai__*"
-  ]
+// STEP 2: Implement View to pass tests
+struct LoginView: View {
+    @StateObject private var viewModel: LoginViewModel
+    @State private var email = ""
+    @State private var password = ""
+    
+    init(viewModel: LoginViewModel) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
+    
+    var body: some View {
+        VStack {
+            if viewModel.state == .loading {
+                ProgressView()
+            } else {
+                TextField("Email", text: $email)
+                SecureField("Password", text: $password)
+                
+                Button("Login") {
+                    viewModel.login(email: email, password: password)
+                }
+                .disabled(email.isEmpty || password.isEmpty)
+            }
+        }
+    }
 }
 ```
 
-## Configuration & Setup
+## iOS/iPadOS Specific Testing Requirements
 
-### API Keys Required
+### Universal App Considerations
+```swift
+// Test for both iPhone and iPad layouts
+func test_dashboardView_oniPad_shouldShowSplitView() throws {
+    let view = DashboardView()
+        .environment(\.horizontalSizeClass, .regular)
+    
+    XCTAssertNoThrow(try view.inspect().find(NavigationSplitView.self))
+}
 
-At least **one** of these API keys must be configured:
-
-- `ANTHROPIC_API_KEY` (Claude models) - **Recommended**
-- `PERPLEXITY_API_KEY` (Research features) - **Highly recommended**
-- `OPENAI_API_KEY` (GPT models)
-- `GOOGLE_API_KEY` (Gemini models)
-- `MISTRAL_API_KEY` (Mistral models)
-- `OPENROUTER_API_KEY` (Multiple models)
-- `XAI_API_KEY` (Grok models)
-
-An API key is required for any provider used across any of the 3 roles defined in the `models` command.
-
-### Model Configuration
-
-```bash
-# Interactive setup (recommended)
-task-master models --setup
-
-# Set specific models
-task-master models --set-main claude-3-5-sonnet-20241022
-task-master models --set-research perplexity-llama-3.1-sonar-large-128k-online
-task-master models --set-fallback gpt-4o-mini
-```
-
-## Task Structure & IDs
-
-### Task ID Format
-
-- Main tasks: `1`, `2`, `3`, etc.
-- Subtasks: `1.1`, `1.2`, `2.1`, etc.
-- Sub-subtasks: `1.1.1`, `1.1.2`, etc.
-
-### Task Status Values
-
-- `pending` - Ready to work on
-- `in-progress` - Currently being worked on
-- `done` - Completed and verified
-- `deferred` - Postponed
-- `cancelled` - No longer needed
-- `blocked` - Waiting on external factors
-
-### Task Fields
-
-```json
-{
-  "id": "1.2",
-  "title": "Implement user authentication",
-  "description": "Set up JWT-based auth system",
-  "status": "pending",
-  "priority": "high",
-  "dependencies": ["1.1"],
-  "details": "Use bcrypt for hashing, JWT for tokens...",
-  "testStrategy": "Unit tests for auth functions, integration tests for login flow",
-  "subtasks": []
+func test_dashboardView_oniPhone_shouldShowNavigationStack() throws {
+    let view = DashboardView()
+        .environment(\.horizontalSizeClass, .compact)
+    
+    XCTAssertNoThrow(try view.inspect().find(NavigationStack.self))
 }
 ```
 
-## Claude Code Best Practices with Task Master
+### iPadOS Features Testing
+- **Multitasking**: Test multiple window scenarios
+- **Drag & Drop**: Test drag and drop interactions
+- **Keyboard Shortcuts**: Test keyboard command handling
+- **Pencil Support**: Test pencil interactions if applicable
+- **Split View**: Test master-detail navigation
 
-### Context Management
+## Required Test Coverage by MVVM Layer
 
-- Use `/clear` between different tasks to maintain focus
-- This CLAUDE.md file is automatically loaded for context
-- Use `task-master show <id>` to pull specific task context when needed
+### Model Layer (95%+ coverage)
+- All initializers
+- All computed properties
+- All methods
+- Codable conformance
+- Equatable/Hashable implementations
+- Validation logic
 
-### Iterative Implementation
+### ViewModel Layer (90%+ coverage)
+- All @Published property changes
+- All public methods
+- All state transitions
+- Error handling paths
+- Async operations with proper expectations
+- Combine pipeline logic
 
-1. `task-master show <subtask-id>` - Understand requirements
-2. Explore codebase and plan implementation
-3. `task-master update-subtask --id=<id> --prompt="detailed plan"` - Log plan
-4. `task-master set-status --id=<id> --status=in-progress` - Start work
-5. Implement code following logged plan
-6. `task-master update-subtask --id=<id> --prompt="what worked/didn't work"` - Log progress
-7. `task-master set-status --id=<id> --status=done` - Complete task
+### View Layer (80%+ coverage)
+- All user interactions
+- All conditional rendering
+- State-based UI changes
+- Accessibility properties
+- iPad vs iPhone layout differences
+- Dark mode appearance
 
-### Complex Workflows with Checklists
+## MVVM-Specific Testing Patterns
 
-For large migrations or multi-step processes:
+### Dependency Injection for Testability
+```swift
+// ALWAYS use protocols for dependencies
+protocol AuthServiceProtocol {
+    func login(email: String, password: String) async throws -> User
+}
 
-1. Create a markdown PRD file describing the new changes: `touch task-migration-checklist.md` (prds can be .txt or .md)
-2. Use Taskmaster to parse the new prd with `task-master parse-prd --append` (also available in MCP)
-3. Use Taskmaster to expand the newly generated tasks into subtasks. Consdier using `analyze-complexity` with the correct --to and --from IDs (the new ids) to identify the ideal subtask amounts for each task. Then expand them.
-4. Work through items systematically, checking them off as completed
-5. Use `task-master update-subtask` to log progress on each task/subtask and/or updating/researching them before/during implementation if getting stuck
-
-### Git Integration
-
-Task Master works well with `gh` CLI:
-
-```bash
-# Create PR for completed task
-gh pr create --title "Complete task 1.2: User authentication" --body "Implements JWT auth system as specified in task 1.2"
-
-# Reference task in commits
-git commit -m "feat: implement JWT auth (task 1.2)"
+// Mock for testing
+class MockAuthService: AuthServiceProtocol {
+    var mockResult: Result<User, AuthError>!
+    
+    func login(email: String, password: String) async throws -> User {
+        switch mockResult {
+        case .success(let user): return user
+        case .failure(let error): throw error
+        case .none: fatalError("Mock not configured")
+        }
+    }
+}
 ```
 
-### Parallel Development with Git Worktrees
-
-```bash
-# Create worktrees for parallel task development
-git worktree add ../project-auth feature/auth-system
-git worktree add ../project-api feature/api-refactor
-
-# Run Claude Code in each worktree
-cd ../project-auth && claude    # Terminal 1: Auth work
-cd ../project-api && claude     # Terminal 2: API work
+### Testing @Published Properties
+```swift
+func test_viewModel_publishedPropertyChanges() {
+    let expectation = expectation(description: "Published property updated")
+    var cancellables = Set<AnyCancellable>()
+    
+    viewModel.$items
+        .dropFirst() // Skip initial value
+        .sink { items in
+            XCTAssertEqual(items.count, 3)
+            expectation.fulfill()
+        }
+        .store(in: &cancellables)
+    
+    viewModel.loadItems()
+    wait(for: [expectation], timeout: 1.0)
+}
 ```
 
-## Troubleshooting
-
-### AI Commands Failing
-
-```bash
-# Check API keys are configured
-cat .env                           # For CLI usage
-
-# Verify model configuration
-task-master models
-
-# Test with different model
-task-master models --set-fallback gpt-4o-mini
+### Testing View-ViewModel Binding
+```swift
+func test_view_bindsToViewModelState() throws {
+    let viewModel = ItemListViewModel()
+    let view = ItemListView(viewModel: viewModel)
+    
+    // Verify initial state
+    XCTAssertTrue(try view.inspect().find(text: "No items").exists())
+    
+    // Update ViewModel
+    viewModel.items = [Item(name: "Test")]
+    
+    // Verify View updates
+    XCTAssertThrows(try view.inspect().find(text: "No items").exists())
+    XCTAssertNoThrow(try view.inspect().find(text: "Test"))
+}
 ```
 
-### MCP Connection Issues
+## File Organization for MVVM-TDD
 
-- Check `.mcp.json` configuration
-- Verify Node.js installation
-- Use `--mcp-debug` flag when starting Claude Code
-- Use CLI as fallback if MCP unavailable
-
-### Task File Sync Issues
-
-```bash
-# Regenerate task files from tasks.json
-task-master generate
-
-# Fix dependency issues
-task-master fix-dependencies
+```
+YourApp/
+├── Models/
+│   ├── User.swift
+│   └── UserTests.swift
+├── ViewModels/
+│   ├── LoginViewModel.swift
+│   └── LoginViewModelTests.swift
+├── Views/
+│   ├── LoginView.swift
+│   └── LoginViewTests.swift
+├── Services/
+│   ├── AuthService.swift
+│   ├── AuthServiceProtocol.swift
+│   └── MockAuthService.swift
+└── IntegrationTests/
+    └── LoginFlowTests.swift
 ```
 
-DO NOT RE-INITIALIZE. That will not do anything beyond re-adding the same Taskmaster core files.
+## TDD-MVVM Checklist
 
-## Important Notes
+Before submitting ANY code:
 
-### AI-Powered Operations
+### Model Checklist
+- [ ] Model test written first and failing
+- [ ] Model implementation minimal to pass test
+- [ ] Model has no UI dependencies
+- [ ] Model is Equatable/Codable if needed
+- [ ] All Model business logic tested
 
-These commands make AI calls and may take up to a minute:
+### ViewModel Checklist
+- [ ] ViewModel test written first and failing
+- [ ] Dependencies injected via protocols
+- [ ] All @Published properties have tests
+- [ ] Async operations tested with expectations
+- [ ] Error states tested
+- [ ] No SwiftUI imports in ViewModel
 
-- `parse_prd` / `task-master parse-prd`
-- `analyze_project_complexity` / `task-master analyze-complexity`
-- `expand_task` / `task-master expand`
-- `expand_all` / `task-master expand --all`
-- `add_task` / `task-master add-task`
-- `update` / `task-master update`
-- `update_task` / `task-master update-task`
-- `update_subtask` / `task-master update-subtask`
+### View Checklist
+- [ ] View test written first using ViewInspector
+- [ ] View contains no business logic
+- [ ] All UI states tested
+- [ ] iPad and iPhone layouts tested
+- [ ] Accessibility tested
+- [ ] Dark mode tested
 
-### File Management
+### Integration Checklist
+- [ ] Full user flow tested
+- [ ] Navigation tested
+- [ ] Data flow between screens tested
+- [ ] State persistence tested
 
-- Never manually edit `tasks.json` - use commands instead
-- Never manually edit `.taskmaster/config.json` - use `task-master models`
-- Task markdown files in `tasks/` are auto-generated
-- Run `task-master generate` after manual changes to tasks.json
+## Common MVVM-TDD Violations
 
-### Claude Code Session Management
+### ❌ NEVER DO:
+- Put business logic in Views
+- Import SwiftUI in ViewModels
+- Create ViewModels without protocol-based dependencies
+- Skip testing "simple" ViewModels
+- Test private ViewModel methods
+- Create tight coupling between layers
+- Write integration tests before unit tests
 
-- Use `/clear` frequently to maintain focused context
-- Create custom slash commands for repeated Task Master workflows
-- Configure tool allowlist to streamline permissions
-- Use headless mode for automation: `claude -p "task-master next"`
+### ✅ ALWAYS DO:
+- Test ViewModels in complete isolation
+- Use protocols for all dependencies
+- Test public interfaces only
+- Mock all external services
+- Test each MVVM layer separately
+- Write focused, single-behavior tests
+- Maintain clear separation of concerns
 
-### Multi-Task Updates
+## Example Full TDD-MVVM Feature Flow
 
-- Use `update --from=<id>` to update multiple future tasks
-- Use `update-task --id=<id>` for single task updates
-- Use `update-subtask --id=<id>` for implementation logging
+```swift
+// 1. Start with Model Test
+func test_todoItem_toggleComplete_shouldInvertStatus() {
+    var item = TodoItem(title: "Test", isComplete: false)
+    item.toggleComplete()
+    XCTAssertTrue(item.isComplete)
+}
 
-### Research Mode
+// 2. Implement Model
+struct TodoItem: Identifiable {
+    let id = UUID()
+    let title: String
+    var isComplete: Bool
+    
+    mutating func toggleComplete() {
+        isComplete.toggle()
+    }
+}
 
-- Add `--research` flag for research-based AI enhancement
-- Requires a research model API key like Perplexity (`PERPLEXITY_API_KEY`) in environment
-- Provides more informed task creation and updates
-- Recommended for complex technical tasks
+// 3. Write ViewModel Test
+func test_todoViewModel_toggleItem_shouldUpdateItem() {
+    let viewModel = TodoViewModel()
+    let item = TodoItem(title: "Test", isComplete: false)
+    viewModel.items = [item]
+    
+    viewModel.toggleItem(item)
+    
+    XCTAssertTrue(viewModel.items[0].isComplete)
+}
+
+// 4. Implement ViewModel
+class TodoViewModel: ObservableObject {
+    @Published var items: [TodoItem] = []
+    
+    func toggleItem(_ item: TodoItem) {
+        if let index = items.firstIndex(where: { $0.id == item.id }) {
+            items[index].toggleComplete()
+        }
+    }
+}
+
+// 5. Write View Test
+func test_todoView_tapCheckmark_shouldCallToggle() throws {
+    let viewModel = TodoViewModel()
+    let item = TodoItem(title: "Test", isComplete: false)
+    viewModel.items = [item]
+    
+    let view = TodoListView(viewModel: viewModel)
+    let button = try view.inspect().find(button: "Toggle")
+    
+    try button.tap()
+    
+    XCTAssertTrue(viewModel.items[0].isComplete)
+}
+
+// 6. Implement View
+struct TodoListView: View {
+    @StateObject var viewModel: TodoViewModel
+    
+    var body: some View {
+        List(viewModel.items) { item in
+            HStack {
+                Text(item.title)
+                Spacer()
+                Button("Toggle") {
+                    viewModel.toggleItem(item)
+                }
+            }
+        }
+    }
+}
+```
+
+## Performance Testing for iPad
+
+```swift
+// Test large datasets for iPad
+func test_viewModel_largeDataset_shouldPerformEfficiently() {
+    let viewModel = ItemListViewModel()
+    let items = (0..<10000).map { Item(id: $0) }
+    
+    measure {
+        viewModel.items = items
+        _ = viewModel.filteredItems(matching: "500")
+    }
+}
+```
+
+## Build and Runtime Verification Process
+
+### CRITICAL: Verification Requirements
+
+When asked to fix build errors or ensure the app runs, you MUST complete ALL of the following steps before reporting success:
+
+1. **Clean Build Verification**
+   ```bash
+   # Clean build folder
+   xcodebuild clean -project JubileeMobileBay.xcodeproj -scheme JubileeMobileBay
+   
+   # Build for specific simulator
+   xcodebuild -project JubileeMobileBay.xcodeproj \
+       -scheme JubileeMobileBay \
+       -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.5' \
+       build
+   ```
+
+2. **Simulator Installation**
+   ```bash
+   # Boot simulator (if not already running)
+   xcrun simctl boot "iPhone 16 Pro"
+   
+   # Install the app
+   xcrun simctl install "iPhone 16 Pro" \
+       /path/to/DerivedData/.../JubileeMobileBay.app
+   ```
+
+3. **App Launch Verification**
+   ```bash
+   # Launch the app and get process ID
+   xcrun simctl launch "iPhone 16 Pro" com.jubileemobilebay.app
+   ```
+
+4. **Functional Verification Checklist**
+   - [ ] Build completes without errors
+   - [ ] App installs on simulator
+   - [ ] App launches without crashing (process ID returned)
+   - [ ] Main screen appears
+   - [ ] Navigation between screens works
+   - [ ] Dashboard displays with data (mock or real)
+   - [ ] No runtime errors in console
+
+### IMPORTANT: False Success Prevention
+
+**DO NOT** report success based solely on:
+- `BUILD SUCCEEDED` message
+- Xcode showing no errors
+- Partial completion of tasks
+
+**ALWAYS** verify:
+- The app actually launches
+- Core functionality works
+- Data loads as expected
+
+### Mock Data for Development
+
+When real services fail, implement mock data providers:
+
+```swift
+#if DEBUG
+// Use mock data providers
+let provider = DevelopmentDataProvider.shared
+_viewModel = StateObject(wrappedValue: DashboardViewModel(
+    weatherAPI: provider.weatherAPI,
+    marineAPI: provider.marineAPI
+))
+#else
+// Production initialization
+#endif
+```
 
 ---
 
-_This guide ensures Claude Code has immediate access to Task Master's essential functionality for agentic development workflows._
+**Remember**: Every feature starts with a failing test. MVVM layers must remain decoupled. SwiftUI Views must be dumb. Build verification must be complete. This is non-negotiable for maintainable iOS/iPadOS applications.
+```
 
-## Task Master AI Instructions
-**Import Task Master's development workflow commands and guidelines, treat as if import is in the main CLAUDE.md file.**
-@./.taskmaster/CLAUDE.md

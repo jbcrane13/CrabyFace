@@ -172,8 +172,8 @@ class AnalyticsDataService: AnalyticsDataServiceProtocol {
     private let cloudKitService: CloudKitServiceProtocol
     private let queue = DispatchQueue(label: "com.jubileemobilebay.analytics", attributes: .concurrent)
     
-    init(apiService: WeatherAPIProtocol = NOAAWeatherAPI(), 
-         cloudKitService: CloudKitServiceProtocol = CloudKitService()) {
+    init(apiService: WeatherAPIProtocol = WeatherAPIService(), 
+         cloudKitService: CloudKitServiceProtocol) {
         self.apiService = apiService
         self.cloudKitService = cloudKitService
     }

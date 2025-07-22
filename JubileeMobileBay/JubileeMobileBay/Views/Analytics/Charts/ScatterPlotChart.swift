@@ -78,8 +78,7 @@ struct ScatterPlotChart: View {
                                 label: category,
                                 value: "\(dataPointsInCategory(category)) points"
                             )
-                        },
-                        orientation: .horizontal
+                        }
                     )
                     .padding(.horizontal, ChartTheme.chartPadding)
                     .padding(.bottom, ChartTheme.chartPadding)
@@ -277,21 +276,27 @@ struct ScatterPlotChart: View {
     }
     
     private func findNearestPoint(at location: CGPoint, in geometry: GeometryProxy, proxy: ChartProxy) -> CorrelationDataPoint? {
-        // Simplified implementation - would need proper coordinate transformation
+        // Convert tap location to data values
+        guard let xValue = proxy.value(atX: location.x, as: Double.self) else { return nil }
+        
+        // For scatter plots, we need to estimate Y value differently
+        let chartHeight = geometry.size.height
+        let yRange = (data.map { $0.yValue }.max() ?? 1) - (data.map { $0.yValue }.min() ?? 0)
+        let yValue = yRange * (1 - location.y / chartHeight) + (data.map { $0.yValue }.min() ?? 0)
+        
         var nearestPoint: CorrelationDataPoint?
-        var minDistance: CGFloat = .infinity
+        var minDistance: Double = .infinity
         
         for point in data {
-            if let position = proxy.position(forX: point.xValue, y: point.yValue) {
-                let distance = hypot(position.x - location.x, position.y - location.y)
-                if distance < minDistance && distance < 20 {
-                    minDistance = distance
-                    nearestPoint = point
-                }
+            let distance = sqrt(pow(point.xValue - xValue, 2) + pow(point.yValue - yValue, 2))
+            if distance < minDistance {
+                minDistance = distance
+                nearestPoint = point
             }
         }
         
-        return nearestPoint
+        // Only return if the point is reasonably close to the tap
+        return minDistance < (0.1 * yRange) ? nearestPoint : nil
     }
 }
 

@@ -3,7 +3,7 @@ import CoreML
 import CoreLocation
 
 @MainActor
-final class PredictionService: PredictionServiceProtocol {
+final class PredictionService: @preconcurrency PredictionServiceProtocol {
     private let weatherAPI: WeatherAPIProtocol
     private let marineAPI: MarineDataProtocol
     private let coreMLService: CoreMLPredictionService

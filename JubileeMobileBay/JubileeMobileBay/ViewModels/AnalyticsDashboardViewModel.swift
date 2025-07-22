@@ -40,7 +40,7 @@ class AnalyticsDashboardViewModel: ObservableObject {
     let locationLabels = ["Point Clear", "Fairhope", "Daphne", "Spanish Fort", "Mobile"]
     
     // Services
-    private let predictionService = PredictionService()
+    private var predictionService: PredictionService?
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Data Loading

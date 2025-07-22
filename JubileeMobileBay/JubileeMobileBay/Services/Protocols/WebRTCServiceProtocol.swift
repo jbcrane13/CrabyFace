@@ -69,6 +69,7 @@ struct WebRTCStreamInfo {
 
 // MARK: - WebRTC Service Protocol
 
+@MainActor
 protocol WebRTCServiceProtocol: AnyObject {
     
     // Publishers

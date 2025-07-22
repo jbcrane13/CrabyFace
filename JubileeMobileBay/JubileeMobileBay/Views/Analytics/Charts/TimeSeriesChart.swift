@@ -166,49 +166,29 @@ struct TimeSeriesChart: View {
             .chartPlotStyle { plotArea in
                 plotArea
                     .background(ChartGridBackground().opacity(0.5))
-                    .overlay(alignment: .topLeading) {
-                        chartOverlay(plotArea: plotArea)
-                    }
+            }
+            .chartBackground { chartProxy in
+                GeometryReader { geometry in
+                    Rectangle()
+                        .fill(Color.clear)
+                        .contentShape(Rectangle())
+                        .onContinuousHover { phase in
+                            switch phase {
+                            case .active(let location):
+                                if let date = chartProxy.value(atX: location.x, as: Date.self) {
+                                    selectedDate = date
+                                    selectedValue = nearestDataPoint(to: date)?.value
+                                }
+                            case .ended:
+                                selectedDate = nil
+                                selectedValue = nil
+                            }
+                        }
+                }
             }
         }
     }
     
-    @ViewBuilder
-    private func chartOverlay(plotArea: ChartProxy) -> some View {
-        GeometryReader { geometry in
-            Rectangle()
-                .fill(Color.clear)
-                .contentShape(Rectangle())
-                .onContinuousHover { phase in
-                    switch phase {
-                    case .active(let location):
-                        if let date = plotArea.value(atX: location.x, as: Date.self) {
-                            selectedDate = date
-                            selectedValue = nearestDataPoint(to: date)?.value
-                        }
-                    case .ended:
-                        selectedDate = nil
-                        selectedValue = nil
-                    }
-                }
-        }
-        
-        // Selection indicator
-        if let selectedDate = selectedDate,
-           let selectedValue = selectedValue,
-           let position = plotArea.position(forX: selectedDate, y: selectedValue) {
-            Circle()
-                .fill(ChartTheme.primaryColor)
-                .frame(width: 8, height: 8)
-                .position(position)
-                .overlay(
-                    Circle()
-                        .stroke(Color.white, lineWidth: 2)
-                        .frame(width: 12, height: 12)
-                        .position(position)
-                )
-        }
-    }
     
     private var averageValue: Double {
         guard !dataPoints.isEmpty else { return 0 }

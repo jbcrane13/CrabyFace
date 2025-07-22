@@ -8,19 +8,20 @@
 import Foundation
 import SwiftUI
 import Combine
+import CoreLocation
 
 // MARK: - Dashboard Data Provider
 
 @MainActor
-class DashboardDataProvider: ObservableObject {
+public class DashboardDataProvider: ObservableObject {
     @Published var isLoading = false
     @Published var error: Error?
     
     private let analyticsService: AnalyticsDataServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     
-    init(analyticsService: AnalyticsDataServiceProtocol = AnalyticsDataService()) {
-        self.analyticsService = analyticsService
+    init(analyticsService: AnalyticsDataServiceProtocol? = nil) {
+        self.analyticsService = analyticsService ?? AnalyticsDataService(cloudKitService: CloudKitService())
     }
     
     // MARK: - Time Series Data

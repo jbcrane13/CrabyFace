@@ -20,7 +20,7 @@ final class CoreMLPredictionService: ObservableObject {
     private let userDefaults = UserDefaults.standard
     
     // Core ML Model
-    private var jubileeModel: JubileePredictor?
+    private var jubileeModel: JubileePredictorWrapper?
     private var modelLoadingTask: Task<Void, Error>?
     
     // Published properties for SwiftUI binding
@@ -67,13 +67,70 @@ final class CoreMLPredictionService: ObservableObject {
     }
     
     func analyzeTrends() async throws -> JubileeTrend {
-        // Legacy method - would need JubileeTrend definition for full implementation
-        fatalError("Legacy method not fully implemented in Phase 4")
+        // Legacy method - return basic trend based on recent predictions
+        let recentPredictions = predictionHistory.suffix(10)
+        let avgProbability = recentPredictions.isEmpty ? 0.5 : 
+            recentPredictions.reduce(0.0) { $0 + $1.probability } / Double(recentPredictions.count)
+        
+        let direction: TrendDirection = avgProbability > 0.6 ? .increasing : 
+            avgProbability < 0.4 ? .decreasing : .stable
+        
+        return JubileeTrend(
+            direction: direction,
+            changeRate: avgProbability > 0.6 ? 0.1 : avgProbability < 0.4 ? -0.1 : 0.0,
+            summary: "Jubilee activity trend over the past 7 days",
+            keyFactors: ["Historical patterns", "Recent observations"]
+        )
     }
     
     func getRiskFactors() async throws -> [RiskFactor] {
-        // Legacy method - would need RiskFactor definition for full implementation
-        fatalError("Legacy method not fully implemented in Phase 4")
+        // Legacy method - return basic risk factors based on current conditions
+        var factors: [RiskFactor] = []
+        
+        // Add risk factors based on last prediction if available
+        if let lastPrediction = lastPrediction {
+            let envFactors = lastPrediction.environmentalFactors
+            
+            if let oxygen = envFactors["dissolvedOxygen"] {
+                factors.append(RiskFactor(
+                    name: "Dissolved Oxygen",
+                    weight: 0.35,
+                    currentValue: oxygen,
+                    threshold: 4.0,
+                    contribution: oxygen < 4.0 ? 0.3 : 0.0
+                ))
+            }
+            
+            if let temp = envFactors["waterTemperature"] {
+                factors.append(RiskFactor(
+                    name: "Water Temperature",
+                    weight: 0.25,
+                    currentValue: temp,
+                    threshold: 75.0,
+                    contribution: temp > 75.0 ? 0.2 : 0.0
+                ))
+            }
+            
+            if let wind = envFactors["windSpeed"] {
+                factors.append(RiskFactor(
+                    name: "Wind Speed",
+                    weight: 0.20,
+                    currentValue: wind,
+                    threshold: 5.0,
+                    contribution: wind < 5.0 ? 0.15 : 0.0
+                ))
+            }
+        }
+        
+        return factors.isEmpty ? [
+            RiskFactor(
+                name: "Default Risk Assessment",
+                weight: 1.0,
+                currentValue: 0.5,
+                threshold: 0.5,
+                contribution: 0.0
+            )
+        ] : factors
     }
     
     // MARK: - Core ML Prediction Methods
@@ -146,7 +203,7 @@ final class CoreMLPredictionService: ObservableObject {
                 let configuration = MLModelConfiguration()
                 configuration.computeUnits = .all // Use all available compute units (CPU, GPU, Neural Engine)
                 
-                jubileeModel = try JubileePredictor(contentsOf: url, configuration: configuration)
+                jubileeModel = try JubileePredictorWrapper(contentsOf: url, configuration: configuration)
                 
                 await MainActor.run {
                     self.isModelLoaded = true
@@ -260,10 +317,10 @@ final class CoreMLPredictionService: ObservableObject {
         }
     }
     
-    private func createModelInput(from environmentalData: [String: Double], coordinate: CLLocationCoordinate2D, date: Date) throws -> JubileePredictorInput {
+    private func createModelInput(from environmentalData: [String: Double], coordinate: CLLocationCoordinate2D, date: Date) throws -> JubileePredictorWrapperInput {
         // For Phase 4 implementation, this would create the actual Core ML input
         // This is a placeholder structure
-        return JubileePredictorInput(
+        return JubileePredictorWrapperInput(
             airTemperature: environmentalData["airTemperature"] ?? 0,
             waterTemperature: environmentalData["waterTemperature"] ?? 0,
             windSpeed: environmentalData["windSpeed"] ?? 0,
@@ -272,7 +329,7 @@ final class CoreMLPredictionService: ObservableObject {
     }
     
     private func processModelOutput(
-        output: JubileePredictorOutput,
+        output: JubileePredictorWrapperOutput,
         environmentalData: [String: Double],
         coordinate: CLLocationCoordinate2D,
         date: Date
@@ -396,7 +453,7 @@ final class CoreMLPredictionService: ObservableObject {
 }
 
 // MARK: - Core ML Model Types
-// JubileePredictorInput and JubileePredictorOutput are auto-generated by Core ML from the .mlmodel file
+// JubileePredictorWrapperInput and JubileePredictorWrapperOutput are defined in JubileePredictorWrapper.swift
 
 // MARK: - Additional Methods
 

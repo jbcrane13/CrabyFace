@@ -223,6 +223,10 @@ class CloudKitService: ObservableObject, CloudKitServiceProtocol {
     }
     
     func fetchRecentJubileeEvents(limit: Int = 50) async throws -> [JubileeEvent] {
+        #if DEBUG
+        // Return mock data for development
+        return createMockJubileeEvents(count: min(limit, 5))
+        #else
         let query = CKQuery(
             recordType: RecordType.jubileeEvent.rawValue,
             predicate: NSPredicate(value: true)
@@ -236,6 +240,7 @@ class CloudKitService: ObservableObject, CloudKitServiceProtocol {
         return records.compactMap { record in
             jubileeEventFromRecord(record)
         }
+        #endif
     }
     
     func fetchUserReports(for eventId: UUID) async throws -> [UserReport] {
@@ -335,6 +340,49 @@ class CloudKitService: ObservableObject, CloudKitServiceProtocol {
         )
         
         return post
+    }
+    
+    // MARK: - Mock Data for Development
+    
+    private func createMockJubileeEvents(count: Int) -> [JubileeEvent] {
+        let now = Date()
+        let intensities: [JubileeIntensity] = [.minimal, .light, .moderate, .heavy, .extreme]
+        let locations = [
+            CLLocationCoordinate2D(latitude: 30.6954, longitude: -88.0399), // Mobile Bay
+            CLLocationCoordinate2D(latitude: 30.5280, longitude: -87.9341), // Fairhope
+            CLLocationCoordinate2D(latitude: 30.6333, longitude: -87.9086), // Daphne
+            CLLocationCoordinate2D(latitude: 30.5952, longitude: -87.6831), // Spanish Fort
+            CLLocationCoordinate2D(latitude: 30.3960, longitude: -88.0852)  // Point Clear
+        ]
+        
+        return (0..<count).map { index in
+            let hoursAgo = Double(index * 12)
+            let startTime = now.addingTimeInterval(-hoursAgo * 3600)
+            let endTime = index % 2 == 0 ? startTime.addingTimeInterval(2 * 3600) : nil
+            
+            let metadata = JubileeMetadata(
+                windSpeed: Double.random(in: 2...15),
+                windDirection: Int.random(in: 0...359),
+                temperature: Double.random(in: 75...85),
+                humidity: Double.random(in: 60...90),
+                waterTemperature: Double.random(in: 74...82),
+                dissolvedOxygen: Double.random(in: 1.5...4.0),
+                salinity: Double.random(in: 30...35),
+                tide: TideState.allCases.randomElement()!,
+                moonPhase: MoonPhase.allCases.randomElement()!
+            )
+            
+            return JubileeEvent(
+                id: UUID(),
+                startTime: startTime,
+                endTime: endTime,
+                location: locations[index % locations.count],
+                intensity: intensities[index % intensities.count],
+                verificationStatus: index == 0 ? .verified : .userReported,
+                reportCount: Int.random(in: 1...15),
+                metadata: metadata
+            )
+        }
     }
     
     // MARK: - Record Conversion

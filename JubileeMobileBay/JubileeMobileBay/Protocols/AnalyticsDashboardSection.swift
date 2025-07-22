@@ -50,14 +50,14 @@ enum DashboardViewType: String, CaseIterable {
 
 // MARK: - Dashboard Configuration
 
-struct DashboardConfiguration {
+struct DashboardConfiguration: Codable {
     var enabledSections: Set<String>
     var sectionOrder: [String]
     var refreshInterval: TimeInterval
     var dataRetentionDays: Int
     var theme: DashboardTheme
     
-    enum DashboardTheme: String, CaseIterable {
+    enum DashboardTheme: String, CaseIterable, Codable {
         case automatic = "Automatic"
         case light = "Light"
         case dark = "Dark"

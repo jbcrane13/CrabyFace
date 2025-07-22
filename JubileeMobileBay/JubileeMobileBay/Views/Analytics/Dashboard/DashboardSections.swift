@@ -72,48 +72,42 @@ struct StatisticsSummaryView: View {
                         title: "Avg Temperature",
                         value: String(format: "%.1f°F", stats.averageTemperature),
                         trend: stats.temperatureTrend,
-                        icon: "thermometer.medium",
-                        color: .orange
+                        icon: "thermometer.medium"
                     )
                     
                     StatCard(
                         title: "Activity Score",
                         value: String(format: "%.2f", stats.averageActivityScore),
                         trend: stats.activityTrend,
-                        icon: "waveform.path.ecg",
-                        color: .blue
+                        icon: "waveform.path.ecg"
                     )
                     
                     StatCard(
                         title: "Peak Hours",
                         value: stats.peakActivityTime,
                         trend: nil,
-                        icon: "clock.fill",
-                        color: .purple
+                        icon: "clock.fill"
                     )
                     
                     StatCard(
                         title: "Top Species",
                         value: stats.topSpecies,
                         trend: nil,
-                        icon: "fish.fill",
-                        color: .green
+                        icon: "fish.fill"
                     )
                     
                     StatCard(
                         title: "Observations",
                         value: "\(stats.totalObservations)",
                         trend: nil,
-                        icon: "eye.fill",
-                        color: .indigo
+                        icon: "eye.fill"
                     )
                     
                     StatCard(
                         title: "Active Users",
                         value: "\(stats.activeUsers)",
                         trend: nil,
-                        icon: "person.2.fill",
-                        color: .pink
+                        icon: "person.2.fill"
                     )
                 } else {
                     ForEach(0..<4, id: \.self) { _ in
@@ -574,7 +568,7 @@ struct AlertsView: View {
                             
                             Text(alert.timestamp, style: .relative)
                                 .font(.caption2)
-                                .foregroundColor(.tertiary)
+                                .foregroundColor(Color.secondary.opacity(0.5))
                         }
                         
                         Spacer()

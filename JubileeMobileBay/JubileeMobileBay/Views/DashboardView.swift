@@ -19,6 +19,17 @@ struct DashboardView: View {
         if let viewModel = viewModel {
             _viewModel = StateObject(wrappedValue: viewModel)
         } else {
+            // Use mock data for development
+            #if DEBUG
+            let provider = DevelopmentDataProvider.shared
+            _viewModel = StateObject(wrappedValue: DashboardViewModel(
+                weatherAPI: provider.weatherAPI,
+                marineAPI: provider.marineAPI,
+                predictionService: provider.predictionService,
+                cloudKitService: provider.cloudKitService,
+                authService: provider.authService
+            ))
+            #else
             // Production initialization
             let weatherAPI = WeatherAPIService()
             let marineAPI = MarineDataService()
@@ -36,6 +47,7 @@ struct DashboardView: View {
                 cloudKitService: cloudKitService,
                 authService: authService
             ))
+            #endif
         }
     }
     
@@ -534,7 +546,7 @@ struct AlertSettingsView: View {
     }
 }
 
-struct StatCard: View {
+struct DashboardStatCard: View {
     let title: String
     let value: String
     let icon: String
