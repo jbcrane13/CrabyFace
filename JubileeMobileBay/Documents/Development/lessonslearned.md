@@ -829,6 +829,43 @@ struct StreamingVideoPreview: UIViewControllerRepresentable {
 - ✅ Connection quality UI indicators
 - ✅ All builds successful, app launches (PID: 62440)
 
+## Phase 3 Preparation - Community Features
+
+### Architecture Planning for Phase 3
+Based on IMPLEMENTATION_PLAN_REFINED.md analysis:
+
+#### Week 8: Data Models with Offline Support
+- **Core Data + CloudKit**: Hybrid approach for offline-first messaging
+- **Sync Status Tracking**: pending/synced/failed states
+- **Message Entity**: UUID, text, timestamp, roomId, userId
+
+#### Week 9-10: CloudKit-First Chat Implementation
+- **CloudKit Subscriptions**: Real-time message delivery
+- **Background Updates**: shouldSendContentAvailable = true
+- **Optimistic UI**: Save locally first, then sync
+
+#### Week 11: Progressive WebSocket Enhancement (Optional)
+- **Fallback Pattern**: CloudKit when WebSocket unavailable
+- **Reachability Check**: Only connect when network stable
+- **Auth Headers**: Secure WebSocket connections
+
+#### Week 12: Gamification System
+- **Points System**: Actions have point values
+- **Badge System**: Achievement unlocking
+- **CloudKit Storage**: User profiles and leaderboards
+
+### Key Architecture Decisions for Phase 3
+1. **CloudKit-First**: No backend required initially
+2. **Offline Support**: Core Data for local persistence
+3. **Progressive Enhancement**: Start simple, add WebSocket if needed
+4. **MVVM Pattern**: Maintain strict separation throughout
+
+### Testing Strategy for Phase 3
+- **Core Data Tests**: Mock persistent container
+- **CloudKit Tests**: Mock CKDatabase operations
+- **ViewModel Tests**: 90% coverage target
+- **Integration Tests**: Message flow end-to-end
+
 ### Next Steps for Week 7
 1. Implement HLS variant playlist support for adaptive bitrate
 2. Add network reachability monitoring
