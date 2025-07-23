@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -257,7 +257,7 @@
 		8FD09A53CD70AB4567D1A3F0 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		8FE743E26D276B957335B41C /* WeatherAPIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPIProtocol.swift; sourceTree = "<group>"; };
 		912FE4FFF1D3A05615F2B2B7 /* StreamingVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamingVideoView.swift; sourceTree = "<group>"; };
-		930BDE60E8F8509FA830E4F6 /* CreateMLTrainer.swift.disabled */ = {isa = PBXFileReference; path = CreateMLTrainer.swift.disabled; sourceTree = "<group>"; };
+		930BDE60E8F8509FA830E4F6 /* CreateMLTrainer.swift.disabled */ = {isa = PBXFileReference; lastKnownFileType = text; path = CreateMLTrainer.swift.disabled; sourceTree = "<group>"; };
 		97126302E478938DDBB52FE3 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		980FEC86168CF990D29257D8 /* CoreDataMigrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataMigrationManager.swift; sourceTree = "<group>"; };
 		9B9272A7AE0A0BA9F808751B /* StreamingVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamingVideoPlayer.swift; sourceTree = "<group>"; };
@@ -288,7 +288,7 @@
 		C01B811C37168007507E8913 /* JubileePredictorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JubileePredictorWrapper.swift; sourceTree = "<group>"; };
 		C2956AFB046581EFC1218DD8 /* EnvironmentalDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentalDataTests.swift; sourceTree = "<group>"; };
 		C30113DAA56B1E8B89B216E2 /* DashboardDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardDataProvider.swift; sourceTree = "<group>"; };
-		C3600EC03C24FA2D6FD2455A /* JubileeMobileBay.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = JubileeMobileBay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3600EC03C24FA2D6FD2455A /* JubileeMobileBay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JubileeMobileBay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5EB02481A9F1195F7701702 /* MarineDataServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarineDataServiceTests.swift; sourceTree = "<group>"; };
 		C7349C8F3E950CBC2316F3DB /* JubileeReport+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JubileeReport+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C7908A8DD337E0D5689388E4 /* JubileePredictor.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = JubileePredictor.mlmodel; sourceTree = "<group>"; };
@@ -304,7 +304,7 @@
 		D894AA4BD0D65D7D7D80746D /* JubileeReportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JubileeReportTests.swift; sourceTree = "<group>"; };
 		D8D2C5B180B01E60B8047EFB /* BarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChart.swift; sourceTree = "<group>"; };
 		DB1F73130D5BC191BFD3441D /* JubileeEventTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JubileeEventTests.swift; sourceTree = "<group>"; };
-		DBA92C206C21E7A6B4EB5A57 /* LegacyPredictionTypes.swift.disabled */ = {isa = PBXFileReference; path = LegacyPredictionTypes.swift.disabled; sourceTree = "<group>"; };
+		DBA92C206C21E7A6B4EB5A57 /* LegacyPredictionTypes.swift.disabled */ = {isa = PBXFileReference; lastKnownFileType = text; path = LegacyPredictionTypes.swift.disabled; sourceTree = "<group>"; };
 		DC1A4564FE17E3EBE2841CC5 /* TimeRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeRange.swift; sourceTree = "<group>"; };
 		DCA35343221C3DDF84105ED1 /* HeatMapChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatMapChart.swift; sourceTree = "<group>"; };
 		DD28BCF327CFF836B1139BED /* ConflictHistoryEntry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConflictHistoryEntry+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -886,9 +886,6 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
-					88730F4A58F2114D43C101F7 = {
-						DevelopmentTeam = "";
-					};
 					D215356F9EF5E74FD31732A3 = {
 						DevelopmentTeam = "";
 					};
@@ -904,7 +901,6 @@
 			);
 			mainGroup = 740352F3949AE37A78DEED15;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 54;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -1172,6 +1168,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = JubileeMobileBay/JubileeMobileBay.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 32XZRDTGK3;
 				INFOPLIST_FILE = JubileeMobileBay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1281,6 +1278,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = JubileeMobileBay/JubileeMobileBay.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 32XZRDTGK3;
 				INFOPLIST_FILE = JubileeMobileBay/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
