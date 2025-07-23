@@ -9,6 +9,8 @@ struct JubileeEvent: Identifiable, Equatable, Hashable, Codable {
     let intensity: JubileeIntensity
     let verificationStatus: VerificationStatus
     let reportCount: Int
+    let reportedBy: String
+    let notes: String?
     let metadata: JubileeMetadata
     
     init(
@@ -19,6 +21,8 @@ struct JubileeEvent: Identifiable, Equatable, Hashable, Codable {
         intensity: JubileeIntensity,
         verificationStatus: VerificationStatus,
         reportCount: Int = 0,
+        reportedBy: String,
+        notes: String? = nil,
         metadata: JubileeMetadata
     ) {
         self.id = id
@@ -28,6 +32,8 @@ struct JubileeEvent: Identifiable, Equatable, Hashable, Codable {
         self.intensity = intensity
         self.verificationStatus = verificationStatus
         self.reportCount = reportCount
+        self.reportedBy = reportedBy
+        self.notes = notes
         self.metadata = metadata
     }
     
@@ -83,6 +89,8 @@ struct JubileeEvent: Identifiable, Equatable, Hashable, Codable {
         case intensity
         case verificationStatus
         case reportCount
+        case reportedBy
+        case notes
         case metadata
     }
     
@@ -100,6 +108,8 @@ struct JubileeEvent: Identifiable, Equatable, Hashable, Codable {
         intensity = try container.decode(JubileeIntensity.self, forKey: .intensity)
         verificationStatus = try container.decode(VerificationStatus.self, forKey: .verificationStatus)
         reportCount = try container.decode(Int.self, forKey: .reportCount)
+        reportedBy = try container.decode(String.self, forKey: .reportedBy)
+        notes = try container.decodeIfPresent(String.self, forKey: .notes)
         metadata = try container.decode(JubileeMetadata.self, forKey: .metadata)
     }
     
@@ -114,6 +124,8 @@ struct JubileeEvent: Identifiable, Equatable, Hashable, Codable {
         try container.encode(intensity, forKey: .intensity)
         try container.encode(verificationStatus, forKey: .verificationStatus)
         try container.encode(reportCount, forKey: .reportCount)
+        try container.encode(reportedBy, forKey: .reportedBy)
+        try container.encodeIfPresent(notes, forKey: .notes)
         try container.encode(metadata, forKey: .metadata)
     }
 }

@@ -357,3 +357,60 @@ xcrun simctl launch "iPhone 16 Pro" com.jubileemobilebay.app
 
 ### Key Takeaway
 **Always verify actual runtime behavior, not just build success. A successful build does not mean the app functions correctly.**
+
+## Additional Best Practices
+
+### Git Workflow
+When working with many files (especially build artifacts):
+1. Use `.gitignore` to exclude build directories (`build/`, `DerivedData/`)
+2. Review staged files before committing: `git status`
+3. For large commits, consider using more specific add commands:
+   ```bash
+   git add JubileeMobileBay/JubileeMobileBay/
+   git add JubileeMobileBay/CLAUDE.md
+   git add JubileeMobileBay/LESSONS_LEARNED.md
+   ```
+
+### Development vs Production
+1. Always use conditional compilation for development-only features:
+   ```swift
+   #if DEBUG
+   // Development code
+   #else
+   // Production code
+   #endif
+   ```
+
+2. Create separate data providers for development:
+   - Mock services that return realistic data
+   - No network dependencies
+   - Predictable responses for testing
+
+### Simulator Management
+```bash
+# List available simulators
+xcrun simctl list devices
+
+# Delete unavailable simulators
+xcrun simctl delete unavailable
+
+# Open Simulator app
+open -a Simulator
+
+# Screenshot from simulator
+xcrun simctl io booted screenshot screenshot.png
+```
+
+### Documentation Updates
+Always update:
+1. CLAUDE.md - For persistent development guidelines
+2. LESSONS_LEARNED.md - For solved problems and solutions
+3. Project README - For setup and usage instructions
+
+### Pre-Commit Checklist
+1. Build succeeds on simulator
+2. App launches without crashes
+3. Core features work with mock data
+4. No sensitive data in logs
+5. Documentation is updated
+6. Tests pass (if applicable)

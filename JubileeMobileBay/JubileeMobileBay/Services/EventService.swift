@@ -26,6 +26,7 @@ class MockEventService: EventServiceProtocol {
                 intensity: .moderate,
                 verificationStatus: .userReported,
                 reportCount: 5,
+                reportedBy: "User1",
                 metadata: JubileeMetadata(
                     windSpeed: 5.0,
                     windDirection: 180,
@@ -46,6 +47,7 @@ class MockEventService: EventServiceProtocol {
                 intensity: .light,
                 verificationStatus: .verified,
                 reportCount: 12,
+                reportedBy: "User2",
                 metadata: JubileeMetadata(
                     windSpeed: 3.0,
                     windDirection: 90,
@@ -66,6 +68,7 @@ class MockEventService: EventServiceProtocol {
                 intensity: .heavy,
                 verificationStatus: .predicted,
                 reportCount: 0,
+                reportedBy: "System",
                 metadata: JubileeMetadata(
                     windSpeed: 2.0,
                     windDirection: 270,

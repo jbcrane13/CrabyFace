@@ -114,6 +114,7 @@ class CloudKitSchemaSetup: ObservableObject {
             intensity: .moderate,
             verificationStatus: .verified,
             reportCount: 3,
+            reportedBy: "System",
             metadata: metadata
         )
         

@@ -16,11 +16,15 @@ struct JubileeMapView: View {
     
     init(
         locationService: LocationServiceProtocol? = nil,
-        eventService: MockEventService? = nil
+        eventService: MockEventService? = nil,
+        homeLocationManager: HomeLocationManagerProtocol? = nil
     ) {
         let vm = MapViewModel(
             locationService: locationService ?? LocationService(),
-            eventService: eventService ?? MockEventService()
+            eventService: eventService ?? MockEventService(),
+            homeLocationManager: homeLocationManager ?? HomeLocationManager(
+                cloudKitService: CloudKitService()
+            )
         )
         _viewModel = StateObject(wrappedValue: vm)
     }

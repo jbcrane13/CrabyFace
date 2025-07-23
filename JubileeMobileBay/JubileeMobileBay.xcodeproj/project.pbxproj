@@ -22,10 +22,12 @@
 		168205E8E7A6399D5777A0D6 /* MarineDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754A8934345D9CC677769528 /* MarineDataService.swift */; };
 		17B98CC905AB0166B8E12258 /* create_placeholder_model.py in Resources */ = {isa = PBXBuildFile; fileRef = 471687BACC24A2405F0BC950 /* create_placeholder_model.py */; };
 		1A5B7B14A50DE7439E417232 /* CoreDataModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C2AAABA852EC5729CB2F5A /* CoreDataModelBuilder.swift */; };
+		1BA4B9EF547F049BC05BF06A /* MapAnnotationViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = B198EA9DB0CA91208076D7B7 /* MapAnnotationViews.swift */; };
 		1BAB93025C3E041D2BFE267B /* ConflictResolutionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051120D10BED956B1D842F5 /* ConflictResolutionService.swift */; };
 		1E4DD6A8A85E6B4DF874545B /* JubileeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E05F228B454D107A3AEBF2A /* JubileeEvent.swift */; };
 		1F3FC1DD547FF0A7DA333206 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793E67487CB1624BCF282883 /* WeatherData.swift */; };
 		20D905306E42EE8A6F51AD06 /* DashboardDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30113DAA56B1E8B89B216E2 /* DashboardDataProvider.swift */; };
+		2144D0DA4C86CA0DF6938EDF /* ClusteredMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510367EBDFDD263CCB2B7684 /* ClusteredMapView.swift */; };
 		24419C7B7FEB9D5F8293763C /* LegacyPredictionTypes.swift.disabled in Resources */ = {isa = PBXBuildFile; fileRef = DBA92C206C21E7A6B4EB5A57 /* LegacyPredictionTypes.swift.disabled */; };
 		24BB7AA4743D3B5860F179D4 /* CameraGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C86A866AE7FF1BD88D9F634 /* CameraGridView.swift */; };
 		26EDCBCFB9FEE406D20BF02B /* train_jubilee_model.py in Resources */ = {isa = PBXBuildFile; fileRef = 10FB74A075A84F11C534B37A /* train_jubilee_model.py */; };
@@ -94,10 +96,12 @@
 		9B501F4745930A197BDB7E50 /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A88E8B22955F4B0848C26BD /* PhotoPickerView.swift */; };
 		9B7BFF272E2B447E69152AA5 /* TimeRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC1A4564FE17E3EBE2841CC5 /* TimeRange.swift */; };
 		9CF8E811A8F5365B8F58AAFA /* JubileeMobileBayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB30DF3035163DBED8E8DBE /* JubileeMobileBayApp.swift */; };
+		9D8930D1AE5041BEB5DF969B /* HomeLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2721E5669F31D1547E4CCC50 /* HomeLocationManager.swift */; };
 		A069F8ECA75325622369E13C /* PredictionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC95D4ED7875F2436FF8F51 /* PredictionService.swift */; };
 		A22761A09BB85A74CC66336D /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3464951C1B1A66F3B6A2BCE0 /* EventService.swift */; };
 		A22A244D40FE8F1F12D54E9B /* CreateMLTrainer.swift.disabled in Resources */ = {isa = PBXBuildFile; fileRef = 930BDE60E8F8509FA830E4F6 /* CreateMLTrainer.swift.disabled */; };
 		A47692837913914509EF84F4 /* MarineLifeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8A1B638241EA1A721F4841 /* MarineLifeType.swift */; };
+		A590E3E27D479392EC278E0D /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5094D558B13C4342420E16F1 /* MapView.swift */; };
 		A6A13E3E75B360EE8DC03C13 /* CameraPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6748710ABEA2A2105D048AE7 /* CameraPermissionView.swift */; };
 		A7D4EC53520F75F23ACAD7AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83D0FD67B39383C424B91E69 /* Assets.xcassets */; };
 		A8F3F7FE02422177EADA646D /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB55F4F0CB0CA5EF4B915D5 /* DashboardViewModel.swift */; };
@@ -133,7 +137,9 @@
 		DB8E28112C2EE1178FE37AD4 /* SyncableEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BEB077B133DF2A586DDFC1 /* SyncableEntity.swift */; };
 		DBFDDDDA9D0EAA4DF941C662 /* ReportViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A33BB729B7C2753F30E27A3 /* ReportViewTests.swift */; };
 		DD2B2A95B087E363CB692A15 /* BackgroundSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782CFCCAD7C483605A8F4CB /* BackgroundSyncService.swift */; };
+		DFE76538902DEC57B84C952F /* EnhancedMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0F7C0784341A4650BA81E2 /* EnhancedMapView.swift */; };
 		E42298172376C975ADD8EF3D /* WebRTCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A15F6897E474EB701D37B54 /* WebRTCService.swift */; };
+		E4744562108A5905E67A1162 /* MapAnnotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8BF1BF1C03941091A78E73 /* MapAnnotations.swift */; };
 		E91AACC198F907FC6126B405 /* DashboardStateCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2033D961CA64C113657BF4AA /* DashboardStateCodable.swift */; };
 		ED0F1DB37E80F719C4B88578 /* JubileeReportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D894AA4BD0D65D7D7D80746D /* JubileeReportTests.swift */; };
 		EE49C7DDB5C72D785A8DB0BC /* JubileePredictor.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = C7908A8DD337E0D5689388E4 /* JubileePredictor.mlmodel */; };
@@ -183,6 +189,7 @@
 		2033D961CA64C113657BF4AA /* DashboardStateCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardStateCodable.swift; sourceTree = "<group>"; };
 		236370156B1EB66DDF19BF2E /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		2542BDFBBFEB22610833CCBB /* ReportViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModelTests.swift; sourceTree = "<group>"; };
+		2721E5669F31D1547E4CCC50 /* HomeLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLocationManager.swift; sourceTree = "<group>"; };
 		2934D943BC95F78EC6486CFF /* CloudKitServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitServiceProtocol.swift; sourceTree = "<group>"; };
 		2E05F228B454D107A3AEBF2A /* JubileeEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JubileeEvent.swift; sourceTree = "<group>"; };
 		2ECEB6B648779C7E6A321DE1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -203,6 +210,8 @@
 		4B6E56430F4EA5DF9FDEA0AD /* LocationAccuracy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAccuracy.swift; sourceTree = "<group>"; };
 		4CCFEEF498B3C6CCF62AD405 /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
 		4D936E3686F8A0C44491AF1F /* ConflictHistoryEntry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConflictHistoryEntry+CoreDataClass.swift"; sourceTree = "<group>"; };
+		5094D558B13C4342420E16F1 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		510367EBDFDD263CCB2B7684 /* ClusteredMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusteredMapView.swift; sourceTree = "<group>"; };
 		5371A0C7CD7DA8A8C5BBA0B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5550782C932075842C579762 /* JubileeReport+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JubileeReport+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		588762AAA5EE5F4C5041EB5B /* JubileeMobileBay.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JubileeMobileBay.entitlements; sourceTree = "<group>"; };
@@ -256,6 +265,7 @@
 		A9D451A386C8A860B291B134 /* create_simple_model.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = create_simple_model.py; sourceTree = "<group>"; };
 		AA4A4502EFE67EC7BFFE6309 /* ConflictResolutionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConflictResolutionServiceTests.swift; sourceTree = "<group>"; };
 		AC1A2C0BC17B11FE6586A84B /* ScatterPlotChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScatterPlotChart.swift; sourceTree = "<group>"; };
+		B198EA9DB0CA91208076D7B7 /* MapAnnotationViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationViews.swift; sourceTree = "<group>"; };
 		B263CAA48E2605955BE39B3A /* SyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncService.swift; sourceTree = "<group>"; };
 		B2708C5C45DF97768968A47D /* CloudKitValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitValidator.swift; sourceTree = "<group>"; };
 		B278E841280425D866A6A159 /* ReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
@@ -263,6 +273,7 @@
 		B77F5FE2CD8BC49950579D36 /* LocationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceTests.swift; sourceTree = "<group>"; };
 		B7C3E0E60425100F903DF75B /* NotificationPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionView.swift; sourceTree = "<group>"; };
 		B8A73809E5B2F11F034100FE /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
+		BD0F7C0784341A4650BA81E2 /* EnhancedMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnhancedMapView.swift; sourceTree = "<group>"; };
 		BDA7E2DD4DA94D501F2A24F8 /* PhotoUploadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoUploadService.swift; sourceTree = "<group>"; };
 		BE74CEF3613692E015A9CBA1 /* ChartGestureModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartGestureModifiers.swift; sourceTree = "<group>"; };
 		BEF577C5101A6CC3D639C55A /* create_basic_model.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = create_basic_model.py; sourceTree = "<group>"; };
@@ -274,6 +285,7 @@
 		C7349C8F3E950CBC2316F3DB /* JubileeReport+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JubileeReport+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C7908A8DD337E0D5689388E4 /* JubileePredictor.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = JubileePredictor.mlmodel; sourceTree = "<group>"; };
 		C916020B46706948EAF86C6E /* train_neural_network_model.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = train_neural_network_model.py; sourceTree = "<group>"; };
+		CA8BF1BF1C03941091A78E73 /* MapAnnotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotations.swift; sourceTree = "<group>"; };
 		CB971F282883DD85564B4A11 /* CameraServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraServiceProtocol.swift; sourceTree = "<group>"; };
 		CFA2E7C622E8EE6162BBF7CB /* CommentRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRowView.swift; sourceTree = "<group>"; };
 		D051120D10BED956B1D842F5 /* ConflictResolutionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConflictResolutionService.swift; sourceTree = "<group>"; };
@@ -595,6 +607,7 @@
 				A2581B1EE304214D7701F107 /* CommunityFeedView.swift */,
 				E4D4B2618B1A926D8838E659 /* DashboardView.swift */,
 				0F0B4B29D11B31589BD2EE79 /* LoginView.swift */,
+				5094D558B13C4342420E16F1 /* MapView.swift */,
 				1A88E8B22955F4B0848C26BD /* PhotoPickerView.swift */,
 				0D226286DF092FF4E4B8F796 /* ReportView.swift */,
 			);
@@ -649,7 +662,10 @@
 		83F4A367B87B80C8695C427C /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				510367EBDFDD263CCB2B7684 /* ClusteredMapView.swift */,
+				BD0F7C0784341A4650BA81E2 /* EnhancedMapView.swift */,
 				FEE97EE742DD10A97129EC61 /* JubileeMapView.swift */,
+				B198EA9DB0CA91208076D7B7 /* MapAnnotationViews.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -702,6 +718,7 @@
 				072B9B2505FF5C2D64974235 /* Enums */,
 				04F0CEEA22B7928A3136B63B /* Legacy */,
 				4EE9D76226C9654178C02998 /* ML */,
+				CA8BF1BF1C03941091A78E73 /* MapAnnotations.swift */,
 				00F8BC8ED83BE75FF15B8A44 /* MarineData.swift */,
 				EC8A1B638241EA1A721F4841 /* MarineLifeType.swift */,
 				9F069B4762AECF9781E0870E /* PhotoItem.swift */,
@@ -774,6 +791,7 @@
 				B2708C5C45DF97768968A47D /* CloudKitValidator.swift */,
 				58EF0484F0AA8946578CB8E8 /* DemoDataService.swift */,
 				3464951C1B1A66F3B6A2BCE0 /* EventService.swift */,
+				2721E5669F31D1547E4CCC50 /* HomeLocationManager.swift */,
 				4B6E56430F4EA5DF9FDEA0AD /* LocationAccuracy.swift */,
 				73A95D008249593E9AFBACE0 /* LocationService.swift */,
 				D72E04BBE629683D6C597352 /* LocationServiceProtocol.swift */,
@@ -969,6 +987,7 @@
 				666C6B9D7FAAF223F7E25ABC /* CloudKitServiceProtocol.swift in Sources */,
 				88CC15F65837DC53A1D7E37E /* CloudKitSyncService.swift in Sources */,
 				93E7AD11501F1ABA1A5BACBC /* CloudKitValidator.swift in Sources */,
+				2144D0DA4C86CA0DF6938EDF /* ClusteredMapView.swift in Sources */,
 				C6D26F4715DE396338458DDE /* Color+Hex.swift in Sources */,
 				030D6903A878B1742A685856 /* CommentRowView.swift in Sources */,
 				309F9066B8878ABB4B439917 /* CommentThreadView.swift in Sources */,
@@ -992,10 +1011,12 @@
 				750B44570E12E94697E574C4 /* DashboardView.swift in Sources */,
 				A8F3F7FE02422177EADA646D /* DashboardViewModel.swift in Sources */,
 				ABC804B6B987B814AE6CC3B2 /* DemoDataService.swift in Sources */,
+				DFE76538902DEC57B84C952F /* EnhancedMapView.swift in Sources */,
 				5088BB10B4F5348151A86165 /* EnvironmentalData.swift in Sources */,
 				CCC541BAEE5C6F0DB81B7AE1 /* EventAnnotation.swift in Sources */,
 				A22761A09BB85A74CC66336D /* EventService.swift in Sources */,
 				5344718EF447E7493859FEBC /* HeatMapChart.swift in Sources */,
+				9D8930D1AE5041BEB5DF969B /* HomeLocationManager.swift in Sources */,
 				3CC74CEAFEB2684A0D9D5692 /* InteractiveDashboardView.swift in Sources */,
 				2E2E90CD329479FC51E17584 /* JubileeEnums.swift in Sources */,
 				1E4DD6A8A85E6B4DF874545B /* JubileeEvent.swift in Sources */,
@@ -1011,6 +1032,9 @@
 				3E62F7ABAB1A2904C8611107 /* LocationService.swift in Sources */,
 				BECF78AFFFC0F88E7AFF30F3 /* LocationServiceProtocol.swift in Sources */,
 				BE6EF1F8C3C0D54087FB2303 /* LoginView.swift in Sources */,
+				1BA4B9EF547F049BC05BF06A /* MapAnnotationViews.swift in Sources */,
+				E4744562108A5905E67A1162 /* MapAnnotations.swift in Sources */,
+				A590E3E27D479392EC278E0D /* MapView.swift in Sources */,
 				F8BC3B5AF9DB3001724106A5 /* MapViewModel.swift in Sources */,
 				BC3928EFAD20405B9A03F1BC /* MarineData.swift in Sources */,
 				85E82BC588F28CE0EF6BE1F6 /* MarineDataProtocol.swift in Sources */,

@@ -380,6 +380,7 @@ class CloudKitService: ObservableObject, CloudKitServiceProtocol {
                 intensity: intensities[index % intensities.count],
                 verificationStatus: index == 0 ? .verified : .userReported,
                 reportCount: Int.random(in: 1...15),
+                reportedBy: "MockUser\(index)",
                 metadata: metadata
             )
         }
@@ -399,6 +400,7 @@ class CloudKitService: ObservableObject, CloudKitServiceProtocol {
         
         let endTime = record[JubileeEventField.endTime.rawValue] as? Date
         let reportCount = record["reportCount"] as? Int ?? 0
+        let reportedBy = record["reportedBy"] as? String ?? "Unknown"
         
         // Extract metadata
         guard let temperature = record["temperature"] as? Double,
@@ -435,6 +437,7 @@ class CloudKitService: ObservableObject, CloudKitServiceProtocol {
             intensity: intensity,
             verificationStatus: verificationStatus,
             reportCount: reportCount,
+            reportedBy: reportedBy,
             metadata: metadata
         )
     }

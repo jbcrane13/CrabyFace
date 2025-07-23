@@ -16,7 +16,11 @@ class MapViewModel: ObservableObject {
     
     @Published var region: MKCoordinateRegion
     @Published var eventAnnotations: [EventAnnotation] = []
+    @Published var cameraAnnotations: [CameraAnnotation] = []
+    @Published var weatherStationAnnotations: [WeatherStationAnnotation] = []
+    @Published var jubileeReportAnnotations: [JubileeReportAnnotation] = []
     @Published var selectedEvent: JubileeEvent?
+    @Published var selectedAnnotation: MKAnnotation?
     @Published var showUserLocation: Bool = false {
         didSet {
             if showUserLocation && !userLocationAuthorized {
@@ -26,11 +30,17 @@ class MapViewModel: ObservableObject {
     }
     @Published var filterIntensities: Set<JubileeIntensity> = Set(JubileeIntensity.allCases)
     @Published var filterTimeRange: TimeRange = .all
+    @Published var isSettingHomeLocation: Bool = false
+    @Published var homeLocationAnnotation: HomeLocationAnnotation?
+    @Published var showCameras: Bool = true
+    @Published var showWeatherStations: Bool = true
+    @Published var showJubileeReports: Bool = true
     
     // MARK: - Services
     
     private let locationService: LocationServiceProtocol
     private let eventService: MockEventService
+    private let homeLocationManager: HomeLocationManagerProtocol
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Properties
@@ -42,6 +52,46 @@ class MapViewModel: ObservableObject {
         default:
             return false
         }
+    }
+    
+    var allAnnotations: [MKAnnotation] {
+        var annotations: [MKAnnotation] = []
+        
+        // Add camera annotations if enabled
+        if showCameras {
+            annotations.append(contentsOf: cameraAnnotations)
+        }
+        
+        // Add weather station annotations if enabled
+        if showWeatherStations {
+            annotations.append(contentsOf: weatherStationAnnotations)
+        }
+        
+        // Add jubilee report annotations if enabled and filtered
+        if showJubileeReports {
+            let filteredReports = jubileeReportAnnotations.filter { annotation in
+                // Filter by intensity
+                guard filterIntensities.contains(annotation.intensity) else {
+                    return false
+                }
+                
+                // Filter by time range
+                if let timeInterval = filterTimeRange.timeInterval {
+                    let cutoffDate = Date().addingTimeInterval(-timeInterval)
+                    return annotation.reportedAt >= cutoffDate
+                }
+                
+                return true
+            }
+            annotations.append(contentsOf: filteredReports)
+        }
+        
+        // Always include home location if set
+        if let homeAnnotation = homeLocationAnnotation {
+            annotations.append(homeAnnotation)
+        }
+        
+        return annotations
     }
     
     var filteredAnnotations: [EventAnnotation] {
@@ -68,10 +118,12 @@ class MapViewModel: ObservableObject {
     
     init(
         locationService: LocationServiceProtocol,
-        eventService: MockEventService
+        eventService: MockEventService,
+        homeLocationManager: HomeLocationManagerProtocol
     ) {
         self.locationService = locationService
         self.eventService = eventService
+        self.homeLocationManager = homeLocationManager
         
         // Initialize with Mobile Bay centered region
         self.region = MKCoordinateRegion(
@@ -80,6 +132,7 @@ class MapViewModel: ObservableObject {
         )
         
         setupBindings()
+        loadHomeLocation()
     }
     
     // MARK: - Private Methods
@@ -109,6 +162,22 @@ class MapViewModel: ObservableObject {
         }
     }
     
+    func loadAllAnnotations() {
+        // Load mock data for now
+        Task {
+            await MainActor.run {
+                // Load cameras
+                cameraAnnotations = CameraAnnotation.mockAnnotations()
+                
+                // Load weather stations
+                weatherStationAnnotations = WeatherStationAnnotation.mockAnnotations()
+                
+                // Load jubilee reports
+                jubileeReportAnnotations = JubileeReportAnnotation.mockAnnotations()
+            }
+        }
+    }
+    
     func centerOnUserLocation() {
         guard let location = locationService.currentLocation else { return }
         
@@ -126,6 +195,14 @@ class MapViewModel: ObservableObject {
         selectedEvent = nil
     }
     
+    func selectAnnotation(_ annotation: MKAnnotation) {
+        selectedAnnotation = annotation
+    }
+    
+    func deselectAnnotation() {
+        selectedAnnotation = nil
+    }
+    
     func mapRegionDidChange(_ newRegion: MKCoordinateRegion) {
         region = newRegion
     }
@@ -140,6 +217,69 @@ class MapViewModel: ObservableObject {
         ]
         
         mapItem.openInMaps(launchOptions: launchOptions)
+    }
+    
+    // MARK: - Home Location Methods
+    
+    func startSettingHomeLocation() {
+        isSettingHomeLocation = true
+    }
+    
+    func setHomeLocation(at coordinate: CLLocationCoordinate2D) async {
+        isSettingHomeLocation = false
+        
+        let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        
+        do {
+            try await homeLocationManager.setHomeLocation(location)
+            updateHomeLocationAnnotation()
+        } catch {
+            print("Failed to set home location: \(error)")
+        }
+    }
+    
+    func cancelSettingHomeLocation() {
+        isSettingHomeLocation = false
+    }
+    
+    func centerOnHomeLocation() {
+        guard let homeLocation = homeLocationManager.homeLocation else { return }
+        
+        region = MKCoordinateRegion(
+            center: homeLocation.coordinate,
+            span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        )
+    }
+    
+    private func loadHomeLocation() {
+        updateHomeLocationAnnotation()
+    }
+    
+    private func updateHomeLocationAnnotation() {
+        if let location = homeLocationManager.homeLocation {
+            homeLocationAnnotation = HomeLocationAnnotation(
+                coordinate: location.coordinate,
+                title: "Home",
+                subtitle: homeLocationManager.homeLocationName
+            )
+        } else {
+            homeLocationAnnotation = nil
+        }
+    }
+}
+
+// MARK: - Home Location Annotation
+
+class HomeLocationAnnotation: NSObject, MKAnnotation {
+    let coordinate: CLLocationCoordinate2D
+    let title: String?
+    let subtitle: String?
+    
+    init(coordinate: CLLocationCoordinate2D, title: String?, subtitle: String?) {
+        self.coordinate = coordinate
+        self.title = title
+        self.subtitle = subtitle
+        super.init()
     }
 }
 

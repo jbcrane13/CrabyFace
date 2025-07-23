@@ -111,6 +111,7 @@ class DemoDataService {
                 intensity: .heavy,
                 verificationStatus: .verified,
                 reportCount: 15,
+                reportedBy: "DemoUser1",
                 metadata: JubileeMetadata(
                     windSpeed: 5.2,
                     windDirection: 180,
@@ -131,6 +132,7 @@ class DemoDataService {
                 intensity: .light,
                 verificationStatus: .verified,
                 reportCount: 8,
+                reportedBy: "DemoUser2",
                 metadata: JubileeMetadata(
                     windSpeed: 3.8,
                     windDirection: 210,
@@ -151,6 +153,7 @@ class DemoDataService {
                 intensity: .moderate,
                 verificationStatus: .userReported,
                 reportCount: 5,
+                reportedBy: "DemoUser3",
                 metadata: JubileeMetadata(
                     windSpeed: 6.5,
                     windDirection: 165,

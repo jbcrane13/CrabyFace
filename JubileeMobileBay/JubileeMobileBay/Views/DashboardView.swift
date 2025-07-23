@@ -11,11 +11,13 @@ import CoreLocation
 
 struct DashboardView: View {
     @StateObject var viewModel: DashboardViewModel
+    @StateObject private var homeLocationManager: HomeLocationManager
     @State private var showingReportView = false
     @State private var showingAlertSettings = false
     @State private var showingHighProbabilityAlert = false
     
-    init(viewModel: DashboardViewModel? = nil) {
+    init(viewModel: DashboardViewModel? = nil,
+         homeLocationManager: HomeLocationManager? = nil) {
         if let viewModel = viewModel {
             _viewModel = StateObject(wrappedValue: viewModel)
         } else {
@@ -49,6 +51,15 @@ struct DashboardView: View {
             ))
             #endif
         }
+        
+        // Initialize home location manager
+        if let manager = homeLocationManager {
+            _homeLocationManager = StateObject(wrappedValue: manager)
+        } else {
+            _homeLocationManager = StateObject(wrappedValue: HomeLocationManager(
+                cloudKitService: CloudKitService()
+            ))
+        }
     }
     
     var body: some View {
@@ -61,6 +72,9 @@ struct DashboardView: View {
                             .frame(maxWidth: .infinity, minHeight: 400)
                     
                     case .loaded:
+                        // Home Location Section
+                        homeLocationSection
+                        
                         // Probability Gauge Section
                         probabilitySection
                         
@@ -322,6 +336,105 @@ struct DashboardView: View {
                     UserReportCard(event: event)
                 }
             }
+        }
+    }
+    
+    // MARK: - Home Location Section
+    
+    private var homeLocationSection: some View {
+        Group {
+            if let homeLocation = homeLocationManager.homeLocation {
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        Image(systemName: "house.fill")
+                            .font(.title2)
+                            .foregroundColor(.blue)
+                        
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Your Home Area")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                            
+                            Text(homeLocationManager.homeLocationName ?? "Unknown Location")
+                                .font(.headline)
+                        }
+                        
+                        Spacer()
+                        
+                        NavigationLink(destination: ClusteredMapContainerView.make()) {
+                            Text("View Map")
+                                .font(.caption)
+                                .foregroundColor(.blue)
+                        }
+                    }
+                    
+                    // Show location-specific jubilee probability if available
+                    // TODO: Phase 2 - Implement local predictions
+                    /*
+                    if let localProbability = viewModel.localPrediction?.probability {
+                        HStack {
+                            Text("Local Jubilee Probability")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            
+                            Spacer()
+                            
+                            Text("\(Int(localProbability * 100))%")
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                                .foregroundColor(colorForProbability(localProbability))
+                        }
+                    }
+                    */
+                }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color(.systemBackground))
+                        .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
+                )
+            } else {
+                // Prompt to set home location
+                VStack(spacing: 12) {
+                    Image(systemName: "house")
+                        .font(.largeTitle)
+                        .foregroundColor(.secondary)
+                    
+                    Text("Set Your Home Location")
+                        .font(.headline)
+                    
+                    Text("Get personalized jubilee alerts for your area")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                    
+                    NavigationLink(destination: ClusteredMapContainerView.make()) {
+                        Text("Set Location")
+                            .fontWeight(.medium)
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 12)
+                            .background(Color.blue)
+                            .cornerRadius(25)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color(.systemBackground))
+                        .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
+                )
+            }
+        }
+    }
+    
+    private func colorForProbability(_ probability: Double) -> Color {
+        switch probability {
+        case 0..<0.3: return .green
+        case 0.3..<0.6: return .yellow
+        case 0.6..<0.8: return .orange
+        default: return .red
         }
     }
 }
