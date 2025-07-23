@@ -83,11 +83,18 @@
     "object" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/ChartGestureModifiers.o",
     "swift-dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/ChartGestureModifiers.swiftdeps"
   },
-  "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/JubileeMobileBay/Views/Camera/CameraPreviewView.swift" : {
-    "const-values" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraPreviewView.swiftconstvalues",
-    "dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraPreviewView.d",
-    "diagnostics" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraPreviewView.dia",
-    "object" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraPreviewView.o",
-    "swift-dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraPreviewView.swiftdeps"
+  "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/JubileeMobileBay/Views/Community/CommentRowView.swift" : {
+    "const-values" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CommentRowView.swiftconstvalues",
+    "dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CommentRowView.d",
+    "diagnostics" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CommentRowView.dia",
+    "object" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CommentRowView.o",
+    "swift-dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CommentRowView.swiftdeps"
+  },
+  "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/JubileeMobileBay/Views/Map/ClusteredMapView.swift" : {
+    "const-values" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/ClusteredMapView.swiftconstvalues",
+    "dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/ClusteredMapView.d",
+    "diagnostics" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/ClusteredMapView.dia",
+    "object" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/ClusteredMapView.o",
+    "swift-dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/ClusteredMapView.swiftdeps"
   }
 }

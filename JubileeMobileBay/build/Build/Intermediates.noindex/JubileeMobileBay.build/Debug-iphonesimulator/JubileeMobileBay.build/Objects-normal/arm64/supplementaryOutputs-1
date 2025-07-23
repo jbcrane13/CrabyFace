@@ -89,5 +89,12 @@
     "diagnostics" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraPermissionView.dia",
     "object" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraPermissionView.o",
     "swift-dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraPermissionView.swiftdeps"
+  },
+  "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/JubileeMobileBay/Views/Camera/CameraPreviewView.swift" : {
+    "const-values" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraPreviewView.swiftconstvalues",
+    "dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraPreviewView.d",
+    "diagnostics" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraPreviewView.dia",
+    "object" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraPreviewView.o",
+    "swift-dependencies" : "/Users/blake/GitHub/CrabyFace/JubileeMobileBay/build/Build/Intermediates.noindex/JubileeMobileBay.build/Debug-iphonesimulator/JubileeMobileBay.build/Objects-normal/arm64/CameraPreviewView.swiftdeps"
   }
 }

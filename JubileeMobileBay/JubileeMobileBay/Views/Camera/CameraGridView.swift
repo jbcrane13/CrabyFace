@@ -6,52 +6,27 @@
 //
 
 import SwiftUI
+import AVKit
 
-// MARK: - Camera Feed Model
+// Note: CameraFeed model moved to CameraFeedViewModel.swift
 
-struct CameraFeed: Identifiable {
-    let id = UUID()
-    let name: String
-    let location: String
-    let streamURL: URL?
-    let isLive: Bool
-    let viewerCount: Int
-    let thumbnailImage: String? // For demo purposes
+// MARK: - Streaming Video Preview
+
+struct StreamingVideoPreview: UIViewControllerRepresentable {
+    let player: StreamingVideoPlayer
     
-    static let mockFeeds: [CameraFeed] = [
-        CameraFeed(
-            name: "Main Beach Cam",
-            location: "Fairhope Municipal Pier",
-            streamURL: URL(string: "https://stream1.example.com"),
-            isLive: true,
-            viewerCount: 142,
-            thumbnailImage: "beach.thumbnail"
-        ),
-        CameraFeed(
-            name: "South Shore View",
-            location: "Point Clear",
-            streamURL: URL(string: "https://stream2.example.com"),
-            isLive: true,
-            viewerCount: 89,
-            thumbnailImage: "shore.thumbnail"
-        ),
-        CameraFeed(
-            name: "Marina Cam",
-            location: "Eastern Shore Marina",
-            streamURL: URL(string: "https://stream3.example.com"),
-            isLive: false,
-            viewerCount: 0,
-            thumbnailImage: "marina.thumbnail"
-        ),
-        CameraFeed(
-            name: "Bay Bridge View",
-            location: "Battleship Park",
-            streamURL: URL(string: "https://stream4.example.com"),
-            isLive: true,
-            viewerCount: 234,
-            thumbnailImage: "bridge.thumbnail"
-        )
-    ]
+    func makeUIViewController(context: Context) -> AVPlayerViewController {
+        let controller = AVPlayerViewController()
+        controller.showsPlaybackControls = false
+        controller.videoGravity = .resizeAspectFill
+        return controller
+    }
+    
+    func updateUIViewController(_ uiViewController: AVPlayerViewController, context: Context) {
+        if let avPlayer = player.player {
+            uiViewController.player = avPlayer
+        }
+    }
 }
 
 // MARK: - Camera Grid View
@@ -60,10 +35,14 @@ struct CameraGridView: View {
     
     // MARK: - Properties
     
-    @StateObject private var viewModel = CameraGridViewModel()
+    @StateObject private var viewModel: CameraFeedViewModel
     @State private var selectedFeed: CameraFeed?
     @State private var showFullscreenCamera = false
     @Namespace private var animationNamespace
+    
+    init(cameraService: CameraFeedServiceProtocol = MockCameraService()) {
+        _viewModel = StateObject(wrappedValue: CameraFeedViewModel(cameraService: cameraService))
+    }
     
     // Grid layout
     private let columns = [
@@ -82,20 +61,26 @@ struct CameraGridView: View {
                     
                     // Camera grid
                     LazyVGrid(columns: columns, spacing: 16) {
-                        // User's camera (if streaming)
-                        if viewModel.isUserStreaming {
-                            userCameraFeedView
-                        }
-                        
                         // Remote camera feeds
-                        ForEach(viewModel.cameraFeeds) { feed in
+                        ForEach(viewModel.availableCameras) { feed in
                             CameraFeedTile(
                                 feed: feed,
+                                viewModel: viewModel,
                                 namespace: animationNamespace,
                                 onTap: {
                                     selectFeed(feed)
                                 }
                             )
+                            .onAppear {
+                                // Start stream when tile appears if auto-play enabled
+                                if feed.isOnline && viewModel.activePlayers.count < 2 {
+                                    viewModel.startStream(for: feed.id, url: feed.streamURL)
+                                }
+                            }
+                            .onDisappear {
+                                // Stop stream when tile disappears to save memory
+                                viewModel.stopStream(for: feed.id)
+                            }
                         }
                     }
                     .padding(.horizontal)
@@ -105,15 +90,23 @@ struct CameraGridView: View {
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: toggleUserStream) {
-                        Image(systemName: viewModel.isUserStreaming ? "video.slash.fill" : "video.fill")
-                            .foregroundColor(viewModel.isUserStreaming ? .red : .blue)
+                    Menu {
+                        Button(action: { viewModel.stopAllStreams() }) {
+                            Label("Stop All Streams", systemImage: "stop.circle")
+                        }
+                        
+                        Button(action: refreshFeeds) {
+                            Label("Refresh", systemImage: "arrow.clockwise")
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
                     }
                 }
             }
             .fullScreenCover(item: $selectedFeed) { feed in
                 FullscreenCameraView(
                     feed: feed,
+                    viewModel: viewModel,
                     namespace: animationNamespace,
                     onDismiss: {
                         selectedFeed = nil
@@ -237,6 +230,12 @@ struct CameraGridView: View {
             await viewModel.toggleUserStream()
         }
     }
+    
+    private func refreshFeeds() {
+        Task {
+            await viewModel.loadCameraFeeds()
+        }
+    }
 }
 
 // MARK: - Camera Feed Tile
@@ -244,33 +243,53 @@ struct CameraGridView: View {
 struct CameraFeedTile: View {
     
     let feed: CameraFeed
+    @ObservedObject var viewModel: CameraFeedViewModel
     let namespace: Namespace.ID
     let onTap: () -> Void
+    
+    private var placeholderView: some View {
+        Rectangle()
+            .fill(Color.gray.opacity(0.3))
+            .aspectRatio(16/9, contentMode: .fill)
+            .overlay(
+                Image(systemName: feed.isOnline ? "video.fill" : "video.slash.fill")
+                    .font(.largeTitle)
+                    .foregroundColor(.gray)
+            )
+    }
     
     var body: some View {
         Button(action: onTap) {
             ZStack {
-                // Thumbnail or placeholder
-                if let thumbnailImage = feed.thumbnailImage {
-                    Image(thumbnailImage)
-                        .resizable()
+                // Show streaming video or placeholder
+                if let player = viewModel.player(for: feed.id) {
+                    // Active stream preview
+                    StreamingVideoPreview(player: player)
                         .aspectRatio(16/9, contentMode: .fill)
                         .clipped()
+                } else if let thumbnailURL = feed.thumbnailURL {
+                    // Thumbnail from URL
+                    AsyncImage(url: thumbnailURL) { phase in
+                        switch phase {
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .aspectRatio(16/9, contentMode: .fill)
+                                .clipped()
+                        case .failure(_), .empty:
+                            placeholderView
+                        @unknown default:
+                            placeholderView
+                        }
+                    }
                 } else {
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.3))
-                        .aspectRatio(16/9, contentMode: .fill)
-                        .overlay(
-                            Image(systemName: feed.isLive ? "video.fill" : "video.slash.fill")
-                                .font(.largeTitle)
-                                .foregroundColor(.gray)
-                        )
+                    placeholderView
                 }
                 
                 // Overlay
                 VStack {
                     HStack {
-                        if feed.isLive {
+                        if feed.isOnline {
                             // Live indicator
                             HStack(spacing: 4) {
                                 Circle()
@@ -290,21 +309,31 @@ struct CameraFeedTile: View {
                         
                         Spacer()
                         
-                        if feed.isLive {
-                            // Viewer count
-                            HStack(spacing: 4) {
-                                Image(systemName: "eye.fill")
-                                    .font(.caption2)
-                                
-                                Text("\(feed.viewerCount)")
-                                    .font(.caption2)
-                                    .fontWeight(.medium)
+                        if feed.isOnline {
+                            if let player = viewModel.player(for: feed.id) {
+                                // Connection quality for active streams
+                                HStack(spacing: 4) {
+                                    Image(systemName: player.connectionQuality.iconName)
+                                        .font(.caption2)
+                                        .foregroundColor(player.connectionQuality.color)
+                                    
+                                    if player.currentBitrate > 0 {
+                                        Text(formatBitrate(player.currentBitrate))
+                                            .font(.caption2)
+                                            .fontWeight(.medium)
+                                            .foregroundColor(.white)
+                                    } else {
+                                        Text("Connecting")
+                                            .font(.caption2)
+                                            .fontWeight(.medium)
+                                            .foregroundColor(.white)
+                                    }
+                                }
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(Color.black.opacity(0.7))
+                                .cornerRadius(10)
                             }
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 4)
-                            .background(Color.black.opacity(0.7))
-                            .cornerRadius(10)
                         }
                     }
                     .padding(8)
@@ -342,6 +371,14 @@ struct CameraFeedTile: View {
         .buttonStyle(PlainButtonStyle())
         .matchedGeometryEffect(id: feed.id, in: namespace)
     }
+    
+    private func formatBitrate(_ bitrate: Double) -> String {
+        if bitrate < 1_000_000 {
+            return String(format: "%.0f Kbps", bitrate / 1_000)
+        } else {
+            return String(format: "%.1f Mbps", bitrate / 1_000_000)
+        }
+    }
 }
 
 // MARK: - Fullscreen Camera View
@@ -349,11 +386,11 @@ struct CameraFeedTile: View {
 struct FullscreenCameraView: View {
     
     let feed: CameraFeed
+    @ObservedObject var viewModel: CameraFeedViewModel
     let namespace: Namespace.ID
     let onDismiss: () -> Void
     
-    @State private var showControls = true
-    @State private var hideControlsTask: Task<Void, Never>?
+    @StateObject private var player = StreamingVideoPlayer()
     
     var body: some View {
         ZStack {
@@ -362,23 +399,13 @@ struct FullscreenCameraView: View {
                 .ignoresSafeArea()
             
             // Camera content
-            if feed.isLive {
-                // For live feeds, show camera view
-                // In a real app, this would connect to the stream URL
-                Rectangle()
-                    .fill(Color.gray.opacity(0.2))
-                    .aspectRatio(16/9, contentMode: .fit)
-                    .overlay(
-                        VStack {
-                            Image(systemName: "video.fill")
-                                .font(.system(size: 60))
-                                .foregroundColor(.gray)
-                            
-                            Text("Connecting to stream...")
-                                .font(.headline)
-                                .foregroundColor(.gray)
-                        }
-                    )
+            if feed.isOnline {
+                // For online feeds, show streaming video
+                StreamingVideoView(
+                    player: player,
+                    cameraFeed: feed
+                )
+                .ignoresSafeArea()
             } else {
                 // Offline message
                 VStack(spacing: 20) {
@@ -395,174 +422,20 @@ struct FullscreenCameraView: View {
                         .foregroundColor(.gray)
                 }
             }
-            
-            // Controls overlay
-            if showControls {
-                VStack {
-                    // Top bar
-                    HStack {
-                        // Close button
-                        Button(action: onDismiss) {
-                            Image(systemName: "xmark")
-                                .font(.title2)
-                                .foregroundColor(.white)
-                                .frame(width: 44, height: 44)
-                                .background(Color.black.opacity(0.5))
-                                .clipShape(Circle())
-                        }
-                        
-                        Spacer()
-                        
-                        // Feed info
-                        VStack(alignment: .trailing) {
-                            Text(feed.name)
-                                .font(.headline)
-                                .foregroundColor(.white)
-                            
-                            Text(feed.location)
-                                .font(.subheadline)
-                                .foregroundColor(.white.opacity(0.8))
-                        }
-                    }
-                    .padding()
-                    
-                    Spacer()
-                    
-                    // Bottom controls
-                    if feed.isLive {
-                        HStack(spacing: 30) {
-                            // Screenshot
-                            Button(action: takeScreenshot) {
-                                Image(systemName: "camera.fill")
-                                    .font(.title2)
-                                    .foregroundColor(.white)
-                                    .frame(width: 50, height: 50)
-                                    .background(Color.black.opacity(0.5))
-                                    .clipShape(Circle())
-                            }
-                            
-                            // Record
-                            Button(action: toggleRecording) {
-                                Image(systemName: "record.circle")
-                                    .font(.title2)
-                                    .foregroundColor(.white)
-                                    .frame(width: 50, height: 50)
-                                    .background(Color.red.opacity(0.8))
-                                    .clipShape(Circle())
-                            }
-                            
-                            // Share
-                            Button(action: shareStream) {
-                                Image(systemName: "square.and.arrow.up")
-                                    .font(.title2)
-                                    .foregroundColor(.white)
-                                    .frame(width: 50, height: 50)
-                                    .background(Color.black.opacity(0.5))
-                                    .clipShape(Circle())
-                            }
-                        }
-                        .padding(.bottom, 40)
-                    }
-                }
-            }
-        }
-        .onTapGesture {
-            toggleControls()
         }
         .onAppear {
-            startHideControlsTimer()
+            // Load stream if online
+            if feed.isOnline {
+                player.loadStream(url: feed.streamURL)
+            }
+        }
+        .onDisappear {
+            player.stop()
         }
         .matchedGeometryEffect(id: feed.id, in: namespace)
     }
-    
-    // MARK: - Actions
-    
-    private func toggleControls() {
-        withAnimation {
-            showControls.toggle()
-        }
-        
-        if showControls {
-            startHideControlsTimer()
-        }
-    }
-    
-    private func startHideControlsTimer() {
-        hideControlsTask?.cancel()
-        
-        hideControlsTask = Task {
-            try? await Task.sleep(nanoseconds: 3_000_000_000) // 3 seconds
-            
-            if !Task.isCancelled {
-                withAnimation {
-                    showControls = false
-                }
-            }
-        }
-    }
-    
-    private func takeScreenshot() {
-        // Implement screenshot functionality
-        print("Taking screenshot of \(feed.name)")
-    }
-    
-    private func toggleRecording() {
-        // Implement recording functionality
-        print("Toggling recording for \(feed.name)")
-    }
-    
-    private func shareStream() {
-        // Implement share functionality
-        print("Sharing stream: \(feed.name)")
-    }
 }
 
-// MARK: - Camera Grid View Model
-
-@MainActor
-class CameraGridViewModel: ObservableObject {
-    
-    // MARK: - Published Properties
-    
-    @Published var cameraFeeds: [CameraFeed] = []
-    @Published var isUserStreaming = false
-    @Published var userStreamViewers = 0
-    
-    // MARK: - Computed Properties
-    
-    var activeCameras: Int {
-        cameraFeeds.filter { $0.isLive }.count + (isUserStreaming ? 1 : 0)
-    }
-    
-    var totalViewers: Int {
-        let feedViewers = cameraFeeds.filter { $0.isLive }.reduce(0) { $0 + $1.viewerCount }
-        return feedViewers + userStreamViewers
-    }
-    
-    // MARK: - Methods
-    
-    func loadCameraFeeds() async {
-        // Simulate loading camera feeds
-        // In a real app, this would fetch from a server
-        try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 seconds
-        
-        cameraFeeds = CameraFeed.mockFeeds
-    }
-    
-    func toggleUserStream() async {
-        isUserStreaming.toggle()
-        
-        if isUserStreaming {
-            // Simulate viewers joining
-            for i in 1...5 {
-                try? await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
-                userStreamViewers = i * 3
-            }
-        } else {
-            userStreamViewers = 0
-        }
-    }
-}
 
 // MARK: - Preview
 

@@ -17,6 +17,11 @@ struct ContentView: View {
                     Label("Map", systemImage: "map.fill")
                 }
             
+            CameraGridView()
+                .tabItem {
+                    Label("Cameras", systemImage: "video.fill")
+                }
+            
             CommunityFeedView(cloudKitService: cloudKitService)
                 .tabItem {
                     Label("Community", systemImage: "person.3.fill")

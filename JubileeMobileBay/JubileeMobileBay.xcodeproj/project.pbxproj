@@ -15,7 +15,9 @@
 		0781FBAB5F824B1548F84089 /* CommunityComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E497C7DE327B380645CB76 /* CommunityComment.swift */; };
 		0B6708E11F0632F554F85DE4 /* CoreMLPredictionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC98BC0604FF14DCA4D0E49E /* CoreMLPredictionServiceTests.swift */; };
 		0F8D3F7E31514F59C2B78216 /* JubileeEventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1F73130D5BC191BFD3441D /* JubileeEventTests.swift */; };
+		10B701C15498FDE293E23307 /* CameraFeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C662DE6F29A66706495DE9 /* CameraFeedViewModel.swift */; };
 		10D8ADA0B04D9FFDCD06E609 /* ChartGestureModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE74CEF3613692E015A9CBA1 /* ChartGestureModifiers.swift */; };
+		11F5A67D8F01DC5507189918 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF75052517BED2969DADDE5 /* NetworkReachability.swift */; };
 		13CDDF067066BBC786DFB207 /* PredictionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C2AA418089EBE987C2D961 /* PredictionServiceTests.swift */; };
 		1609E978C5B868B15D52F1D1 /* JubileeReport+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7349C8F3E950CBC2316F3DB /* JubileeReport+CoreDataClass.swift */; };
 		162BE49824DA813588496AFA /* create_basic_model.py in Resources */ = {isa = PBXBuildFile; fileRef = BEF577C5101A6CC3D639C55A /* create_basic_model.py */; };
@@ -52,6 +54,7 @@
 		5088BB10B4F5348151A86165 /* EnvironmentalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008FF7CCBD7D269A29216A86 /* EnvironmentalData.swift */; };
 		5251213CD8415A0EB3BDC23B /* AnalyticsDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B83655C3FBEB4B34427D0D /* AnalyticsDashboardView.swift */; };
 		5344718EF447E7493859FEBC /* HeatMapChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA35343221C3DDF84105ED1 /* HeatMapChart.swift */; };
+		599E54FD0E8E73F4ECD8C3F8 /* StreamingVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9272A7AE0A0BA9F808751B /* StreamingVideoPlayer.swift */; };
 		5A3B2B70EBF62C31ACF03A01 /* ChartTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680E403248DC3DBF80DB3199 /* ChartTheme.swift */; };
 		60A0103946111963A16047C8 /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B278E841280425D866A6A159 /* ReportViewModel.swift */; };
 		628F8C219B66C5967292308C /* CoreDataMigrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980FEC86168CF990D29257D8 /* CoreDataMigrationManager.swift */; };
@@ -138,6 +141,7 @@
 		DBFDDDDA9D0EAA4DF941C662 /* ReportViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A33BB729B7C2753F30E27A3 /* ReportViewTests.swift */; };
 		DD2B2A95B087E363CB692A15 /* BackgroundSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6782CFCCAD7C483605A8F4CB /* BackgroundSyncService.swift */; };
 		DFE76538902DEC57B84C952F /* EnhancedMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0F7C0784341A4650BA81E2 /* EnhancedMapView.swift */; };
+		E36D28D733A9831AA1E02D88 /* StreamingVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912FE4FFF1D3A05615F2B2B7 /* StreamingVideoView.swift */; };
 		E42298172376C975ADD8EF3D /* WebRTCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A15F6897E474EB701D37B54 /* WebRTCService.swift */; };
 		E4744562108A5905E67A1162 /* MapAnnotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8BF1BF1C03941091A78E73 /* MapAnnotations.swift */; };
 		E91AACC198F907FC6126B405 /* DashboardStateCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2033D961CA64C113657BF4AA /* DashboardStateCodable.swift */; };
@@ -249,11 +253,14 @@
 		83D0FD67B39383C424B91E69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		85DEBBA0616DD7464E139783 /* PredictionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionModels.swift; sourceTree = "<group>"; };
 		8E0AAC6736F813735BD3AC90 /* JubileePredictorTraining.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = JubileePredictorTraining.playground; sourceTree = "<group>"; };
+		8EF75052517BED2969DADDE5 /* NetworkReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachability.swift; sourceTree = "<group>"; };
 		8FD09A53CD70AB4567D1A3F0 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		8FE743E26D276B957335B41C /* WeatherAPIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPIProtocol.swift; sourceTree = "<group>"; };
+		912FE4FFF1D3A05615F2B2B7 /* StreamingVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamingVideoView.swift; sourceTree = "<group>"; };
 		930BDE60E8F8509FA830E4F6 /* CreateMLTrainer.swift.disabled */ = {isa = PBXFileReference; path = CreateMLTrainer.swift.disabled; sourceTree = "<group>"; };
 		97126302E478938DDBB52FE3 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		980FEC86168CF990D29257D8 /* CoreDataMigrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataMigrationManager.swift; sourceTree = "<group>"; };
+		9B9272A7AE0A0BA9F808751B /* StreamingVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamingVideoPlayer.swift; sourceTree = "<group>"; };
 		9C86A866AE7FF1BD88D9F634 /* CameraGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraGridView.swift; sourceTree = "<group>"; };
 		9CCB48C6AF6C894C1E8EBBB1 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		9DAD70716CB22885301D5399 /* AuthenticationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationServiceTests.swift; sourceTree = "<group>"; };
@@ -266,6 +273,7 @@
 		AA4A4502EFE67EC7BFFE6309 /* ConflictResolutionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConflictResolutionServiceTests.swift; sourceTree = "<group>"; };
 		AC1A2C0BC17B11FE6586A84B /* ScatterPlotChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScatterPlotChart.swift; sourceTree = "<group>"; };
 		B198EA9DB0CA91208076D7B7 /* MapAnnotationViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotationViews.swift; sourceTree = "<group>"; };
+		B1C662DE6F29A66706495DE9 /* CameraFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFeedViewModel.swift; sourceTree = "<group>"; };
 		B263CAA48E2605955BE39B3A /* SyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncService.swift; sourceTree = "<group>"; };
 		B2708C5C45DF97768968A47D /* CloudKitValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitValidator.swift; sourceTree = "<group>"; };
 		B278E841280425D866A6A159 /* ReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
@@ -388,6 +396,7 @@
 				9C86A866AE7FF1BD88D9F634 /* CameraGridView.swift */,
 				6748710ABEA2A2105D048AE7 /* CameraPermissionView.swift */,
 				F2FCE54439432AB6B9EC0EFB /* CameraPreviewView.swift */,
+				912FE4FFF1D3A05615F2B2B7 /* StreamingVideoView.swift */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -677,6 +686,7 @@
 				3507CC62AC5BD6AEE221BAB4 /* Features */,
 				E8C74A014A90687B448F661A /* AnalyticsDashboardViewModel.swift */,
 				B70B8CDA3F2143F37DAEB25C /* AuthenticationViewModel.swift */,
+				B1C662DE6F29A66706495DE9 /* CameraFeedViewModel.swift */,
 				9CCB48C6AF6C894C1E8EBBB1 /* CameraViewModel.swift */,
 				DD519919276569FF4DB8D588 /* CommunityFeedViewModel.swift */,
 				0EB55F4F0CB0CA5EF4B915D5 /* DashboardViewModel.swift */,
@@ -797,9 +807,11 @@
 				D72E04BBE629683D6C597352 /* LocationServiceProtocol.swift */,
 				754A8934345D9CC677769528 /* MarineDataService.swift */,
 				D32C3CB33572F459369F8CDA /* MockDataService.swift */,
+				8EF75052517BED2969DADDE5 /* NetworkReachability.swift */,
 				97126302E478938DDBB52FE3 /* NotificationManager.swift */,
 				BDA7E2DD4DA94D501F2A24F8 /* PhotoUploadService.swift */,
 				6FC95D4ED7875F2436FF8F51 /* PredictionService.swift */,
+				9B9272A7AE0A0BA9F808751B /* StreamingVideoPlayer.swift */,
 				81B8C446B25DCC60D985CEA5 /* UserSessionManager.swift */,
 				744D5F3DC01C2368DA141907 /* WeatherAPIService.swift */,
 				6A15F6897E474EB701D37B54 /* WebRTCService.swift */,
@@ -973,6 +985,7 @@
 				DD2B2A95B087E363CB692A15 /* BackgroundSyncService.swift in Sources */,
 				904A00BFB3E15033A574270A /* BarChart.swift in Sources */,
 				2B9050C94F847CEC81A3506E /* BaseChartComponents.swift in Sources */,
+				10B701C15498FDE293E23307 /* CameraFeedViewModel.swift in Sources */,
 				24BB7AA4743D3B5860F179D4 /* CameraGridView.swift in Sources */,
 				A6A13E3E75B360EE8DC03C13 /* CameraPermissionView.swift in Sources */,
 				97B1E553DB8020431D5117EA /* CameraPreviewView.swift in Sources */,
@@ -1041,6 +1054,7 @@
 				168205E8E7A6399D5777A0D6 /* MarineDataService.swift in Sources */,
 				A47692837913914509EF84F4 /* MarineLifeType.swift in Sources */,
 				3AD613F4E4AD7ECA2C408613 /* MockDataService.swift in Sources */,
+				11F5A67D8F01DC5507189918 /* NetworkReachability.swift in Sources */,
 				C8941C68902B8E780E69FA4E /* NotificationBadgeView.swift in Sources */,
 				F435570231B0BBD7A7788445 /* NotificationManager.swift in Sources */,
 				48577AAF36471EA3BB12491F /* NotificationPermissionView.swift in Sources */,
@@ -1054,6 +1068,8 @@
 				4BFF0BBF07C15DB314B41536 /* ReportView.swift in Sources */,
 				60A0103946111963A16047C8 /* ReportViewModel.swift in Sources */,
 				B368673C8F6DBD9DC997BF04 /* ScatterPlotChart.swift in Sources */,
+				599E54FD0E8E73F4ECD8C3F8 /* StreamingVideoPlayer.swift in Sources */,
+				E36D28D733A9831AA1E02D88 /* StreamingVideoView.swift in Sources */,
 				D5832CE4D27D7835616EB104 /* SyncManager.swift in Sources */,
 				AFA05B3B6056749A2E249094 /* SyncService.swift in Sources */,
 				DAD0210FF13762163C5FE6EC /* SyncSettingsView.swift in Sources */,
