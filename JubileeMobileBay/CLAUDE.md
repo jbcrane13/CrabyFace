@@ -511,26 +511,55 @@ When asked to fix build errors or ensure the app runs, you MUST complete ALL of 
    xcrun simctl launch "iPhone 16 Pro" com.jubileemobilebay.app
    ```
 
-4. **Functional Verification Checklist**
+4. **CRITICAL: Simulator Log Verification**
+   ```bash
+   # ALWAYS check simulator logs for crashes after launch
+   sleep 3 && xcrun simctl spawn "iPhone 16 Pro" log show \
+       --predicate 'process CONTAINS "JubileeMobileBay"' \
+       --last 1m 2>/dev/null | tail -10
+   
+   # Check specifically for fatal errors
+   xcrun simctl spawn "iPhone 16 Pro" log show \
+       --predicate 'process CONTAINS "JubileeMobileBay" AND eventMessage CONTAINS "Fatal"' \
+       --last 2m 2>/dev/null
+   ```
+
+5. **Functional Verification Checklist**
    - [ ] Build completes without errors
    - [ ] App installs on simulator
    - [ ] App launches without crashing (process ID returned)
+   - [ ] **SIMULATOR LOGS CHECKED FOR CRASHES** ⚠️ CRITICAL
+   - [ ] No "Fatal error" messages in logs
    - [ ] Main screen appears
    - [ ] Navigation between screens works
    - [ ] Dashboard displays with data (mock or real)
    - [ ] No runtime errors in console
 
-### IMPORTANT: False Success Prevention
+### CRITICAL: False Success Prevention
 
-**DO NOT** report success based solely on:
+**DO NOT** report success based solely on:**
 - `BUILD SUCCEEDED` message
 - Xcode showing no errors
+- Process ID returned from launch command ⚠️ **THIS IS NOT SUFFICIENT**
 - Partial completion of tasks
 
-**ALWAYS** verify:
-- The app actually launches
+**ALWAYS verify:**
+- **Check simulator logs for crash messages** ⚠️ **MOST IMPORTANT**
+- The app actually launches AND stays running
 - Core functionality works
 - Data loads as expected
+
+### Common iOS Simulator Launch Issues
+
+**CloudKit/Core Data Issues:**
+- Unique constraints not supported in CloudKit
+- Non-optional attributes must have default values
+- Check logs for "Core Data failed to load" messages
+
+**Memory/Resource Issues:**
+- Large datasets causing crashes
+- Background task violations
+- Check for "Memory pressure" warnings
 
 ### Mock Data for Development
 
